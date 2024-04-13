@@ -1,16 +1,8 @@
-import { Layout, Avatar } from "antd";
-import {
-  UserOutlined,
-  BellOutlined,
-} from "@ant-design/icons";
+import { Layout, Avatar, Input } from "antd";
+import { UserOutlined, BellOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 
-interface Props {
-  colorBgContainer: any;
-  children?: React.ReactNode;
-}
-
-export default function MyHeader({ colorBgContainer, children }: Props) {
+export default function MyHeader() {
   return (
     <Header
       style={{
@@ -26,11 +18,11 @@ export default function MyHeader({ colorBgContainer, children }: Props) {
       className="justify-between"
     >
       {/* logo */}
-      <div className="w-48 bg-white h-[70%] m-3 rounded-md " />
-      {/* menu */}
-      <div>{children}</div>
+      <div className="w-48 bg-white h-[65%] m-3 rounded-md items-center" />
+
       {/* Icons options */}
-      <section className="flex items-center">
+      <section className="flex items-center w-[20%]">
+        <Input placeholder="Search" className="w-96" style={{marginRight: 10}} />
         <BellOutlined
           style={{
             fontSize: 24,
@@ -39,9 +31,9 @@ export default function MyHeader({ colorBgContainer, children }: Props) {
             fontWeight: "bolder",
           }}
         />
-        <div className="h-6 w-0.5 bg-white mx-3"></div>
+        <div className="h-6 w-0.5 bg-white mx-5"></div>
         <Avatar
-          style={{ marginRight: "15px" }}
+          style={{ marginRight: "15px", padding: 15 }}
           size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
           icon={<UserOutlined />}
         />

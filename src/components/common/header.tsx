@@ -1,46 +1,50 @@
-import { Layout, Button, Avatar } from "antd";
+import { Layout, Avatar } from "antd";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   UserOutlined,
   BellOutlined,
 } from "@ant-design/icons";
 const { Header } = Layout;
 
 interface Props {
-  collapsed: boolean;
-  setCollapsed: (res: boolean) => void;
   colorBgContainer: any;
+  children?: React.ReactNode;
 }
 
-export default function MyHeader({
-  collapsed,
-  setCollapsed,
-  colorBgContainer,
-}: Props) {
+export default function MyHeader({ colorBgContainer, children }: Props) {
   return (
-    <Header style={{ padding: 0, background: colorBgContainer }}>
-      <section className="flex justify-between items-center">
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
+    <Header
+      style={{
+        padding: 0,
+        background: "#0058A9",
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+      }}
+      className="justify-between"
+    >
+      {/* logo */}
+      <div className="w-48 bg-white h-[70%] m-3 rounded-md " />
+      {/* menu */}
+      <div>{children}</div>
+      {/* Icons options */}
+      <section className="flex items-center">
+        <BellOutlined
           style={{
-            fontSize: "16px",
-            width: 64,
-            height: 64,
+            fontSize: 24,
+            color: "white",
+            marginRight: 5,
+            fontWeight: "bolder",
           }}
         />
-        <div>
-          <BellOutlined
-            style={{ fontSize: 20, color: "gray", marginRight: 5, fontWeight: "bolder" }}
-          />
-          <Avatar
-            style={{ marginInline: "15px" }}
-            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
-            icon={<UserOutlined />}
-          />
-        </div>
+        <div className="h-6 w-0.5 bg-white mx-3"></div>
+        <Avatar
+          style={{ marginRight: "15px" }}
+          size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
+          icon={<UserOutlined />}
+        />
       </section>
     </Header>
   );

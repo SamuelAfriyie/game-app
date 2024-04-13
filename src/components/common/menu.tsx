@@ -2,46 +2,26 @@
 import { Menu } from "antd";
 import { menuItems } from "@/utils/data/menu_items";
 import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
 
 export default function Menus() {
   const router = useRouter();
-
-  const handleOnSelect = (key: string) => {
-    console.log(key);
-
-    switch (key) {
-      case "1":
-        router.push("/dashboard");
-        break;
-      case "2":
-        router.push("/games");
-        break;
-      case "3":
-        router.push("/campaign");
-        break;
-      case "4":
-        router.push("/events");
-        break;
-      case "5":
-        router.push("/results");
-        break;
-      case "6":
-        router.push("/users");
-        break;
-
-      default:
-        console.log("Nothing");
-        break;
-    }
+  const prev = usePathname();
+  
+  const changeRoute = (key: string) => {
+    const route = menuItems.find((menu) => menu.key === key);
+    router.push(route?.key ?? "/dashboad");
   };
 
   return (
     <Menu
-      theme="dark"
-      mode="inline"
-      defaultSelectedKeys={["1"]}
+      theme="light"
+      mode="horizontal"
+      style={{ flex: 1, minWidth: 0 }}
+      className="flex justify-center"
+      defaultSelectedKeys={[prev]}
       items={menuItems}
-      onSelect={({ key }) => handleOnSelect(key)}
+      onSelect={({ key }) => changeRoute(key)}
     />
   );
 }

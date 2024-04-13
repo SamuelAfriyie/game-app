@@ -1,7 +1,6 @@
 import React from "react";
 import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { title } from "process";
 import { TableRowSelection } from "antd/es/table/interface";
 
 type Scroll = {

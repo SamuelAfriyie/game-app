@@ -1,49 +1,32 @@
-import { ReactNode } from "react";
-
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  ClusterOutlined,
-  ReconciliationOutlined,
-  BarChartOutlined,
-} from "@ant-design/icons";
 
 interface MenuItemsType {
-  key: string;
-  icon: ReactNode;
+  key: string; 
   label: string;
 }
 
 const menuItems: MenuItemsType[] = [
   {
-    key: "1",
-    icon: <BarChartOutlined />,
+    key: "/dashboard",
     label: "Dashboard",
   },
   {
-    key: "2",
-    icon: <ClusterOutlined />,
+    key: "/games",
     label: "Games",
   },
   {
-    key: "3",
-    icon: <VideoCameraOutlined />,
+    key: "/campaign",
     label: "Campaign",
   },
   {
-    key: "4",
-    icon: <UploadOutlined />,
+    key: "/events",
     label: "Events",
   },
   {
-    key: "5",
-    icon: <ReconciliationOutlined />,
+    key: "/results",
     label: "Game Results",
   },
   {
-    key: "6",
-    icon: <UserOutlined />,
+    key: "/users",
     label: "Users",
   },
 ];

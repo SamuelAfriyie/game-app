@@ -1,5 +1,6 @@
 import { Button } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
+import { FilledButton } from "@/components/common/buttons";
 
 interface Props {
   title: string;
@@ -17,15 +18,13 @@ export default function CardTitleWithButton({
       <div className="flex" style={{ justifyContent: "space-between" }}>
         <h1>{title}</h1>
         <div>
-          <Button
-            size="small"
+          <FilledButton
+            size="middle"
             onClick={onClick}
-            icon={<DownloadOutlined />}
-            style={{ width: 'auto' }}
-            type="primary"
-          >
-            {btnLable}
-          </Button>
+            icon={<PlusOutlined />}
+            text={btnLable}
+            color="#0058A9" 
+          />
         </div>
       </div>
     </div>

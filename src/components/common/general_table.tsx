@@ -17,6 +17,7 @@ interface Props {
   scroll?: Scroll;
   pagination?: any;
   rowSelection?: TableRowSelection<any>;
+  size?: "small"| "middle"| "large";
 }
 
 const GTable = (p: Props) => (
@@ -29,7 +30,7 @@ const GTable = (p: Props) => (
     scroll={p.scroll ?? { x: 0, y: 340 }}
     pagination={p.pagination ?? true}
     rowSelection={p.rowSelection}
-    
+    size={p.size ?? "middle"}
   />
 );
 

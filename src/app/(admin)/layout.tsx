@@ -17,7 +17,7 @@ export default function AdminLayout({
   } = theme.useToken();
 
   const style = {
-    margin: "24px 16px",
+    margin: "24px 16px 0px 24px",
     padding: 16,
     with: "100%",
     minHeight: 280,

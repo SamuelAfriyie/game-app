@@ -14,14 +14,14 @@ console.log(URI);
   let client = new MongoClient(URI ?? "", options);
   let clentPromise;
 
-  if (process.env.NODE_ENV !== "production") {
-    if (!global._mongoClientPromise) {
-      global._mongoClientPromise = client.connect();
-    }
+  // if (process.env.NODE_ENV !== "production") {
+  //   if (!global._mongoClientPromise) {
+  //     global._mongoClientPromise = client.connect();
+  //   }
 
-    clentPromise = global._mongoClientPromise;
-  } else {
-  }
+  //   clentPromise = global._mongoClientPromise;
+  // } else {
+  // }
   clentPromise = client.connect();
 
   return {

@@ -6,7 +6,7 @@ interface MenuItemsType {
 
 const menuItems: MenuItemsType[] = [
   {
-    key: "/dashboard",
+    key: "/overview",
     label: "Dashboard",
   },
   {

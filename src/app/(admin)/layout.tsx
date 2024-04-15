@@ -24,10 +24,10 @@ export default function AdminLayout({
     background: colorBgContainer,
     borderRadius: borderRadiusLG,
   };
- 
+
   return (
     <Layout className="h-dvh">
-      <MyHeader colorBgContainer={colorBgContainer} />
+      <MyHeader />
       <Layout>
         <nav>
           <Menus />

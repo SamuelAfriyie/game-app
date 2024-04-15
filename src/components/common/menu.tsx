@@ -10,7 +10,7 @@ export default function Menus() {
   
   const changeRoute = (key: string) => {
     const route = menuItems.find((menu) => menu.key === key);
-    router.push(route?.key ?? "/dashboad");
+    router.push(route?.key ?? "/overview");
   };
 
   return (

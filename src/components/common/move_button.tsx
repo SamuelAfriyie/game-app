@@ -11,6 +11,7 @@ export default function MoveButton({ onClick }: Props) {
       icon={<DoubleRightOutlined />}
       size="large"
       style={{ height: 450 }}
+      // style={{ height: "100%" }}
       onClick={onClick}
     ></Button>
   );

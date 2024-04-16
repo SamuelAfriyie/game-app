@@ -21,12 +21,14 @@ export default function AdminLayout({
     padding: 16,
     with: "100%",
     minHeight: 280,
+    height: "100%",
     background: colorBgContainer,
     borderRadius: borderRadiusLG,
   };
 
   return (
-    <Layout className="h-dvh">
+    <Layout className="h-full">
+    {/* <Layout > */}
       <MyHeader />
       <Layout>
         <nav>

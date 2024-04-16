@@ -3,12 +3,13 @@ import DefaultModal from "@/components/common/default_modal";
 import GTable from "@/components/common/general_table";
 import MoveButton from "@/components/common/move_button";
 import CardTitleWithButton from "@/utils/func/card_title";
-import { testColumns, testData } from "@/utils/test/datagrid_test_data";
-import { gameTestColumns, gameTestData } from "@/utils/test/game_test_data";
 import { Button, Card, Form, Space } from "antd";
 import { TableRowSelection } from "antd/es/table/interface";
 import { ReactNode, useRef, useState } from "react";
 import CampaignForm from "./form/campaign_form";
+import gamesData, { gamesColumns } from "@/utils/data/games_data";
+import campaignData, { campaignColumns } from "@/utils/data/campaign_data";
+import { PageTitle } from "@/components/common/page_title";
 
 export default function Campaign() {
   const selectedRecords = useRef<any>([]);
@@ -50,47 +51,44 @@ export default function Campaign() {
         content={<CampaignForm form={form} />}
         title="Create Campaign"
       />
-      <h1 className="mb-3">Campaign </h1>
+      <PageTitle title="Campaign" />
 
-      <Space direction="vertical" size="small" style={{ display: "flex" }}>
+      <Space direction="vertical" size="small">
         <Space direction="horizontal" size="small" style={{ display: "flex" }}>
           {/* Left Side */}
-          <Card
-            title={"Games"}
-            type="inner"
-            size="small"
-            loading={false}
-            style={{ minHeight: 450 }}
-          >
+          <Card title={"Games"} type="inner" size="small" loading={false}>
             <GTable
-              columns={gameTestColumns}
-              dataSource={gameTestData}
+              columns={gamesColumns}
+              dataSource={gamesData}
               rowSelection={handleRowSelection}
               bordered
               pagination={false}
+              size="small"
+              scroll={{ x: 0, y: 160 }}
             />
           </Card>
           <MoveButton onClick={handleMoveRecords} />
           {/* Right side */}
-          <Card
-            title={setTitle()}
-            style={{ minHeight: 450 }}
-            type="inner"
-            size="small"
-            loading={false}
-          >
+          <Card title={setTitle()} type="inner" size="small" loading={false}>
             <GTable
-              columns={gameTestColumns}
+              columns={gamesColumns}
               dataSource={selectedRecordsFx}
               rowSelection={{}}
               bordered
+              size="small"
               pagination={false}
-              // scroll={{ x: 0, y: 500 }}
+              scroll={{ x: 0, y: 160 }}
             />
           </Card>
         </Space>
-        <section className="h-[50%] mt-3">
-          <GTable columns={testColumns} dataSource={testData} bordered />
+        <section className="mt-3">
+          <GTable
+            columns={campaignColumns}
+            dataSource={campaignData}
+            bordered
+            size="small"
+            scroll={{ x: 0, y: 290 }}
+          />
         </section>
       </Space>
     </>

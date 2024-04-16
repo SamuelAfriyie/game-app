@@ -7,7 +7,7 @@ interface MenuItemsType {
 const menuItems: MenuItemsType[] = [
   {
     key: "/overview",
-    label: "Dashboard",
+    label: "Overview",
   },
   {
     key: "/games",

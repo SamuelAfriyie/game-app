@@ -1,6 +1,35 @@
-import { Layout, Avatar, Input } from "antd";
+import { Layout, Avatar, Input, MenuProps, Dropdown, Divider } from "antd";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 const { Header } = Layout;
+
+const items: MenuProps["items"] = [
+  {
+    key: "1",
+    label: (
+      <>
+        <p className="text-lg font-bold">johndoe@gmail.com</p>
+        <div className="w-full h-0.5 bg-black my-1" />
+      </>
+    ),
+  },
+  {
+    key: "2",
+    label: <p>Notification</p>,
+  },
+  {
+    key: "3",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.luohanacademy.com"
+        className="font-semibold"
+      >
+        Logout
+      </a>
+    ),
+  },
+];
 
 export default function MyHeader() {
   return (
@@ -22,7 +51,11 @@ export default function MyHeader() {
 
       {/* Icons options */}
       <section className="flex items-center w-[20%]">
-        <Input placeholder="Search" className="w-96" style={{marginRight: 10}} />
+        <Input
+          placeholder="Search"
+          className="w-96"
+          style={{ marginRight: 10 }}
+        />
         <BellOutlined
           style={{
             fontSize: 24,
@@ -32,11 +65,17 @@ export default function MyHeader() {
           }}
         />
         <div className="h-6 w-0.5 bg-white mx-5"></div>
-        <Avatar
-          style={{ marginRight: "15px", padding: 15 }}
-          size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
-          icon={<UserOutlined />}
-        />
+        <Dropdown
+          menu={{ items }}
+          placement="bottomRight"
+          arrow={{ pointAtCenter: true }}
+        >
+          <Avatar
+            style={{ marginRight: "15px", padding: 15 }}
+            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
+            icon={<UserOutlined />}
+          />
+        </Dropdown>
       </section>
     </Header>
   );

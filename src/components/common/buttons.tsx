@@ -1,5 +1,6 @@
 import { Button, Form, FormInstance } from "antd";
 import { ReactNode, useEffect, useState } from "react";
+import { EyeOutlined } from "@ant-design/icons";
 interface Props {
   text?: string;
   className?: string;
@@ -60,6 +61,18 @@ export const OutlinedButton = ({
     >
       {text ?? "Cancel"}
     </Button>
+  );
+};
+
+export const IconButton = ({ className, size, icon, onClick }: Props) => {
+  return (
+    <Button
+      className={className}
+      size={size}
+      onClick={onClick}
+      icon={icon ?? <EyeOutlined />}
+      style={{ backgroundColor: "#0058A9", color: "white" }}
+    />
   );
 };
 

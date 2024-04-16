@@ -27,7 +27,8 @@ const GTable = (p: Props) => (
     dataSource={p.dataSource}
     bordered={p.bordered}
     loading={p.loading}
-    scroll={p.scroll ?? { x: 0, y: 340 }}
+    // scroll={p.scroll ?? { x: 0, y: 340 }}
+    scroll={p.scroll ?? { x: 0, y: 250 }}
     pagination={p.pagination ?? true}
     rowSelection={p.rowSelection}
     size={p.size ?? "middle"}

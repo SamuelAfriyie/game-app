@@ -27,14 +27,14 @@ export default function AdminLayout({
   };
 
   return (
-    <Layout className="h-full">
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden">
     {/* <Layout > */}
       <MyHeader />
-      <Layout>
+      <Layout className="w-full h-full">
         <nav>
           <Menus />
         </nav>
-        <Content style={style} className="overflow-hidden  ">
+        <Content style={style} className="flex-1">
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>

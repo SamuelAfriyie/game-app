@@ -1,6 +1,8 @@
 import { Button, Form, FormInstance } from "antd";
 import { ReactNode, useEffect, useState } from "react";
 import { EyeOutlined } from "@ant-design/icons";
+import { UseFormReturn } from "react-hook-form";
+import { set } from "zod";
 interface Props {
   text?: string;
   className?: string;
@@ -76,38 +78,16 @@ export const IconButton = ({ className, size, icon, onClick }: Props) => {
   );
 };
 
-interface SaveButtonProps extends Props {
-  form?: FormInstance;
-}
 
-export const SaveButton: React.FC<React.PropsWithChildren<SaveButtonProps>> = ({
-  text,
-  className,
-  size,
-  icon,
-  color,
+export const SaveButton: React.FC<React.PropsWithChildren<Props>> = ({
   confirmLoading,
-  onClick,
-  form,
+  onClick, 
 }) => {
   const [submittable, setSubmittable] = useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  useEffect(() => {
-    form &&
-      form
-        .validateFields({ validateOnly: true })
-        .then(() => setSubmittable(true))
-        .catch(() => setSubmittable(false));
-  }, [form, values]);
 
   return (
     <FilledButton
       htmlType="submit"
-      disabled={!submittable}
-      onClick={onClick}
       confirmLoading={confirmLoading}
     />
   );

@@ -8,7 +8,7 @@ import { Space } from "antd";
 export default function Games() {
   return (
     <>
-      <Space direction="vertical" size="small" style={{ display: "flex" }}> 
+      <Space direction="vertical" size="small" style={{ display: "flex" }}>
         <PageTitle title="Games" />
         <GTable
           columns={gamesColumns}

@@ -6,10 +6,11 @@ import CardTitleWithButton from "@/utils/func/card_title";
 import { Button, Card, Form, Space } from "antd";
 import { TableRowSelection } from "antd/es/table/interface";
 import { ReactNode, useRef, useState } from "react";
-import CampaignForm from "./form/campaign_form";
 import gamesData, { gamesColumns } from "@/utils/data/games_data";
 import campaignData, { campaignColumns } from "@/utils/data/campaign_data";
 import { PageTitle } from "@/components/common/page_title";
+import { CampaignFormV2 } from "./_form/campaign_form_v2";
+import { CamapaignFormInstance } from "@/lib/zod/form_instances";
 
 export default function Campaign() {
   const selectedRecords = useRef<any>([]);
@@ -47,8 +48,8 @@ export default function Campaign() {
       <DefaultModal
         open={open}
         setOpen={setOpen}
-        form={form}
-        content={<CampaignForm form={form} />}
+        form={CamapaignFormInstance()}
+        content={<CampaignFormV2 handleCancel={() => setOpen(false)} />}
         title="Create Campaign"
       />
       <PageTitle title="Campaign" />
@@ -81,7 +82,7 @@ export default function Campaign() {
             />
           </Card>
         </Space>
-        <section className="mt-3">
+        <section className="flex mt-3 justify-end">
           <GTable
             columns={campaignColumns}
             dataSource={campaignData}

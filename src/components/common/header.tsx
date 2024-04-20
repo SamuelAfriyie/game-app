@@ -7,8 +7,8 @@ const items: MenuProps["items"] = [
     key: "1",
     label: (
       <>
-        <p className="text-lg font-bold">johndoe@gmail.com</p>
-        <div className="w-full h-0.5 bg-black my-1" />
+        <p className="text-lg font-semibold">johndoe@gmail.com</p>
+        {/* <div className="w-full h-0.5 bg-black my-1" /> */}
       </>
     ),
   },
@@ -19,10 +19,9 @@ const items: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <a
-        target="_blank"
+      <a 
         rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
+        href="/signin"
         className="font-semibold"
       >
         Logout

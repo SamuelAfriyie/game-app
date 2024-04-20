@@ -11,13 +11,18 @@ import { RegisterAction, SignInAction } from "@/app/actions/form";
 import Link from "next/link";
 import { useTransition } from "react";
 import SubmitButton from "@/components/common/submit_button";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
 
     const [isPending, startTransition] = useTransition();
+    const router = useRouter();
 
     const onSubmit = async (formData: z.infer<typeof SigninSchema>) => {
-        await SignInAction(formData)
+        const res = await SignInAction(formData);
+        if(res) startTransition(() => {
+            router.push('/overview');
+        });
     }
 
     const FormInstance = useForm<z.infer<typeof SigninSchema>>({

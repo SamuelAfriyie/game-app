@@ -14,35 +14,53 @@ const statsData = [
   {
     title: "Number of users",
     value: 5294,
-    icon: <FaUsers className="text-4xl items-cente" style={{
-      color: "#0058A9",
-    }} />,
+    icon: (
+      <FaUsers
+        className="text-4xl items-cente"
+        style={{
+          color: "#0058A9",
+        }}
+      />
+    ),
     stats: 12,
   },
   {
     title: "Active Users",
     value: 654,
-    icon: <FaUserCheck className="text-4xl items-cente" style={{
-      color: "#0058A9",
-    }}/>,
+    icon: (
+      <FaUserCheck
+        className="text-4xl items-cente"
+        style={{
+          color: "#0058A9",
+        }}
+      />
+    ),
     stats: 24,
   },
   {
     title: "Campaigns Played",
     value: 342,
     icon: (
-      <SiCampaignmonitor className="text-4xl items-cente" style={{
-        color: "#0058A9",
-      }}/>
+      <SiCampaignmonitor
+        className="text-4xl items-cente"
+        style={{
+          color: "#0058A9",
+        }}
+      />
     ),
     stats: 1,
   },
   {
     title: "Completion Rate",
     value: 135,
-    icon: <GiSandsOfTime className="text-4xl items-cente" style={{
-      color: "#0058A9",
-    }}/>,
+    icon: (
+      <GiSandsOfTime
+        className="text-4xl items-cente"
+        style={{
+          color: "#0058A9",
+        }}
+      />
+    ),
     stats: 9,
   },
 ];
@@ -61,7 +79,7 @@ export default function Overview() {
   });
 
   const arrCards = Array<ReactNode>(6).fill(
-    <ListTile 
+    <ListTile
       avatar={"/static/photos/user.webp"}
       // avatar={"https://themusclemedics.com/wp-content/uploads/2018/04/Circle-Profile-PNG.png"}
       username={"John Doe"}
@@ -82,7 +100,7 @@ export default function Overview() {
           <div className="flex space-x-5 w-full h-[70%]">
             <Card className="flex-auto shadow-md w-1/3 items-center">
               <PageTitle title={"Summary"} />
-                <BarChart />
+              <BarChart />
               <div className="flex justify-center items-center">
                 <p>Win</p>
                 <div className="p-2 m-3 bg-blue-800"></div>
@@ -92,7 +110,7 @@ export default function Overview() {
             </Card>
             <Card className="flex-1 shadow-md overflow-y-auto">
               <PageTitle title={"User Ranking"} />
-              <div className="flex flex-col">{arrCards.map((e) => e)}</div>
+              <div className="flex flex-col">{arrCards.map((e, i) => <span key={i}>{e}</span>)}</div>
             </Card>
           </div>
         </main>

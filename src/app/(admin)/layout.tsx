@@ -38,7 +38,7 @@ export default function AdminLayout({
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Game App ©{new Date().getFullYear()} Created by BenMeredith
+          Game App ©{new Date().getFullYear()} Created by SEEDSTARS ACADEMY
         </Footer>
       </Layout>
     </Layout>

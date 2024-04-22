@@ -1,22 +1,27 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { FilledButton } from "@/components/common/buttons";
+"use client";
+import { PlusOutlined, EyeOutlined } from "@ant-design/icons";
+import { FilledButton, IconButton } from "@/components/common/buttons";
+import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
   btnLable: string;
+  btnLable2?: string;
   onClick: (e: any) => void;
 }
 
 export default function CardTitleWithButton({
   title,
   btnLable,
+  btnLable2,
   onClick,
 }: Props) {
+  const router = useRouter();
   return (
     <div className="w-full">
       <div className="flex" style={{ justifyContent: "space-between" }}>
         <h1>{title}</h1>
-        <div>
+        <div className="space-x-3">
           <FilledButton
             size="middle"
             onClick={onClick}
@@ -24,6 +29,15 @@ export default function CardTitleWithButton({
             text={btnLable}
             color="#0058A9"
           />
+          {btnLable2 && (
+            <FilledButton
+              size="middle"
+              onClick={() => router.push('/campaign/list')}
+              icon={<EyeOutlined />}
+              text={btnLable2}
+              color="#0058A9"
+            />
+          )}
         </div>
       </div>
     </div>

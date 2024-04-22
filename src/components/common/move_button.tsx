@@ -10,7 +10,8 @@ export default function MoveButton({ onClick }: Props) {
     <Button
       icon={<DoubleRightOutlined />}
       size="large"
-      style={{ height: 260, backgroundColor: "#0058A9", color: "white"}}
+      // style={{ height: 260, backgroundColor: "#0058A9", color: "white"}}
+      style={{ height: 660, backgroundColor: "#0058A9", color: "white"}}
       onClick={onClick} 
     />
   );

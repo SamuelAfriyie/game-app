@@ -1,3 +1,4 @@
+"use client";
 import ListTile from "@/components/common/list_tile";
 import { PageTitle } from "@/components/common/page_title";
 import StatisticsCard from "@/components/common/sattistics_card";
@@ -46,7 +47,7 @@ const statsData = [
   },
 ];
 
-export default function Dashboard() {
+export default function Overview() {
   const arr = statsData.map((d, i) => {
     return (
       <StatisticsCard

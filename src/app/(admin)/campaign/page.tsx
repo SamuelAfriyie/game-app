@@ -23,6 +23,7 @@ export default function Campaign() {
       <CardTitleWithButton
         title="Campaign"
         btnLable="Create Campaign"
+        btnLable2="View Campaigns"
         onClick={() => setOpen(true)}
       />
     );
@@ -54,9 +55,9 @@ export default function Campaign() {
       />
       <PageTitle title="Campaign" />
 
-      <Space direction="horizontal" size="small" style={{ display: "flex" }}>
+      <Space direction="horizontal" size="small" style={{ width: "100%" }}>
         {/* Left Side */}
-        <Card title={"Games"} type="inner" size="small" loading={false}>
+        <Card title={"Games"} type="inner" size="small" loading={false} style={{minHeight: 650}}>
           <GTable
             columns={gamesColumns}
             dataSource={gamesData}
@@ -64,12 +65,12 @@ export default function Campaign() {
             bordered
             pagination={false}
             size="small"
-            scroll={{ x: 0, y: 160 }}
+            scroll={{ x: 0, y: 500 }}
           />
         </Card>
         <MoveButton onClick={handleMoveRecords} />
         {/* Right side */}
-        <Card title={setTitle()} type="inner" size="small" loading={false}>
+        <Card title={setTitle()} type="inner" size="small" loading={false}  style={{minHeight: 650}}>
           <GTable
             columns={gamesColumns}
             dataSource={selectedRecordsFx}
@@ -77,7 +78,7 @@ export default function Campaign() {
             bordered
             size="small"
             pagination={false}
-            scroll={{ x: 0, y: 160 }}
+            scroll={{ x: 0, y: 500 }}
           />
         </Card>
       </Space>

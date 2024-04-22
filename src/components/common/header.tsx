@@ -1,4 +1,4 @@
-import { Layout, Avatar, Input, MenuProps, Dropdown, Divider } from "antd";
+import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 
@@ -46,7 +46,9 @@ export default function MyHeader() {
       className="justify-between"
     >
       {/* logo */}
-      <div className="w-48 bg-white h-[65%] m-3 rounded-md items-center" />
+      {/* <div className="w-48 bg-white h-[65%] m-3 rounded-md items-center" /> */}
+      
+      <Image src='./static/photos/seedstars.png' width={140} preview={false} alt="logo" className="ml-3 rounded-sm"/>
 
       {/* Icons options */}
       <section className="flex items-center w-[20%]">

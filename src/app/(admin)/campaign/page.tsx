@@ -54,43 +54,32 @@ export default function Campaign() {
       />
       <PageTitle title="Campaign" />
 
-      <Space direction="vertical" size="small">
-        <Space direction="horizontal" size="small" style={{ display: "flex" }}>
-          {/* Left Side */}
-          <Card title={"Games"} type="inner" size="small" loading={false}>
-            <GTable
-              columns={gamesColumns}
-              dataSource={gamesData}
-              rowSelection={handleRowSelection}
-              bordered
-              pagination={false}
-              size="small"
-              scroll={{ x: 0, y: 160 }}
-            />
-          </Card>
-          <MoveButton onClick={handleMoveRecords} />
-          {/* Right side */}
-          <Card title={setTitle()} type="inner" size="small" loading={false}>
-            <GTable
-              columns={gamesColumns}
-              dataSource={selectedRecordsFx}
-              rowSelection={{}}
-              bordered
-              size="small"
-              pagination={false}
-              scroll={{ x: 0, y: 160 }}
-            />
-          </Card>
-        </Space>
-        <section className="flex mt-3 justify-end">
+      <Space direction="horizontal" size="small" style={{ display: "flex" }}>
+        {/* Left Side */}
+        <Card title={"Games"} type="inner" size="small" loading={false}>
           <GTable
-            columns={campaignColumns}
-            dataSource={campaignData}
+            columns={gamesColumns}
+            dataSource={gamesData}
+            rowSelection={handleRowSelection}
+            bordered
+            pagination={false}
+            size="small"
+            scroll={{ x: 0, y: 160 }}
+          />
+        </Card>
+        <MoveButton onClick={handleMoveRecords} />
+        {/* Right side */}
+        <Card title={setTitle()} type="inner" size="small" loading={false}>
+          <GTable
+            columns={gamesColumns}
+            dataSource={selectedRecordsFx}
+            rowSelection={{}}
             bordered
             size="small"
-            scroll={{ x: 0, y: 290 }}
+            pagination={false}
+            scroll={{ x: 0, y: 160 }}
           />
-        </section>
+        </Card>
       </Space>
     </>
   );

@@ -16,22 +16,24 @@ const ListTile: React.FC<ListTileProps> = ({
   score,
 }) => {
   return (
-    <div className="shadow-sm rounded-sm p-5">
+    <div className="shadow-sm rounded-sm px-5 py-2">
       <div className="flex flex-row justify-between h-full w-full items-center">
         <div className="flex space-x-10 items-center">
           <Image
-            src={"/static/photos/logo.png"}
+            // src={"/static/photos/logo.png"}
+            src={avatar}
             className="rounded-full"
-            width={30}
-            height={30}
+            width={60}
+            height={60}
             alt={"User Avatar"}
+            
           />
           <div>
-            <div className="username">{username}</div>
-            <div className="email">{email}</div>
+            <p className="text-lg font-semibold">{username}</p>
+            <p className="email">{email}</p>
           </div>
         </div>
-        <div>{"score"}</div>
+        <p className="text-lg font-semibold">{score}</p>
       </div>
     </div>
   );

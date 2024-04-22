@@ -1,19 +1,24 @@
 import React, { ReactNode, useState } from "react";
 import { FormInstance, Modal } from "antd";
 import { FilledButton, OutlinedButton, SaveButton } from "./buttons";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   open: boolean;
   content?: React.ReactNode;
-  size?: string;
+  width?: number;
   title?: string;
-  form?: FormInstance;
+  showFooter?: boolean;
+  // form?: FormInstance;
+  form?: UseFormReturn<any, any, undefined>;
   setOpen: (v: boolean) => void;
   handleSave?: () => void;
 }
 interface FooterProps {
   confirmLoading?: boolean;
-  form?: FormInstance;
+  // form?: FormInstance;
+
+  form?: UseFormReturn<any, any, undefined>;
   handleSaveFunc: () => void;
   handleCancel: () => void;
 }
@@ -21,8 +26,9 @@ interface FooterProps {
 const DefaultModal = ({
   open,
   content,
-  size,
+  width,
   title,
+  showFooter = false,
   form,
   setOpen,
   handleSave,
@@ -30,7 +36,7 @@ const DefaultModal = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const handleSaveFunc = () => {
-    handleSave!();
+    // handleSave!();
     setConfirmLoading(true);
     setTimeout(() => {
       setOpen(false);
@@ -48,16 +54,19 @@ const DefaultModal = ({
       <Modal
         title={title}
         open={open}
+        width={width}
         // onOk={handleSaveFunc}
         // confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+        onCancel={handleCancel} 
         footer={
-          <Footer
-          handleSaveFunc={handleSaveFunc}
-            handleCancel={handleCancel}
-            confirmLoading={confirmLoading}
-            form={form}
-          />
+          showFooter ? (
+            <Footer
+              handleSaveFunc={handleSaveFunc}
+              handleCancel={handleCancel}
+              confirmLoading={confirmLoading}
+              form={form}
+            />
+          ) : null
         }
       >
         {content}
@@ -76,7 +85,7 @@ const Footer = ({
     <footer>
       <OutlinedButton className="mr-3" onClick={handleCancel} />
       <SaveButton
-        form={form}
+        // form={form}
         onClick={handleSaveFunc}
         confirmLoading={confirmLoading}
       />

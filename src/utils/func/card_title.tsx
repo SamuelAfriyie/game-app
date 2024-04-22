@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { FilledButton } from "@/components/common/buttons";
 
@@ -23,7 +22,7 @@ export default function CardTitleWithButton({
             onClick={onClick}
             icon={<PlusOutlined />}
             text={btnLable}
-            color="#0058A9" 
+            color="#0058A9"
           />
         </div>
       </div>

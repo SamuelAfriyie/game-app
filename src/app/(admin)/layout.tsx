@@ -21,18 +21,20 @@ export default function AdminLayout({
     padding: 16,
     with: "100%",
     minHeight: 280,
+    height: "100%",
     background: colorBgContainer,
     borderRadius: borderRadiusLG,
   };
 
   return (
-    <Layout className="h-dvh">
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden">
+    {/* <Layout > */}
       <MyHeader />
-      <Layout>
+      <Layout className="w-full h-full">
         <nav>
           <Menus />
         </nav>
-        <Content style={style} className="overflow-hidden  ">
+        <Content style={style} className="flex-1">
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>

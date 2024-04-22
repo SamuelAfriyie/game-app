@@ -1,8 +1,5 @@
 "use client";
-import { Card } from "antd";
 import React from "react";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { FaUsers } from "react-icons/fa";
 
 interface StatisticsCardProps {
   title: string;
@@ -44,7 +41,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
           {icon}
         </aside>
       </div>
-      <p className={`${stats > 0 ? "text-green-500" : "text-red-500"}`}>
+      <p className={`${stats > 5 ? "text-green-500" : "text-red-500"}`}>
         {stats}% from last week
       </p>
     </div>

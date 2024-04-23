@@ -48,6 +48,44 @@ export const campaignColumns: TableProps<CampaignType>["columns"] = [
   },
 ];
 
+export const gameResultsCampaignColumns: TableProps<CampaignType>["columns"] = [
+  {
+    title: "Campaign Name",
+    dataIndex: "name",
+    key: "name", 
+  },
+  {
+    title: "Duration",
+    dataIndex: "duration",
+    key: "duration",
+    width: 80,
+  },
+  {
+    title: "No. Of Levels",
+    dataIndex: "levels",
+    key: "levels",  
+    width: 100,
+  },
+  {
+    title: "Pass Score",
+    key: "passScore",
+    dataIndex: "passScore",  
+    width: 90,
+  },
+  {
+    title: "No. Of Attempts",
+    key: "attempts",
+    dataIndex: "attempts", 
+    width: 140,
+  },
+  {
+    title: "Date Created",
+    key: "dateCreated",
+    dataIndex: "dateCreated",
+    width: 130,
+  },
+];
+
 const campaignData: CampaignType[] = [
   {
     key: "1",

@@ -3,14 +3,15 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 
 interface Props {
   onClick: () => void;
+  disabled?: boolean;
 }
 
-export default function MoveButton({ onClick }: Props) {
+export default function MoveButton({disabled, onClick }: Props) {
   return (
     <Button
       icon={<DoubleRightOutlined />}
       size="large"
-      // style={{ height: 260, backgroundColor: "#0058A9", color: "white"}}
+      disabled={disabled}
       style={{ height: 660, backgroundColor: "#0058A9", color: "white"}}
       onClick={onClick} 
     />

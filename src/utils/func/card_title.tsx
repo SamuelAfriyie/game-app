@@ -7,6 +7,7 @@ interface Props {
   title: string;
   btnLable: string;
   btnLable2?: string;
+  disabled?: boolean;
   onClick: (e: any) => void;
 }
 
@@ -14,6 +15,7 @@ export default function CardTitleWithButton({
   title,
   btnLable,
   btnLable2,
+  disabled,
   onClick,
 }: Props) {
   const router = useRouter();
@@ -28,6 +30,7 @@ export default function CardTitleWithButton({
             icon={<PlusOutlined />}
             text={btnLable}
             color="#0058A9"
+            disabled={disabled}
           />
           {btnLable2 && (
             <FilledButton

@@ -26,6 +26,10 @@ const menuItems: MenuItemsType[] = [
     label: "Game Results",
   },
   {
+    key: "/applicants",
+    label: "Applicants",
+  },
+  {
     key: "/users",
     label: "Users",
   },

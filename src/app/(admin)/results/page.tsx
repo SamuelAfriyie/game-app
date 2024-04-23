@@ -6,6 +6,7 @@ import { PageTitle } from "@/components/common/page_title";
 import gameResultsData, {
   gameResultsColumns,
 } from "@/utils/data/game_results_data";
+import { Input } from "antd";
 import Space from "antd/es/space";
 import { useState } from "react";
 
@@ -22,7 +23,12 @@ export default function Result() {
         showFooter={false}
       />
       <Space direction="vertical" size="small" style={{ display: "flex" }}>
-        <PageTitle title="Game Results" />
+        <header className="flex justify-between mb-3">
+          <PageTitle title="Game Results" />
+          <div className="flex space-x-2 items-center">
+            <Input placeholder="Filter" style={{ width: 400 }} />
+          </div>
+        </header>
         <GTable
           columns={gameResultsColumns}
           dataSource={gameResultsData(() => setOpen(true))}

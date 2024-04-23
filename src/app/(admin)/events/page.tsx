@@ -5,8 +5,8 @@ import EventCard from "@/components/events/event_card";
 import { PlusOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { ReactNode, useState } from "react";
-import { EventForm } from "./_form/event_form";
-import { DefaultDialog } from "@/components/common/dialog";
+import { EventForm } from "./_form/event_form"; 
+import DefaultModal from "@/components/common/default_modal";
 
 export default function Events() {
   const [open, setOpen] = useState<boolean>(false);
@@ -14,23 +14,22 @@ export default function Events() {
 
   return (
     <>
+      <DefaultModal
+        open={open}
+        setOpen={setOpen}
+        content={<EventForm handleCancel={() => setOpen(false)} />}
+        title="Create Events"
+      />
       <main className="h-full w-full pb-16">
         <header className="flex justify-between mb-3">
           <PageTitle title={"Events"} />
           <div className="flex space-x-2 items-center">
             <Input placeholder="Filter" style={{ width: 300 }} />
             <div>
-              <DefaultDialog
-                triggerBtn={
-                  <FilledButton
-                    text={"Create Events"}
-                    icon={<PlusOutlined />}
-                    onClick={() => setOpen(true)}
-                  />
-                }
-                title={"Create Events"}
-                open={open}
-                content={<EventForm handleCancel={() => setOpen(false)} />}
+              <FilledButton
+                text={"Create Events"}
+                icon={<PlusOutlined />}
+                onClick={() => setOpen(true)}
               />
             </div>
           </div>

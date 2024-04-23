@@ -3,14 +3,12 @@ import DefaultModal from "@/components/common/default_modal";
 import GTable from "@/components/common/general_table";
 import MoveButton from "@/components/common/move_button";
 import CardTitleWithButton from "@/utils/func/card_title";
-import { Button, Card, Form, Space } from "antd";
+import { Card, Form, Space } from "antd";
 import { TableRowSelection } from "antd/es/table/interface";
 import { ReactNode, useRef, useState } from "react";
-import gamesData, { gamesColumns } from "@/utils/data/games_data";
-import campaignData, { campaignColumns } from "@/utils/data/campaign_data";
+import gamesData, { campaignGamesColumns, gamesColumns } from "@/utils/data/games_data";
 import { PageTitle } from "@/components/common/page_title";
-import { CampaignFormV2 } from "./_form/campaign_form_v2";
-import { CamapaignFormInstance } from "@/lib/zod/form_instances";
+import CampaignFormV3 from "./_form/campaign_form_v3";
 
 export default function Campaign() {
   const selectedRecords = useRef<any>([]);
@@ -24,6 +22,7 @@ export default function Campaign() {
         title="Campaign"
         btnLable="Create Campaign"
         btnLable2="View Campaigns"
+        disabled={selectedRecordsFx.length === 0 ? true : false}
         onClick={() => setOpen(true)}
       />
     );
@@ -48,18 +47,28 @@ export default function Campaign() {
     <>
       <DefaultModal
         open={open}
-        setOpen={setOpen}
-        form={CamapaignFormInstance()}
-        content={<CampaignFormV2 handleCancel={() => setOpen(false)} />}
+        setOpen={setOpen} 
+        content={
+          <CampaignFormV3
+            handleCancel={() => setOpen(false)}
+            selectedRecordsFx={selectedRecordsFx}
+          />
+        }
         title="Create Campaign"
       />
       <PageTitle title="Campaign" />
 
       <Space direction="horizontal" size="small" style={{ width: "100%" }}>
         {/* Left Side */}
-        <Card title={"Games"} type="inner" size="small" loading={false} style={{minHeight: 650}}>
+        <Card
+          title={"Games"}
+          type="inner"
+          size="small"
+          loading={false}
+          style={{ minHeight: 650 }}
+        >
           <GTable
-            columns={gamesColumns}
+            columns={campaignGamesColumns}
             dataSource={gamesData}
             rowSelection={handleRowSelection}
             bordered
@@ -70,9 +79,15 @@ export default function Campaign() {
         </Card>
         <MoveButton onClick={handleMoveRecords} />
         {/* Right side */}
-        <Card title={setTitle()} type="inner" size="small" loading={false}  style={{minHeight: 650}}>
+        <Card
+          title={setTitle()}
+          type="inner"
+          size="small"
+          loading={false}
+          style={{ minHeight: 650 }}
+        >
           <GTable
-            columns={gamesColumns}
+            columns={campaignGamesColumns}
             dataSource={selectedRecordsFx}
             rowSelection={{}}
             bordered

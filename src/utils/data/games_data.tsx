@@ -13,21 +13,52 @@ export const gamesColumns: TableProps<GameType>["columns"] = [
     title: "Game Title",
     dataIndex: "title",
     key: "title",
+    width: 200,
   },
   {
     title: "Difficulty",
     dataIndex: "difficulty",
-    key: "difficulty",
+    key: "difficulty", 
+    width: 50,
   },
   {
     title: "Points Allocated",
     dataIndex: "points",
     key: "points",
+    width: 50,
   },
   {
     title: "Rate of Completion",
     key: "completionRate",
     dataIndex: "completionRate",
+    width: 90,
+  },
+];
+
+export const campaignGamesColumns: TableProps<GameType>["columns"] = [
+  {
+    title: "Game Title",
+    dataIndex: "title",
+    key: "title",
+    width: 200,
+  },
+  {
+    title: "Difficulty",
+    dataIndex: "difficulty",
+    key: "difficulty", 
+    width: 50,
+  },
+  {
+    title: "Points Allocated",
+    dataIndex: "points",
+    key: "points",
+    width: 90,
+  },
+  {
+    title: "Rate of Completion",
+    key: "completionRate",
+    dataIndex: "completionRate",
+    width: 90,
   },
 ];
 

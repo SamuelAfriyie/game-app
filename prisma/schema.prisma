@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type GameSubmittedBy {
+  i_nil String @map("-i:nil")
+}
+
+model game {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  About            String?
+  AllowedCommands  String
+  Colors           String[]
+  Difficulty       String
+  Id               String
+  Items            String[]
+  PointAllocated   String
+  RateOfCompletion String
+  RobotCol         String
+  RobotDir         String
+  RobotRow         String
+  SubLengths       String[]
+  /// Multiple data types found: String: 97.2%, GameSubmittedBy: 2.8% out of 143 sampled entries
+  SubmittedBy      Json
+  SubmittedDate    String
+  Title            String
+}
+
+model campaign {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  duration        Int 
+  passScore       Int
+  numOfAttempts   Int
+  games           Json
+  dateCreated      DateTime   @default(now())
+}
+
+model event {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  campaign        Json 
+  startDate       String
+  endDate         String
+}

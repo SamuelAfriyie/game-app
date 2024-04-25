@@ -2,7 +2,7 @@ import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import { Badge, Dropdown, Space, Table } from "antd";
-import campaignData, { campaignColumns } from "@/utils/data/campaign_data";
+import campaignData, { campaignColumns, gameResultsCampaignColumns } from "@/utils/data/campaign_data";
 
 interface DataType {
   key: React.Key;
@@ -69,7 +69,7 @@ export const ExpandableTable = () => {
     <>
       <div style={{ maxHeight: 550, overflow: "auto" }} >
         <Table
-          columns={campaignColumns}
+          columns={gameResultsCampaignColumns}
           expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
           dataSource={campaignData}
           size="small"

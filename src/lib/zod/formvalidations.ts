@@ -27,9 +27,39 @@ export const CampaignSchema = z.object({
   numOfAttempts: z.string().min(1),
 });
 
+export type CampaignFormType = {
+  name: string;
+  passScore: number;
+  duration: number;
+  numOfAttempts: number;
+  games: any[];
+};
+
 export const EventSchema = z.object({
   name: z.string().min(1),
   campaign: z.string().min(1),
   startDate: z.string().min(10, "Start date must be at least 10 characters long"),
   endDate: z.string().min(10, "End date must be at least 10 characters long"),
 });
+
+export type EventsFormType = {
+  name: string;
+  campaign: CampaignFormType| any;
+  startDate: string;
+  endDate: string; 
+};
+
+export type UsersFormType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  location: string;
+};
+
+export type GameFormType = {
+  Title: string;
+  Difficulty: string;
+  PointAllocated: string;
+  RateOfCompletion: string;
+};

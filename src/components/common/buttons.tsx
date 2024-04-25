@@ -1,8 +1,6 @@
-import { Button, Form, FormInstance } from "antd";
-import { ReactNode, useEffect, useState } from "react";
+import { Button } from "antd";
+import { ReactNode, useState } from "react";
 import { EyeOutlined } from "@ant-design/icons";
-import { UseFormReturn } from "react-hook-form";
-import { set } from "zod";
 interface Props {
   text?: string;
   className?: string;
@@ -78,17 +76,10 @@ export const IconButton = ({ className, size, icon, onClick }: Props) => {
   );
 };
 
-
 export const SaveButton: React.FC<React.PropsWithChildren<Props>> = ({
   confirmLoading,
-  onClick, 
+  onClick,
+  text,
 }) => {
-  const [submittable, setSubmittable] = useState<boolean>(false);
-
-  return (
-    <FilledButton
-      htmlType="submit"
-      confirmLoading={confirmLoading}
-    />
-  );
+  return <FilledButton onClick={onClick} confirmLoading={confirmLoading} text={text}/>;
 };

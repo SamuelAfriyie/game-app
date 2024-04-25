@@ -1,64 +1,120 @@
 "use client";
 
-import { EventSchema } from "@/lib/zod/formvalidations";
-import { FormProvider } from "react-hook-form";
-import { z } from "zod";
-import { CreateEvent } from "@/app/actions/form";
-import { DropDownTemp, InputTemp } from "@/components/common/input_temp";
-import { EventFormInstance } from "@/lib/zod/form_instances";
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
 
-import { 
-  DialogClose, 
-} from "@/components/ui/dialog";
+import { DatePickerX, DropDownX, InputX } from "@/components/common/input";
+import { useRef, useState } from "react";
+import { EventsFormType } from "@/lib/zod/formvalidations";
+import { UseCampaign } from "@/hooks/common/use_campaign";
+import { UseCreateEvent } from "@/hooks/common/use_event";
+import ResDialog from "@/components/common/res_dialog";
 
 interface Props {
   handleCancel: (v: boolean) => void;
 }
 
 export const EventForm = ({ handleCancel }: Props) => {
-  const onSubmit = async (formData: z.infer<typeof EventSchema>) => {
-    await CreateEvent(formData);
+  const { data, isLoading, isError } = UseCampaign();
+
+  const formData = useRef<EventsFormType>({
+    name: "",
+    campaign: {},
+    startDate: "",
+    endDate: "",
+  });
+
+  const [validationStatus, setValidationStatus] = useState<string>("");
+  const [openResDialog, setOpenResDialog] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const resType = useRef<"success" | "failure">("failure");
+
+  const handleChanges = (name: string, value: string | number) => {
+    formData.current = { ...formData.current, [name]: value };
+    if (validationStatus === name) setValidationStatus("");
   };
 
-  const FormInstance = EventFormInstance();
+  const handleValidation = async () => {
+    if (formData.current.name === "") {
+      setValidationStatus("name");
+      return;
+    }
+    if (formData.current.campaign === undefined) {
+      setValidationStatus("campaign");
+      return;
+    }
+    if (formData.current.startDate === "") {
+      setValidationStatus("startDate");
+      return;
+    }
+    if (formData.current.endDate === "") {
+      setValidationStatus("endDate");
+      return;
+    }
+    formData.current.campaign = findCampaign(formData.current.campaign);
+    const {data, success} = await UseCreateEvent(formData.current);
+    if (success) {
+      resType.current = "success";
+    } else {
+      resType.current = "failure";
+    }
+    setConfirmLoading(false);
+    handleCancel(true);
+    setOpenResDialog(true);
+  };
+
+  const handleOptionData = () => {
+    if (isLoading) return [{ label: "Loading", value: "Loading" }];
+    if (isError) return [{ label: "Error", value: "Error" }];
+    return data?.map((e) => ({ label: e.name, value: e.id }));
+  };
+
+  const findCampaign = (id: string) => {
+    return data?.find((e) => e.id === id);
+  };
 
   return (
-    <section className="flex flex-col space-y-4 justify-center w-full">
-      <FormProvider {...FormInstance}>
-        <form 
-          onSubmit={FormInstance.handleSubmit(onSubmit)}
-          className="space-y-4 w-full"
-          id="campaign-form"
-        >
-          <InputTemp name="name" label="Name" placeholder="Enter name" 
-            control={FormInstance.control}/>
-          
-          <DropDownTemp
-            name="campaign"
-            label="Campaign"
-            options={[{ id: "1", value: "Campaign 1" }, { id: "2", value: "Campaign 2" }, { id: "3", value: "Campaign 3" }]}
-            placeholder="Select campaign"
-            control={FormInstance.control}
-          />
-          <InputTemp name="startDate" label="Start Date" type="date" 
-            control={FormInstance.control} />
+    <>
+      <ResDialog
+        open={openResDialog}
+        type={resType.current}
+        onClose={() => setOpenResDialog(false)}
+      />
+      <form className="flex flex-col space-y-4 justify-center w-full">
+        <InputX
+          label="Name"
+          placeholder="Enter name"
+          status={`${validationStatus === "name" ? "error" : ""}`}
+          onChange={(v) => handleChanges("name", v)}
+        />
 
-          <InputTemp
-            name="endDate"
-            label="End Date"
-            type="date" 
-            control={FormInstance.control}
-          />
-          <footer className="flex justify-end">
-          <DialogClose asChild>
-            <OutlinedButton className="mr-3" onClick={handleCancel} />
-          </DialogClose>
-            <SaveButton />
-          </footer>
-        </form>
-      </FormProvider>
-    </section>
+        <DropDownX
+          label="Campaign"
+          options={[...handleOptionData()]}
+          placeholder="Select campaign"
+          allowClear={true}
+          status={`${validationStatus === "campaign" ? "error" : ""}`}
+          handleChange={(v: any) => handleChanges("campaign", v)}
+        />
+        <DatePickerX
+          label="Start Date"
+          status={`${validationStatus === "startDate" ? "error" : ""}`}
+          handleChange={(v: any) => handleChanges("startDate", v)}
+        />
 
+        <DatePickerX
+          label="End Date"
+          status={`${validationStatus === "endDate" ? "error" : ""}`}
+          handleChange={(v: any) => handleChanges("endDate", v)}
+        />
+
+        <footer className="flex justify-end">
+          <OutlinedButton className="mr-3" onClick={handleCancel} />
+          <SaveButton
+            onClick={handleValidation}
+            confirmLoading={confirmLoading}
+          />
+        </footer>
+      </form>
+    </>
   );
 };

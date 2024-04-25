@@ -22,12 +22,11 @@ export default function AdminLayout({
     with: "100%",
     minHeight: 280,
     height: "100%",
-    background: colorBgContainer,
+    background: colorBgContainer, 
     borderRadius: borderRadiusLG,
-  };
-
+  }; 
   return (
-    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden">
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden" >
     {/* <Layout > */}
       <MyHeader />
       <Layout className="w-full h-full">
@@ -38,7 +37,7 @@ export default function AdminLayout({
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Game App ©{new Date().getFullYear()} Created by SEEDSTARS ACADEMY
+        Seedzzle ©{new Date().getFullYear()} Seedstars Academy
         </Footer>
       </Layout>
     </Layout>

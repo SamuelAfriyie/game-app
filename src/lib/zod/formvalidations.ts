@@ -44,7 +44,7 @@ export const EventSchema = z.object({
 
 export type EventsFormType = {
   name: string;
-  campaign: CampaignFormType | {};
+  campaign: CampaignFormType| any;
   startDate: string;
   endDate: string; 
 };
@@ -55,4 +55,11 @@ export type UsersFormType = {
   email: string;
   phone: string;
   location: string;
+};
+
+export type GameFormType = {
+  Title: string;
+  Difficulty: string;
+  PointAllocated: string;
+  RateOfCompletion: string;
 };

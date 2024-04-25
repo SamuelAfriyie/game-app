@@ -21,30 +21,34 @@ export const campaignColumns: TableProps<CampaignType>["columns"] = [
     title: "Duration",
     dataIndex: "duration",
     key: "duration", 
-    width: 120,
+    width: 80,
   },
-  {
-    title: "Number Of Levels",
-    dataIndex: "levels",
-    key: "levels",
-    width: 160,
-  },
+  // {
+  //   title: "No. Of Levels",
+  //   dataIndex: "levels",
+  //   key: "levels",
+  //   width: 90,
+  // },
   {
     title: "Pass Score",
     key: "passScore",
     dataIndex: "passScore",
-    width: 120,
+    width: 100,
   },
   {
-    title: "Number Of Attempts",
-    key: "attempts",
-    dataIndex: "attempts",
-    width: 160,
+    title: "No. Of Attempts",
+    key: "numOfAttempts",
+    dataIndex: "numOfAttempts",
+    width: 130,
   },
   {
     title: "Date Created",
     key: "dateCreated",
     dataIndex: "dateCreated",
+    width: 120,
+    render: (text: string) => {
+      return <span>{text.split("T")[0]}</span>;
+    }
   },
 ];
 

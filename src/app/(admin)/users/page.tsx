@@ -13,13 +13,13 @@ export default function User() {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
-    <DefaultModal
-      open={open}
-      setOpen={setOpen}
-      content={<UserForm handleCancel={() => setOpen(false)}   />}
-      title="Create Events"
-    />
-      <Space direction="vertical" size="small" style={{ display: "flex" }}> 
+      <DefaultModal
+        open={open}
+        setOpen={setOpen}
+        content={<UserForm handleCancel={() => setOpen(false)} />}
+        title="Create Events"
+      />
+      <Space direction="vertical" size="small" style={{ display: "flex" }}>
         <header className="flex justify-between mb-3">
           <PageTitle title={"Users"} />
           <div className="flex space-x-2 items-center">

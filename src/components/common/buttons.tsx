@@ -79,8 +79,7 @@ export const IconButton = ({ className, size, icon, onClick }: Props) => {
 export const SaveButton: React.FC<React.PropsWithChildren<Props>> = ({
   confirmLoading,
   onClick,
+  text,
 }) => {
-  const [submittable, setSubmittable] = useState<boolean>(false);
-
-  return <FilledButton onClick={onClick} confirmLoading={confirmLoading} />;
+  return <FilledButton onClick={onClick} confirmLoading={confirmLoading} text={text}/>;
 };

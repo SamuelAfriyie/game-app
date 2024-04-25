@@ -5,12 +5,15 @@ import EventCard from "@/components/events/event_card";
 import { PlusOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { ReactNode, useState } from "react";
-import { EventForm } from "./_form/event_form"; 
+import { EventForm } from "./_form/event_form";
 import DefaultModal from "@/components/common/default_modal";
+import { useEvent } from "@/hooks/common/use_event";
+import Spinner from "@/components/common/spinner";
 
 export default function Events() {
   const [open, setOpen] = useState<boolean>(false);
-  const arr = Array<ReactNode>(20).fill(<EventCard />);
+  const { data, isLoading, isError } = useEvent();
+  // const arr = Array<ReactNode>(20).fill(<EventCard />);
 
   return (
     <>
@@ -35,9 +38,19 @@ export default function Events() {
           </div>
         </header>
         <main className="flex overflow-y-auto  h-full w-full">
-          <div className="grid grid-cols-5 gap-4 w-full px-2 pb-32">
-            {arr.map((e) => e)}
-          </div>
+          {isLoading ? (
+            <div className="flex justify-center items-center w-full">
+              <Spinner />
+            </div>
+          ) : isError ? (
+            <div>Error...</div>
+          ) : (
+            <div className="grid grid-cols-5 gap-4 w-full px-2 pb-32">
+              {data?.map((e) => (
+                <EventCard key={e.id} {...e} />
+              ))}
+            </div>
+          )}
         </main>
       </main>
     </>

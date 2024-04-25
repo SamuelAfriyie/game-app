@@ -23,7 +23,7 @@ type InputProps = {
 };
 
 type OptionDataType = {
-  labbel: string;
+  label: string;
   value: string;
 };
 
@@ -57,8 +57,8 @@ export function InputX({
           placeholder={placeholder}
           status={status}
           style={style}
-          onChange={(e) => onChange && onChange(e.target?.value)}
-          value={initialValue}
+          onChange={(e) => onChange && onChange(e.target?.value)} 
+          defaultValue={initialValue}
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>
@@ -84,7 +84,7 @@ export function InputNumberX({
           placeholder={placeholder}
           status={status}
           style={{ width: "100%", paddingBlock: 5, ...style }}
-          value={initialValue}
+          defaultValue={initialValue}
           onChange={(v: any) => onChange && onChange(v)}
         />
         {status && (

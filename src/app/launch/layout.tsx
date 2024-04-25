@@ -4,10 +4,11 @@ import { Layout, theme } from "antd";
 import MyHeader from "@/components/common/header";
 import Menus from "@/components/common/menu";
 import { Footer } from "antd/es/layout/layout";
+import LaunchHeader from "@/components/launch/header";
 
 const { Content } = Layout;
 
-export default function AdminLayout({
+export default function GameLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -26,13 +27,9 @@ export default function AdminLayout({
     borderRadius: borderRadiusLG,
   }; 
   return (
-    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden" >
-    {/* <Layout > */}
-      <MyHeader />
-      <Layout className="w-full h-full">
-        <nav>
-          <Menus />
-        </nav>
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden" > 
+      <LaunchHeader />
+      <Layout className="w-full h-full"> 
         <Content style={style} className="flex-1">
           {children}
         </Content>

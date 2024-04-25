@@ -1,18 +1,21 @@
 "use client";
-import DefaultModal from "@/components/common/default_modal";
-import GTable from "@/components/common/general_table";
+import DefaultModal from "@/components/common/default_modal"; 
 import MoveButton from "@/components/common/move_button";
 import CardTitleWithButton from "@/utils/func/card_title";
-import { Card, Form, Space } from "antd";
+import { Card,Space } from "antd";
 import { TableRowSelection } from "antd/es/table/interface";
 import { ReactNode, useRef, useState } from "react";
-import gamesData, { campaignGamesColumns, gamesColumns } from "@/utils/data/games_data";
+import { campaignGamesColumns } from "@/utils/data/games_data";
 import { PageTitle } from "@/components/common/page_title";
 import CampaignFormV3 from "./_form/campaign_form_v3";
+import { useGames } from "@/hooks/common/use_games";
+import dynamic from "next/dynamic";
+
+const DynamicTable = dynamic(() => import("@/components/common/general_table"));
 
 export default function Campaign() {
-  const selectedRecords = useRef<any>([]);
-  const [form] = Form.useForm();
+  const { data, isLoading, isError } = useGames();
+  const selectedRecords = useRef<any>([]); 
   const [open, setOpen] = useState<boolean>(false);
   const [selectedRecordsFx, setSelectedRecordsFx] = useState<any>([]);
 
@@ -33,12 +36,10 @@ export default function Campaign() {
   };
 
   const handleRowSelection: TableRowSelection<any> = {
-    onSelect: (record, selected, selectedRows, nativeEvent) => {
-      console.log(selectedRows);
+    onSelect: (record, selected, selectedRows, nativeEvent) => { 
       selectedRecords.current = selectedRows;
     },
-    onSelectAll: (selected, selectedRows, changeRow) => {
-      console.log(selectedRows);
+    onSelectAll: (selected, selectedRows, changeRow) => { 
       selectedRecords.current = selectedRows;
     },
   };
@@ -67,13 +68,14 @@ export default function Campaign() {
           loading={false}
           style={{ minHeight: 650 }}
         >
-          <GTable
+          <DynamicTable
             columns={campaignGamesColumns}
-            dataSource={gamesData}
+            dataSource={data}
             rowSelection={handleRowSelection}
             bordered
             pagination={false}
             size="small"
+            loading={isLoading}
             scroll={{ x: 0, y: 500 }}
           />
         </Card>
@@ -86,7 +88,7 @@ export default function Campaign() {
           loading={false}
           style={{ minHeight: 650 }}
         >
-          <GTable
+          <DynamicTable
             columns={campaignGamesColumns}
             dataSource={selectedRecordsFx}
             rowSelection={{}}
@@ -94,6 +96,7 @@ export default function Campaign() {
             size="small"
             pagination={false}
             scroll={{ x: 0, y: 500 }}
+            loading={isLoading}
           />
         </Card>
       </Space>

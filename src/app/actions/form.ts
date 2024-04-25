@@ -4,6 +4,7 @@ import {
   CampaignFormType,
   EventSchema,
   EventsFormType,
+  GameFormType,
   RegisterSchema,
   SigninSchema,
   UsersFormType,
@@ -33,6 +34,12 @@ export const CreateEvent = async (data: EventsFormType) => {
 };
 
 export const CreateUser = async (data: UsersFormType) => {
+  await delayBy(4000);
+  console.log(data);
+};
+
+//Update Actions
+export const UpdateGame = async (data: GameFormType) => {
   await delayBy(4000);
   console.log(data);
 };

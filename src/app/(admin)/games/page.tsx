@@ -1,7 +1,7 @@
 "use client";
 import DefaultModal from "@/components/common/default_modal";
 import { PageTitle } from "@/components/common/page_title";
-import { useGames } from "@/hooks/common/use_games";
+import { UseGames } from "@/hooks/common/use_games";
 import { gamesColumns } from "@/utils/data/games_data";
 import { Card, Input, Space } from "antd";
 import dynamic from "next/dynamic";
@@ -28,7 +28,7 @@ const setTitle = (onChange: (key: string) => void): ReactNode => {
 };
 
 export default function Games() {
-  const { data, isLoading, isError } = useGames();
+  const { data, isLoading, isError } = UseGames();
   const [fiteredGames, setFilteredGames] = React.useState<any[]>([]);
   const selectedGame = useRef<GameFormType>({
     Title: "",

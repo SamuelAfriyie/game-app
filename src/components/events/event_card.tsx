@@ -79,8 +79,8 @@ export default function EventCard({
   const content = () => (
     <div>
       {" "}
-      {games.map((g: any) => {
-        return <p>{g.Title}</p>;
+      {games.map((g: any, i: number) => {
+        return <p key={i}>{g.Title}</p>;
       })}
     </div>
   );

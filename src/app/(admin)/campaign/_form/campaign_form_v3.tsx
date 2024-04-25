@@ -1,8 +1,7 @@
-import { CreateCampaign } from "@/app/actions/form";
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
 import { InputNumberX, InputX } from "@/components/common/input";
 import ResDialog from "@/components/common/res_dialog";
-import { useCreateCampaign } from "@/hooks/common/use_campaign";
+import { UseCreateCampaign } from "@/hooks/common/use_campaign";
 import { CampaignFormType } from "@/lib/zod/formvalidations";
 import { useRef, useState } from "react";
 
@@ -53,7 +52,7 @@ export default function CampaignFormV3({
     }
 
     // CreateCampaign(formData.current);
-    const { data, success } = await useCreateCampaign(formData.current);
+    const { data, success } = await UseCreateCampaign(formData.current);
     console.log(success);
     if (success) {
       resType.current = "success";

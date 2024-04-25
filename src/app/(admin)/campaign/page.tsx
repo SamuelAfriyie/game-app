@@ -8,13 +8,13 @@ import { ReactNode, useRef, useState } from "react";
 import { campaignGamesColumns } from "@/utils/data/games_data";
 import { PageTitle } from "@/components/common/page_title";
 import CampaignFormV3 from "./_form/campaign_form_v3";
-import { useGames } from "@/hooks/common/use_games";
+import { UseGames } from "@/hooks/common/use_games";
 import dynamic from "next/dynamic";
 
 const DynamicTable = dynamic(() => import("@/components/common/general_table"));
 
 export default function Campaign() {
-  const { data, isLoading, isError } = useGames();
+  const { data, isLoading, isError } = UseGames();
   const selectedRecords = useRef<any>([]); 
   const [open, setOpen] = useState<boolean>(false);
   const [selectedRecordsFx, setSelectedRecordsFx] = useState<any>([]);

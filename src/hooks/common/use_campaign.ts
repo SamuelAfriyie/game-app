@@ -4,9 +4,9 @@ import axios from "axios";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-export const useCampaign = () => {
+export const UseCampaign = () => {
+  const { data, error, isLoading } = useSWR(`/campaign/api`, fetcher);
   try {
-    const { data, error, isLoading } = useSWR(`/campaign/api`, fetcher);
 
     const appendKey = (data: any[]) => {
       return data?.map((item: any, index: number) => {
@@ -28,7 +28,7 @@ export const useCampaign = () => {
   }
 };
 
-export const useCreateCampaign = async (campaign: any) => {
+export const UseCreateCampaign = async (campaign: any) => {
   try {
     const res = await axios.post(`/campaign/api`, campaign);
     return {

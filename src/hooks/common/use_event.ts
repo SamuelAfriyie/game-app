@@ -4,9 +4,9 @@ import axios from "axios";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-export const useEvent = () => {
+export const UseEvent = () => {
+  const { data, error, isLoading } = useSWR(`/events/api`, fetcher);
   try {
-    const { data, error, isLoading } = useSWR(`/events/api`, fetcher);
 
     const appendKey = (data: any[]) => {
       return data?.map((item: any, index: number) => {
@@ -28,7 +28,7 @@ export const useEvent = () => {
   }
 };
 
-export const useCreateEvent = async (event: any) => {
+export const UseCreateEvent = async (event: any) => {
     console.log(event);
   try {
     const res = await axios.post(`/events/api`, event);

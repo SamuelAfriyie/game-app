@@ -1,15 +1,12 @@
 "use client";
 
-import { z } from "zod";
-import { CreateEvent } from "@/app/actions/form";
-import { EventFormInstance } from "@/lib/zod/form_instances";
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
 
 import { DatePickerX, DropDownX, InputX } from "@/components/common/input";
 import { useRef, useState } from "react";
 import { EventsFormType } from "@/lib/zod/formvalidations";
-import { useCampaign } from "@/hooks/common/use_campaign";
-import { useCreateEvent } from "@/hooks/common/use_event";
+import { UseCampaign } from "@/hooks/common/use_campaign";
+import { UseCreateEvent } from "@/hooks/common/use_event";
 import ResDialog from "@/components/common/res_dialog";
 
 interface Props {
@@ -17,7 +14,7 @@ interface Props {
 }
 
 export const EventForm = ({ handleCancel }: Props) => {
-  const { data, isLoading, isError } = useCampaign();
+  const { data, isLoading, isError } = UseCampaign();
 
   const formData = useRef<EventsFormType>({
     name: "",
@@ -54,7 +51,7 @@ export const EventForm = ({ handleCancel }: Props) => {
       return;
     }
     formData.current.campaign = findCampaign(formData.current.campaign);
-    const {data, success} = await useCreateEvent(formData.current);
+    const {data, success} = await UseCreateEvent(formData.current);
     if (success) {
       resType.current = "success";
     } else {

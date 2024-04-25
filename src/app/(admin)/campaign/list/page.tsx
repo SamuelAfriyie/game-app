@@ -1,5 +1,5 @@
 "use client";
-import { useCampaign } from "@/hooks/common/use_campaign";
+import { UseCampaign } from "@/hooks/common/use_campaign";
 import campaignData, { campaignColumns } from "@/utils/data/campaign_data";
 import { Card } from "antd";
 import dynamic from "next/dynamic";
@@ -8,7 +8,7 @@ import { Suspense } from "react";
 const DynamicTable = dynamic(() => import("@/components/common/general_table"));
 
 export default function CampaignsList() {
-  const { data, isLoading, isError } = useCampaign();
+  const { data, isLoading, isError } = UseCampaign();
   
   return (
     <>

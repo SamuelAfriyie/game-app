@@ -4,16 +4,15 @@ import { PageTitle } from "@/components/common/page_title";
 import EventCard from "@/components/events/event_card";
 import { PlusOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import { ReactNode, useState } from "react";
+import {  useState } from "react";
 import { EventForm } from "./_form/event_form";
 import DefaultModal from "@/components/common/default_modal";
-import { useEvent } from "@/hooks/common/use_event";
+import { UseEvent } from "@/hooks/common/use_event";
 import Spinner from "@/components/common/spinner";
 
 export default function Events() {
   const [open, setOpen] = useState<boolean>(false);
-  const { data, isLoading, isError } = useEvent();
-  // const arr = Array<ReactNode>(20).fill(<EventCard />);
+  const { data, isLoading, isError } = UseEvent();
 
   return (
     <>

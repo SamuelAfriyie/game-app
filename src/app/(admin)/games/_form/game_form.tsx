@@ -1,7 +1,7 @@
 import { UpdateGame } from "@/app/actions/form";
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
 import { InputNumberX, InputX } from "@/components/common/input"; 
-import { useGameUpdate } from "@/hooks/common/use_games";
+import { UseGameUpdate } from "@/hooks/common/use_games";
 import { GameFormType } from "@/lib/zod/formvalidations";
 import { useRef, useState } from "react"; 
 
@@ -37,7 +37,7 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
       setValidationStatus("RateOfCompletion");
       return;
     }
-    const {data} = await useGameUpdate(formData.current);
+    const {data} = await UseGameUpdate(formData.current);
     console.log("From handle Validations",data);
     // UpdateGame(formData.current);
   };

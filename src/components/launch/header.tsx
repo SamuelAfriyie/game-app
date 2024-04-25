@@ -17,20 +17,31 @@ export default function LaunchHeader() {
         alignItems: "center",
       }}
       className="justify-between"
-    > 
-      
-      <Image src='./static/photos/seedstars.png' width={140} preview={false} alt="logo" className="ml-3 rounded-sm"/>
+    >
+      <div className="flex  ">
+        <Image
+          src="./static/photos/seedstars.png"
+          width={140}
+          preview={false}
+          alt="logo"
+          className="ml-3 rounded-sm"
+        />
+        <div className="text-white text-xl font-sans ml-5 flex items-end">
+          Seedzzle: A spercial puzzle game
+        </div>
+      </div>
 
       {/* Icons options */}
-      <section className="flex items-center w-[20%]">
-        <GiSandsOfTime 
+      <section className="flex items-center mr-5">
+        <GiSandsOfTime
           style={{
-            fontSize: 24,
+            fontSize: 34,
             color: "white",
             marginRight: 5,
             fontWeight: "bolder",
           }}
         />
+        <p className="text-white text-2xl font-bold">10:00</p>
       </section>
     </Header>
   );

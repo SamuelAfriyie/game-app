@@ -7,7 +7,6 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  console.log(body);
   const res = await prisma.campaign.create({
     data: { ...body },
   });

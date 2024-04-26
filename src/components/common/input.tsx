@@ -157,3 +157,61 @@ export function DatePickerX({
     </>
   );
 }
+
+export function InputPasswordX({
+  label,
+  placeholder,
+  status,
+  initialValue,
+  style,
+  onChange,
+}: InputProps) {
+  return (
+    <>
+      <div className="flex flex-col w-full space-y-2">
+        <label>{label}</label>
+        <Input
+          className="h-10"
+          placeholder={placeholder}
+          status={status}
+          style={style}
+          type="password"
+          onChange={(e) => onChange && onChange(e.target?.value)} 
+          defaultValue={initialValue}
+        />
+        {status && (
+          <p className="text-red-600 font-medium">Field is required</p>
+        )}
+      </div>
+    </>
+  );
+}
+
+export function EmailX({
+  label,
+  placeholder,
+  status,
+  initialValue,
+  style,
+  onChange,
+}: InputProps) {
+  return (
+    <>
+      <div className="flex flex-col w-full space-y-2">
+        <label>{label}</label>
+        <Input
+          className="h-10"
+          placeholder={placeholder}
+          status={status}
+          style={style}
+          type="email"
+          onChange={(e) => onChange && onChange(e.target?.value)} 
+          defaultValue={initialValue}
+        />
+        {status && (
+          <p className="text-red-600 font-medium">Field is required</p>
+        )}
+      </div>
+    </>
+  );
+}

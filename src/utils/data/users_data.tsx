@@ -32,8 +32,8 @@ export const usersColumns: TableProps<User>["columns"] = [
   },
   {
     title: "Educational Level",
-    dataIndex: "level",
-    key: "level",
+    dataIndex: "educationalLevel",
+    key: "educationalLevel",
   },
 ];
 

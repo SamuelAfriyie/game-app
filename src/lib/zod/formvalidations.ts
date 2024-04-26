@@ -38,15 +38,17 @@ export type CampaignFormType = {
 export const EventSchema = z.object({
   name: z.string().min(1),
   campaign: z.string().min(1),
-  startDate: z.string().min(10, "Start date must be at least 10 characters long"),
+  startDate: z
+    .string()
+    .min(10, "Start date must be at least 10 characters long"),
   endDate: z.string().min(10, "End date must be at least 10 characters long"),
 });
 
 export type EventsFormType = {
   name: string;
-  campaign: CampaignFormType| any;
+  campaign: CampaignFormType | any;
   startDate: string;
-  endDate: string; 
+  endDate: string;
 };
 
 export type UsersFormType = {
@@ -62,4 +64,19 @@ export type GameFormType = {
   Difficulty: string;
   PointAllocated: string;
   RateOfCompletion: string;
+};
+
+export type RegisterFormType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  educationalLevel: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export type LoginFormType = {
+  email: string;
+  password: string;
 };

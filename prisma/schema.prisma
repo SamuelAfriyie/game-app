@@ -48,3 +48,14 @@ model event {
   startDate       String
   endDate         String
 }
+
+model user {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  username         String?
+  firstName        String
+  lastName         String
+  email            String   @unique
+  phoneNumber      String
+  educationalLevel String
+  password         String
+}

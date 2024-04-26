@@ -51,6 +51,7 @@ export const POST = async (req: Request) => {
           firstName: b.firstName,
           lastName: b.lastName,
           username: generateUsername(b.firstName),
+          location: b.location,
         },
       });
 

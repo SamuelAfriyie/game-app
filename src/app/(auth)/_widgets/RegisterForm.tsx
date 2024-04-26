@@ -16,6 +16,7 @@ export const RegisterForm = () => {
     email: "",
     phoneNumber: "",
     educationalLevel: "",
+    location: "",
     password: "",
     confirmPassword: "",
   });
@@ -55,6 +56,11 @@ export const RegisterForm = () => {
       setConfirmLoading(false);
       return;
     }
+    if (form.location === "") {
+      setValidationStatus("location");
+      setConfirmLoading(false);
+      return;
+    }
 
     if (form.password === "") {
       setValidationStatus("password");
@@ -83,7 +89,7 @@ export const RegisterForm = () => {
 
   return (
     <section className="flex flex-col space-y-4 justify-center w-1/2">
-      <Form className="space-y-4 w-full">
+      <Form className="space-y-3 w-full">
         <section className="flex flex-row space-x-5 w-full">
           <InputX
             placeholder="First Name"
@@ -115,6 +121,12 @@ export const RegisterForm = () => {
           label={""}
           status={`${validationStatus === "educationalLevel" ? "error" : ""}`}
           onChange={(v: any) => handleChanges("educationalLevel", v)}
+        />
+        <InputX
+          placeholder="Location"
+          label={""}
+          status={`${validationStatus === "location" ? "error" : ""}`}
+          onChange={(v: any) => handleChanges("location", v)}
         />
         <InputPasswordX
           placeholder="Password"

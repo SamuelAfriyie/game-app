@@ -72,6 +72,7 @@ export type RegisterFormType = {
   email: string;
   phoneNumber: string;
   educationalLevel: string;
+  location: string;
   password: string;
   confirmPassword: string;
 };

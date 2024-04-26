@@ -2,12 +2,14 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/utils/data/prisma_instance";
 
 const generateUsername = (firstName: string): string => {
-    const randomSuffix = Math.floor(Math.random() * 1000);
-    const username = `${firstName.toLowerCase().replace(/\s/g, "")}${randomSuffix}`;
-    return username;
+  const randomSuffix = Math.floor(Math.random() * 1000);
+  const username = `${firstName
+    .toLowerCase()
+    .replace(/\s/g, "")}${randomSuffix}`;
+  return username;
 };
 
-export const POST = async (req: Request) => {
+export async function POST(req: Request) {
   try {
     if (req.method === "POST") {
       const b = await req.json();
@@ -24,7 +26,12 @@ export const POST = async (req: Request) => {
         b.lastName.trim().length < 1 ||
         b.password.trim() !== b.confirmPassword.trim()
       ) {
-        return Response.json({ message: "Invalid input" }, { status: 422 });
+        return new Response(
+          JSON.stringify({ message: "Invalid input", status: 422 }),
+          {
+            headers: { "content-type": "application/json" },
+          }
+        );
       }
 
       const hashedPassword = await bcrypt.hash(b.password, 12);
@@ -36,9 +43,11 @@ export const POST = async (req: Request) => {
       });
 
       if (existingUser) {
-        return Response.json(
-          { message: "User already exists" },
-          { status: 422 }
+        return new Response(
+          JSON.stringify({ message: "User already exists", status: 422 }),
+          {
+            headers: { "content-type": "application/json" },
+          }
         );
       }
 
@@ -55,14 +64,23 @@ export const POST = async (req: Request) => {
         },
       });
 
-      return Response.json({ message: "User created!" }, { status: 201 });
+      return new Response(
+        JSON.stringify({ message: "User created!", status: 201 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
     } else {
-      return Response.json({ message: "Route not valid" }, { status: 500 });
+      return new Response(
+        JSON.stringify({ message: "Route not valid", status: 500 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
     }
   } catch (error) {
-    return {
-      data: error,
-      success: false,
-    };
+    return new Response(JSON.stringify({ data: error, status: 500 }), {
+      headers: { "content-type": "application/json" },
+    });
   }
-};
+}

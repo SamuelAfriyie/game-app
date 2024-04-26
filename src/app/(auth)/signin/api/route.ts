@@ -13,7 +13,12 @@ export async function POST(req: Request) {
       !password ||
       password.trim().length < 7
     ) {
-      return Response.json({ message: "Invalid input" }, { status: 422 });
+      return new Response(
+        JSON.stringify({ message: "Invalid input", status: 422 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
     }
 
     const user = await prisma.user.findFirst({
@@ -22,18 +27,36 @@ export async function POST(req: Request) {
       },
     });
 
-    if (!user) { 
-      return Response.json({ message: "User not found!" }, { status: 404 });
+    if (!user) {
+      return new Response(
+        JSON.stringify({ message: "User not found", status: 404 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
     }
 
     const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) { 
-      return Response.json({ message: "Invalid credentials!" }, { status: 403 });
-    } else { 
-      return Response.json({ message: "Logged in!" }, { status: 200 });
+    if (!isValid) {
+      return new Response(
+        JSON.stringify({ message: "Invalid credentials!", status: 403 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
+    } else {
+      return new Response(
+        JSON.stringify({ message: "Logged in!", status: 200 }),
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
     }
   } else {
-    // Handle any non-POST requests 
-    return Response.json({ message: "Route not valid" }, { status: 500 });
+    // Handle any non-POST requests
+    JSON.stringify({ message: "Route not valid", status: 500 }),
+      {
+        headers: { "content-type": "application/json" },
+      };
   }
 }

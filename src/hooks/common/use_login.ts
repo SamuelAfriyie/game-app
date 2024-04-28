@@ -1,9 +1,7 @@
-import { baseUrl } from "@/utils/data/prisma_instance";
 import axios, { AxiosError } from "axios";
 
-export const UseLogin = async (data: any) => {
+export const UseLogin = async (data: any, baseUrl: string) => {
   try {
-    
     const res = await axios.post(`${baseUrl}/api/auth/signin`, data);
     if (res.data.status !== 200) {
       return {

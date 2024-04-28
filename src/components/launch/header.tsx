@@ -27,7 +27,7 @@ export default function LaunchHeader() {
           className="ml-3 rounded-sm"
         />
         <div className="text-white text-xl font-sans ml-5 flex items-end">
-          A spercial puzzle game
+          A special puzzle game
         </div>
       </div>
 

@@ -4,10 +4,10 @@ import { LoginFormType } from "@/lib/zod/formvalidations";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import SubmitButton from "@/components/common/submit_button";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { EmailX, InputPasswordX } from "@/components/common/input";
 import { Form } from "antd";
-import { signIn } from "next-auth/react"; 
+import { signIn } from "next-auth/react";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -50,11 +50,12 @@ export const LoginForm = () => {
       setError(true);
       setConfirmLoading(false);
       return;
-    } 
-    else {
-      setConfirmLoading(false);
-      router.push("/");
-      return;
+    } else {
+      try {
+        redirect("/started");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

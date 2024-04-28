@@ -10,11 +10,12 @@ import { FilledButton } from "@/components/common/buttons";
 //   ssr: false,
 // });
 
+
 function replaceAt(string, index, replace) {
   return string.substring(0, index) + replace + string.substring(index + 1);
 }
 
-class Game extends Component {
+class GameB extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -259,63 +260,42 @@ class Game extends Component {
 --delay:${delay}ms
 }`}
         </style>
-        {/* <div className="gameboard-holder flex "> */}
-        <div className="flex">
-          <GameBoard {...this.state} />
-          {/* <div className="player-controls"> */}
-          <section className="flex items-end">
-            <div className="flex">
-              <div className="h-100 flex items-end">
-                <section
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.7)",
-                    height: "fit-content",
-                  }}
-                  className="rounded-lg p-2"
-                >
-                  <Controls
-                    {...this.state}
-                    dragging={dragging}
-                    functions={functions}
-                    onMouseDown={this.commandMouseDown}
-                  />
-                  <div style={{ display: "flex" }} className="space-x-2 mb-2">
-                    <button
-                      onClick={this.start}
-                      style={{ flex: 1, backgroundColor: "white" }}
-                      className="rounded-sm"
-                    >
-                      Go
-                    </button>
-                    <button
-                      onClick={this.reset}
-                      style={{ flex: 1, backgroundColor: "white" }}
-                      className="rounded-sm"
-                    >
-                      Reset
-                    </button>
-                  </div>
-                  <input
-                    type="range"
-                    min="20"
-                    max="2000"
-                    defaultValue={this.state.delay}
-                    className="w-full"
-                    onChange={(evt) => {
-                      this.setState({
-                        delay: parseInt(evt.target.value, 10),
-                      });
-                    }}
-                  />
-                </section>
-              </div>
+        <div className="gameboard-holder">
+          <Fragment>
+            <GameBoard {...this.state} />
+            <div className="player-controls" style={{ backgroundColor: "red"}}>
+              <Controls
+                {...this.state}
+                dragging={dragging}
+                functions={functions}
+                onMouseDown={this.commandMouseDown}
+              />
               <Commands
                 {...this.state}
                 onMouseDown={this.mouseDown}
                 dragging={dragging}
               />
+              <div style={{ display: "flex"}} > 
+              <button onClick={this.start} style={{ flex: 1 }}>
+                  Go
+                </button>
+                <button onClick={this.reset} style={{ flex: 1 }}>
+                  Reset
+                </button>
+              </div>
+              <input
+                type="range"
+                min="20"
+                max="2000"
+                defaultValue={this.state.delay}
+                onChange={(evt) => {
+                  this.setState({
+                    delay: parseInt(evt.target.value, 10),
+                  });
+                }}
+              />
             </div>
-          </section>
+          </Fragment>
         </div>
         {dragging && (
           <div

@@ -59,4 +59,10 @@ model user {
   educationalLevel String
   password         String
   location         String?
+  role             Role     @default(PARTICIPANT)
+}
+
+enum Role {
+  PARTICIPANT
+  ADMIN
 }

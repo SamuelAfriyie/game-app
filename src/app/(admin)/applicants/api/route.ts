@@ -1,4 +1,5 @@
-import { prisma } from "@/utils/data/prisma_instance";
+import prisma from "@/app/db";
+
 
 export async function GET() {
   try {

@@ -92,7 +92,7 @@ const ColorCommands = ({ colors, onMouseDown }) => {
 };
 const Commands = ({ SubLengths, AllowedCommands, dragging, onMouseDown }) => {
   return (
-    <div className={`commands-area ${dragging ? "dragging" : ""}`}>
+    <div className={`commands-area ${dragging ? "dragging" : ""}`}> 
       <div
         className="command forward"
         onMouseDown={evt =>

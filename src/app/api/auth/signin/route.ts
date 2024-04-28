@@ -1,7 +1,5 @@
-import { MongoClient } from "mongodb";
 import bcrypt from "bcryptjs";
-import { NextApiResponse } from "next";
-import { prisma } from "@/utils/data/prisma_instance";
+import prisma from "@/app/db";
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
@@ -46,7 +44,7 @@ export async function POST(req: Request) {
       );
     } else {
       return new Response(
-        JSON.stringify({ message: "Logged in!", status: 200 }),
+        JSON.stringify({ data: user ,message: "Logged in!", status: 200 }),
         {
           headers: { "content-type": "application/json" },
         }

@@ -7,10 +7,10 @@ body {
 }
 .App {
   font-family: sans-serif;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
+  /* height: 100vh; */
+  /* position: relative; */
+  /* display: flex; */
+  /* justify-content: space-between; */
   --delay: 500ms;
   user-select: none;
 }
@@ -42,7 +42,8 @@ body {
   overflow: hidden;
 }
 .gameboard {
-  width: 100%;
+  height: 100%;
+  width: 40%;
   border: solid 1px white;
   position: relative;
 }
@@ -54,7 +55,8 @@ body {
   left: 0;
   display: flex;
   flex-direction: column;
-  background-color: rgb(0, 0, 0);
+  /* background-color: rgb(0, 0, 0); */
+  background-color: rgb(255, 255, 255);
 }
 .game-row {
   display: flex;
@@ -155,9 +157,9 @@ body {
   background-color: rgba(255, 255, 255, 0.5);
 }
 .commands-area {
-  display: inline-flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  /* display: inline-flex;
+  align-items: flex-start; */
+  /* flex-wrap: wrap; */
   border: solid 1px rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
@@ -266,12 +268,20 @@ body {
   border-color: hsla(128, 67%, 10%);
 }
 
-.dragger {
+/* .dragger {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+} */
+.dragger {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* width: 100%;
+  height: 100%; */
   pointer-events: none;
 }
 

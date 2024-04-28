@@ -9,9 +9,10 @@ import { campaignGamesColumns } from "@/utils/data/games_data";
 import { PageTitle } from "@/components/common/page_title";
 import CampaignFormV3 from "./_form/campaign_form_v3";
 import { UseGames } from "@/hooks/common/use_games";
-import dynamic from "next/dynamic";
+import GTable from "@/components/common/general_table";
+// import dynamic from "next/dynamic";
 
-const DynamicTable = dynamic(() => import("@/components/common/general_table"));
+// const DynamicTable = dynamic(() => import("@/components/common/general_table"));
 
 export default function Campaign() {
   const { data, isLoading, isError } = UseGames();
@@ -68,7 +69,7 @@ export default function Campaign() {
           loading={false}
           style={{ minHeight: 650 }}
         >
-          <DynamicTable
+          <GTable
             columns={campaignGamesColumns}
             dataSource={data}
             rowSelection={handleRowSelection}
@@ -88,7 +89,7 @@ export default function Campaign() {
           loading={false}
           style={{ minHeight: 650 }}
         >
-          <DynamicTable
+          <GTable
             columns={campaignGamesColumns}
             dataSource={selectedRecordsFx}
             rowSelection={{}}

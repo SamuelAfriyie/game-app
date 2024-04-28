@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import React from "react";
 
@@ -16,9 +17,10 @@ const cellPiece = (row, col, Items) => {
   if (piece === ".") return "";
 };
 const GameBoard = ({ Colors, Items, RobotCol, RobotRow, RobotDir }) => (
-  <div className="gameboard">
+  // <div className="gameboard">
+  <div className="h-full relative" style={{width: "50%"}}>
     <div className="spacer" />
-    <div className="game-grid">
+    <div className="game-grid" style={{backgroundColor: "#EEEEEE"}}>
       {Array(12)
         .fill(0)
         .map((_, r) => (

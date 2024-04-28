@@ -1,31 +1,31 @@
 "use client";
-import Game from "@/utils/config/game";
 import boards from "@/utils/config/data.json";
 import { useState } from "react";
-//import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 
-//const DynamicGame = dynamic(() => import("@/utils/config/game"), {
-  //ssr: false,
-//});
+const DynamicGame = dynamic(() => import("@/utils/config/game"), {
+  ssr: false,
+});
 
-export default function GameLaunch() {
-  const [states, setStates] = useState({
+export default function GameLaunchB() {
+  const [states, setStates] = useState<any>({
     selectedBoard: "285",
-    dragging: false,
+    dragging: null,
   });
 
   const { selectedBoard, dragging } = states;
-  
+
   const updateState = (key: string, value: string) => {
     setStates({ ...states, [key]: value });
-  }
+  };
 
   return (
-    <div>
-      <h1>Game Launch</h1>
+    <div className="h-full overflow-y-auto">
       <div className={`App ${dragging ? "dragging" : ""}`}>
-        <div className="boards">
-          {boards.map(d => (
+        {/* <div className="boards"> */}
+        
+        {/* <div className="h-96s overflow-y-auto">
+          {boards.map((d) => (
             <p
               key={`board-${d.Id}`}
               className={`${selectedBoard === d.Id ? "selected" : ""}`}
@@ -34,13 +34,13 @@ export default function GameLaunch() {
               {d.Title}
             </p>
           ))}
-        </div>
+        </div> */}
 
         {selectedBoard && (
-          <Game
+          <DynamicGame
             key={selectedBoard}
-            setDragging={(which: any) => updateState("selectedBoard", which)}
-            board={boards.find(b => b.Id === selectedBoard)}
+            setDragging={(which: any) => updateState("dragging", which)}
+            board={boards.find((b) => b.Id === selectedBoard)}
           />
         )}
       </div>

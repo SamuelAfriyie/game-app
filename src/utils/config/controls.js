@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
 import React from "react";
 
 const functionClasses = (func, pos, functions) => {
@@ -22,10 +21,8 @@ const Commands = ({ SubLengths, dragging, functions, onMouseDown }) => {
             <div key={`f${i + 1}`} className="function-holder">
               <img
                 draggable="false"
-                //src={require(`./static/img/f${i + 1}.svg`)}
                 src={`./static/img/f${i + 1}.svg`}
                 alt={`F${i + 1}`}
-                style={{backgroundColor: "#0058A9"}}
               />
               <div className="function-area">
                 {Array(parseInt(s, 10))

@@ -1,3 +1,4 @@
+import { getDay, getMonth, getMonthName } from "@/utils/func/date_extensions";
 import { MoreOutlined, FormOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps, Popover } from "antd";
 
@@ -34,20 +35,6 @@ interface EventCardProps {
   endDate: string;
 }
 
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 export default function EventCard({
   id,
@@ -56,19 +43,7 @@ export default function EventCard({
   startDate,
   endDate,
 }: EventCardProps) {
-  const getDay = (date: string) => {
-    const d = new Date(startDate).getDay();
-    if (d < 10) return `0${d}`;
-  };
-  const getMonth = (date: string) => {
-    const m = new Date(startDate).getMonth();
-    if (m < 10) return `0${m}`;
-  };
-
-  const getMonthName = (date: string) => {
-    return monthNames[new Date(startDate).getMonth()];
-  };
-
+  
   const getCustomDate = (date: string) => {
     return `${getDay(date)}-${getMonth(date)} ${getMonthName(date).slice(
       0,

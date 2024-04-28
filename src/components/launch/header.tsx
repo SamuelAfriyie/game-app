@@ -27,7 +27,7 @@ export default function LaunchHeader() {
           className="ml-3 rounded-sm"
         />
         <div className="text-white text-xl font-sans ml-5 flex items-end">
-          Seedzzle: A spercial puzzle game
+          A spercial puzzle game
         </div>
       </div>
 
@@ -35,7 +35,7 @@ export default function LaunchHeader() {
       <section className="flex items-center mr-5">
         <GiSandsOfTime
           style={{
-            fontSize: 34,
+            fontSize: 28,
             color: "white",
             marginRight: 5,
             fontWeight: "bolder",

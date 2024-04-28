@@ -81,6 +81,7 @@ export const RegisterForm = () => {
     }
 
     const { data, success } = await UseRegister(formData.current);
+    console.log(success);
     if (success) {
       router.replace("/signin");
     }

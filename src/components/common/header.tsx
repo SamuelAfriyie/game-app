@@ -1,5 +1,13 @@
-import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
-import { UserOutlined, BellOutlined } from "@ant-design/icons";
+import {
+  Layout,
+  Avatar,
+  Input,
+  MenuProps,
+  Dropdown,
+  Image, 
+} from "antd";
+import { UserOutlined, BellOutlined } from "@ant-design/icons"; 
+import Link from "next/link";
 const { Header } = Layout;
 
 const items: MenuProps["items"] = [
@@ -7,8 +15,7 @@ const items: MenuProps["items"] = [
     key: "1",
     label: (
       <>
-        <p className="text-lg font-semibold">johndoe@gmail.com</p>
-        {/* <div className="w-full h-0.5 bg-black my-1" /> */}
+        <p className="text-base font-semibold">johndoe@gmail.com</p>
       </>
     ),
   },
@@ -19,13 +26,14 @@ const items: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <a 
+      <Link
+        href="/api/auth/signout"
+        className={"border-none "}
         rel="noopener noreferrer"
-        href="/signin"
-        className="font-semibold"
+        // onClick={() => signOut()}
       >
         Logout
-      </a>
+      </Link>
     ),
   },
 ];
@@ -47,8 +55,14 @@ export default function MyHeader() {
     >
       {/* logo */}
       {/* <div className="w-48 bg-white h-[65%] m-3 rounded-md items-center" /> */}
-      
-      <Image src='./static/photos/seedstars.png' width={140} preview={false} alt="logo" className="ml-3 rounded-sm"/>
+
+      <Image
+        src="./static/photos/seedstars.png"
+        width={140}
+        preview={false}
+        alt="logo"
+        className="ml-3 rounded-sm"
+      />
 
       {/* Icons options */}
       <section className="flex items-center w-[20%]">

@@ -6,8 +6,8 @@ import { useRef, useState } from "react";
 import SubmitButton from "@/components/common/submit_button";
 import { useRouter } from "next/navigation";
 import { EmailX, InputPasswordX } from "@/components/common/input";
-import { UseLogin } from "@/hooks/common/use_login";
 import { Form } from "antd";
+import { signIn } from "next-auth/react"; 
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ export const LoginForm = () => {
   const handleValidation = async (form: LoginFormType) => {
     setConfirmLoading(true);
     if (form.email === "") {
-      setValidationStatus("username");
+      setValidationStatus("email");
       setConfirmLoading(false);
       return;
     }
@@ -39,15 +39,23 @@ export const LoginForm = () => {
       return;
     }
 
-    const { data, success } = await UseLogin(formData.current);
-    if (success) {
-      router.push("/overview");
-      setError(false);
-    } else {
-      setError(true);
-    }
+    const res: any = await signIn("credentials", {
+      email: form.email,
+      password: form.password,
+      redirect: false,
+    });
 
-    setConfirmLoading(false);
+    console.log(res);
+    if (res.error) {
+      setError(true);
+      setConfirmLoading(false);
+      return;
+    } 
+    else {
+      setConfirmLoading(false);
+      router.push("/");
+      return;
+    }
   };
 
   return (

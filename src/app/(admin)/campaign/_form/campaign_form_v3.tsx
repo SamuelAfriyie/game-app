@@ -51,9 +51,8 @@ export default function CampaignFormV3({
       return;
     }
 
-    // CreateCampaign(formData.current);
+    
     const { data, success } = await UseCreateCampaign(formData.current);
-    console.log(success);
     if (success) {
       resType.current = "success";
     } else {

@@ -1,13 +1,6 @@
 import bcrypt from "bcryptjs";
 import prisma from "@/app/db";
-
-const generateUsername = (firstName: string): string => {
-  const randomSuffix = Math.floor(Math.random() * 1000);
-  const username = `${firstName
-    .toLowerCase()
-    .replace(/\s/g, "")}${randomSuffix}`;
-  return username;
-};
+import { generateUsername } from "@/utils/func/date_extensions";
 
 export async function POST(req: Request) {
   try {

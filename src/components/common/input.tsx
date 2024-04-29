@@ -1,8 +1,8 @@
 "use client";
-
 import { DatePicker, Input, Select } from "antd";
 import TypedInputNumber from "antd/es/input-number";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react"; 
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 interface Props {
   label?: string;
@@ -19,6 +19,7 @@ type InputProps = {
   initialValue?: string;
   status?: "error" | "";
   style?: React.CSSProperties;
+  disabled?: boolean;
   onChange?: (value: string | number) => void;
 };
 
@@ -57,7 +58,7 @@ export function InputX({
           placeholder={placeholder}
           status={status}
           style={style}
-          onChange={(e) => onChange && onChange(e.target?.value)} 
+          onChange={(e) => onChange && onChange(e.target?.value)}
           defaultValue={initialValue}
         />
         {status && (
@@ -164,20 +165,24 @@ export function InputPasswordX({
   status,
   initialValue,
   style,
+  disabled,
   onChange,
-}: InputProps) {
+}: InputProps) { 
   return (
     <>
       <div className="flex flex-col w-full space-y-2">
         <label>{label}</label>
-        <Input
+        <Input.Password
           className="h-10"
           placeholder={placeholder}
           status={status}
           style={style}
-          type="password"
-          onChange={(e) => onChange && onChange(e.target?.value)} 
+          disabled={disabled}
           defaultValue={initialValue}
+          onChange={(e) => onChange && onChange(e.target?.value)}
+          iconRender={(visible) =>
+            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+          }
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>
@@ -205,7 +210,7 @@ export function EmailX({
           status={status}
           style={style}
           type="email"
-          onChange={(e) => onChange && onChange(e.target?.value)} 
+          onChange={(e) => onChange && onChange(e.target?.value)}
           defaultValue={initialValue}
         />
         {status && (

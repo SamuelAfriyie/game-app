@@ -25,3 +25,11 @@ export const getMonth = (date: string) => {
 export const getMonthName = (date: string) => {
   return monthNames[new Date(date).getMonth()];
 };
+
+export const generateUsername = (firstName: string): string => {
+  const randomSuffix = Math.floor(Math.random() * 1000);
+  const username = `${firstName
+    .toLowerCase()
+    .replace(/\s/g, "")}${randomSuffix}`;
+  return username;
+};

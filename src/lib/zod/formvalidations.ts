@@ -55,8 +55,9 @@ export type UsersFormType = {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   location: string;
+  password: string;
 };
 
 export type GameFormType = {

@@ -5,7 +5,7 @@ import axios from "axios";
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseGames = () => {
-  const { data, error, isLoading } = useSWR(`/games/api`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/games`, fetcher);
 
   try {
     const appendKey = (data: any[]) => {
@@ -29,9 +29,16 @@ export const UseGames = () => {
 };
 
 export const UseGameUpdate = async (game: any) => {
-  const res = await axios.patch(`/games/api/${game?.id}`, game);
-  console.log(res);
-  return {
-    data: res,
-  };
+  try {
+    const res = await axios.patch(`/api/games/${game?.id}`, game);
+    return {
+      data: res.data,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      error,
+      success: false,
+    };
+  }
 };

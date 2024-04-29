@@ -1,9 +1,10 @@
 import { UpdateGame } from "@/app/actions/form";
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
-import { InputNumberX, InputX } from "@/components/common/input"; 
+import { InputNumberX, InputX } from "@/components/common/input";
+import ResDialog from "@/components/common/res_dialog";
 import { UseGameUpdate } from "@/hooks/common/use_games";
 import { GameFormType } from "@/lib/zod/formvalidations";
-import { useRef, useState } from "react"; 
+import { useRef, useState } from "react";
 
 interface Props {
   handleCancel: (v: boolean) => void;
@@ -11,9 +12,12 @@ interface Props {
 }
 
 export default function GameForm({ selectedRecord, handleCancel }: Props) {
-  const formData = useRef<GameFormType>({...selectedRecord});
+  const formData = useRef<GameFormType>({ ...selectedRecord });
 
   const [validationStatus, setValidationStatus] = useState<string>("");
+  const [openResDialog, setOpenResDialog] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const resType = useRef<"success" | "failure">("failure");
 
   const handleChanges = (name: string, value: string | number) => {
     formData.current = { ...formData.current, [name]: value };
@@ -37,13 +41,25 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
       setValidationStatus("RateOfCompletion");
       return;
     }
-    const {data} = await UseGameUpdate(formData.current);
-    console.log("From handle Validations",data);
-    // UpdateGame(formData.current);
+
+    const { data, success } = await UseGameUpdate(formData.current);
+    if (success) {
+      resType.current = "success";
+    } else {
+      resType.current = "failure";
+    }
+    setOpenResDialog(true);
+    handleCancel(true);
+    setConfirmLoading(false);
   };
 
   return (
     <>
+      <ResDialog
+        open={openResDialog}
+        type={resType.current}
+        onClose={() => setOpenResDialog(false)}
+      />
       <form className="flex flex-col space-y-4 justify-center w-full">
         <InputX
           initialValue={selectedRecord?.Title}
@@ -74,6 +90,7 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
           <SaveButton
             onClick={() => handleValidation(formData.current)}
             text="Update"
+            confirmLoading={confirmLoading}
           />
         </footer>
       </form>

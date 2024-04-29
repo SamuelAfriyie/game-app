@@ -1,6 +1,6 @@
-import React, { ReactNode, useState } from "react";
-import { FormInstance, Modal } from "antd";
-import { FilledButton, OutlinedButton, SaveButton } from "./buttons";
+import React, { useState } from "react";
+import { Modal } from "antd";
+import { OutlinedButton, SaveButton } from "./buttons";
 import { UseFormReturn } from "react-hook-form";
 
 interface Props {

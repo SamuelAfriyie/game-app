@@ -261,7 +261,7 @@ class Game extends Component {
         </style>
         {/* <div className="gameboard-holder flex "> */}
         <div className="flex">
-          <GameBoard {...this.state} />
+          <GameBoard {...this.state} key={0}/>
           {/* <div className="player-controls"> */}
           <section className="flex items-end">
             <div className="flex">
@@ -278,6 +278,7 @@ class Game extends Component {
                     dragging={dragging}
                     functions={functions}
                     onMouseDown={this.commandMouseDown}
+                    key={"controls"}
                   />
                   <div style={{ display: "flex" }} className="space-x-2 mb-2">
                     <button
@@ -313,6 +314,7 @@ class Game extends Component {
                 {...this.state}
                 onMouseDown={this.mouseDown}
                 dragging={dragging}
+                key={"commands"}
               />
             </div>
           </section>

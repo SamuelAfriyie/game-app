@@ -1,16 +1,10 @@
 "use client";
 import { LoginForm } from "@/app/(auth)/_widgets/LoginForm";
 import React from "react";
-import { Image } from "antd";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { Image } from "antd"; 
 
 const Login = () => {
-  const { data, status } = useSession();
-  if (status === "authenticated") {
-    redirect("/started");
-  }
-
+ 
   return (
     <main className="w-full h-full justify-center items-center flex flex-col space-y-12">
       <header className="flex flex-col space-y-3 items-center">

@@ -19,7 +19,7 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const resType = useRef<"success" | "failure">("failure");
 
-  const handleChanges = (name: string, value: string | number) => {
+  const handleChanges = (name: string, value: string) => {
     formData.current = { ...formData.current, [name]: value };
     if (validationStatus === name) setValidationStatus("");
   };
@@ -71,19 +71,25 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
           initialValue={selectedRecord?.Difficulty}
           label="Difficulty"
           status={`${validationStatus === "Difficulty" ? "error" : ""}`}
-          onChange={(value: any) => handleChanges("Difficulty", value)}
+          onChange={(value: any) =>
+            handleChanges("Difficulty", value.toString())
+          }
         />
         <InputNumberX
           initialValue={selectedRecord?.PointAllocated.toString()}
           label="Points Allocated"
           status={`${validationStatus === "PointAllocated" ? "error" : ""}`}
-          onChange={(value: any) => handleChanges("PointAllocated", value)}
+          onChange={(value: any) =>
+            handleChanges("PointAllocated", value.toString())
+          }
         />
         <InputNumberX
           initialValue={selectedRecord?.RateOfCompletion.toString()}
           label="Rate Of Completion"
           status={`${validationStatus === "RateOfCompletion" ? "error" : ""}`}
-          onChange={(value: any) => handleChanges("RateOfCompletion", value)}
+          onChange={(value: any) =>
+            handleChanges("RateOfCompletion", value.toString())
+          }
         />
         <footer className="flex justify-end">
           <OutlinedButton className="mr-3" onClick={handleCancel} />

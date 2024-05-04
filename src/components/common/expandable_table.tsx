@@ -49,21 +49,21 @@ export const ExpandableTable = () => {
     );
   };
 
-  const columns: TableColumnsType<DataType> = [
-    { title: "Campaign", dataIndex: "name", key: "name" },
-    { title: "Level", dataIndex: "level", key: "level" },
-    { title: "Score", dataIndex: "score", key: "score" },
-  ];
+  // const columns: TableColumnsType<DataType> = [
+  //   { title: "Campaign", dataIndex: "name", key: "name" },
+  //   { title: "Level", dataIndex: "level", key: "level" },
+  //   { title: "Score", dataIndex: "score", key: "score" },
+  // ];
 
-  const data: DataType[] = [];
-  for (let i = 0; i < 3; ++i) {
-    data.push({
-      key: i.toString(),
-      name: `Campaign ${i}`,
-      level: `${3 + i}`,
-      score: "16",
-    });
-  }
+  // const data: DataType[] = [];
+  // for (let i = 0; i < 3; ++i) {
+  //   data.push({
+  //     key: i.toString(),
+  //     name: `Campaign ${i}`,
+  //     level: `${3 + i}`,
+  //     score: "16",
+  //   });
+  // }
 
   return (
     <>

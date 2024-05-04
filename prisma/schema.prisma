@@ -32,37 +32,67 @@ model game {
 }
 
 model campaign {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  duration        Int 
-  passScore       Int
-  numOfAttempts   Int
-  games           Json
-  dateCreated      DateTime   @default(now())
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  duration      Int
+  passScore     Int
+  numOfAttempts Int
+  games         Json
+  dateCreated   DateTime @default(now())
 }
 
 model event {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  campaign        Json 
-  startDate       String
-  endDate         String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  campaign  Json
+  startDate String
+  endDate   String
 }
 
 model user {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
   username         String?
   firstName        String
   lastName         String
-  email            String   @unique
+  email            String  @unique
   phoneNumber      String
   educationalLevel String
   password         String
   location         String?
-  role             Role     @default(APPLICANT)
+  role             Role    @default(APPLICANT)
 }
 
 enum Role {
   APPLICANT
   ADMIN
+}
+
+model result {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  username     String
+  email        String         @unique
+  eventResults EventResults[]
+  date         DateTime       @default(now())
+}
+
+model EventResults {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  eventId      String   @unique
+  userId       String   @unique
+  eventName    String
+  score        Int
+  attemptCount Int
+  level        Int
+  passScore    Int
+  attempts     Json[]
+  decision     Decision
+  date         DateTime @default(now())
+  result       result?  @relation(fields: [resultId], references: [id])
+  resultId     String?  @db.ObjectId
+}
+
+enum Decision {
+  START
+  CONGRATS
+  TRY_AGAIN
 }

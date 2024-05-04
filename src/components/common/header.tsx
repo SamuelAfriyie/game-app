@@ -1,6 +1,5 @@
 import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
-import Link from "next/link";
 import { signOut } from "next-auth/react";
 const { Header } = Layout;
 

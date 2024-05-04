@@ -1,7 +1,6 @@
 import { Layout, Avatar, MenuProps, Dropdown, Image } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 const { Header } = Layout;
-import { GiSandsOfTime } from "react-icons/gi";
 import { signOut } from "next-auth/react";
 import Timer from "./timer";
 

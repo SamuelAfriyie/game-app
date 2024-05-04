@@ -51,6 +51,11 @@ export default auth(async (req: any, ctx: any) => {
     return NextResponse.redirect(nextUrl);
   }
 
+  if (!isAuthenticated && pathname === "/") {
+    nextUrl.pathname = "/signin";
+    return NextResponse.redirect(nextUrl);
+  }
+
   return NextResponse.next();
 });
 

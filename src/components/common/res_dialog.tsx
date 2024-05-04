@@ -48,12 +48,11 @@ const ResDialog: React.FC<ResDialogProps> = ({ open, type, onClose }) => {
             </button>
           ) : (
             <div>
-              <button className="res-dialog-button retry-button">Retry</button>
               <button
                 className="res-dialog-button cancel-button"
                 onClick={onClose}
               >
-                Cancel
+                Retry
               </button>
             </div>
           )}

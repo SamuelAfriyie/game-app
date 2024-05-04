@@ -1,51 +1,56 @@
 "use client";
-// import Game from "@/utils/config/game";
-import boards from "@/utils/config/data.json";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import dynamic from "next/dynamic";
-import { PageTitle } from "@/components/common/page_title";
+import { useSearchParams } from "next/navigation";
+import { GetEventById } from "@/hooks/common/use_event";
+import Spinner from "@/components/common/spinner";
 
+const DynamicModal = dynamic(() => import("@/components/launch/res_modal"), {
+  ssr: false,
+});
 const DynamicGame = dynamic(() => import("@/utils/config/game"), {
   ssr: false,
 });
 
-export default function GameLaunch() {
+function GameLaunchInner() {
+  const params = useSearchParams();
+  const id = params.get("id") as string;
+
+  const { data, isLoading, isError } = GetEventById(id);
+
   const [states, setStates] = useState<any>({
-    selectedBoard: "285",
     dragging: null,
   });
 
-  const { selectedBoard, dragging } = states;
+  const { dragging } = states;
 
   const updateState = (key: string, value: string) => {
     setStates({ ...states, [key]: value });
   };
 
   return (
-    <div className="h-full w-full overflow-y-hidden">
-      <div className={`App ${dragging ? "dragging" : ""} `}>
-        {/* <div className="boards"> */}
-        
-        {/* <div className="h-96s overflow-y-auto">
-          {boards.map((d) => (
-            <p
-              key={`board-${d.Id}`}
-              className={`${selectedBoard === d.Id ? "selected" : ""}`}
-              onClick={() => updateState("selectedBoard", d.Id)}
-            >
-              {d.Title}
-            </p>
-          ))}
-        </div> */}
-
-        {selectedBoard && (
-          <DynamicGame
-            key={selectedBoard}
-            setDragging={(which: any) => updateState("dragging", which)}
-            board={boards.find((b) => b.Id === selectedBoard)}
-          />
-        )}
+    <>
+      <DynamicModal width={350} level={1} eventId={id} />
+      <div className="h-full w-full overflow-y-hidden">
+        <div className={`App ${dragging ? "dragging" : ""} `}>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <DynamicGame
+              key={data[0]?.Id}
+              setDragging={(which: any) => updateState("dragging", which)}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
+  );
+}
+
+export default function GameLaunch() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <GameLaunchInner />
+    </Suspense>
   );
 }

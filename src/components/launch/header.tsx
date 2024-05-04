@@ -1,7 +1,24 @@
-import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
-import { UserOutlined, BellOutlined } from "@ant-design/icons";
+import { Layout, Avatar, MenuProps, Dropdown, Image } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 import { GiSandsOfTime } from "react-icons/gi";
+import { signOut } from "next-auth/react";
+import Timer from "./timer";
+
+const items: MenuProps["items"] = [
+  {
+    key: "3",
+    label: (
+      <div
+        className={"border-none "}
+        rel="noopener noreferrer"
+        onClick={async () => await signOut()}
+      >
+        Logout
+      </div>
+    ),
+  },
+];
 
 export default function LaunchHeader() {
   return (
@@ -33,15 +50,20 @@ export default function LaunchHeader() {
 
       {/* Icons options */}
       <section className="flex items-center mr-5">
-        <GiSandsOfTime
-          style={{
-            fontSize: 28,
-            color: "white",
-            marginRight: 5,
-            fontWeight: "bolder",
-          }}
-        />
-        <p className="text-white text-2xl font-bold">10:00</p>
+        <Timer />
+
+        <div className="h-6 w-0.5 bg-white mx-5"></div>
+        <Dropdown
+          menu={{ items }}
+          placement="bottomRight"
+          arrow={{ pointAtCenter: true }}
+        >
+          <Avatar
+            style={{ padding: 15 }}
+            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80 }}
+            icon={<UserOutlined />}
+          />
+        </Dropdown>
       </section>
     </Header>
   );

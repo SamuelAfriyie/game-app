@@ -1,13 +1,7 @@
-import {
-  Layout,
-  Avatar,
-  Input,
-  MenuProps,
-  Dropdown,
-  Image, 
-} from "antd";
-import { UserOutlined, BellOutlined } from "@ant-design/icons"; 
+import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
+import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 const { Header } = Layout;
 
 const items: MenuProps["items"] = [
@@ -26,14 +20,21 @@ const items: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <Link
-        href="/api/auth/signout"
+      <div
         className={"border-none "}
         rel="noopener noreferrer"
-        // onClick={() => signOut()}
+        onClick={async () => await signOut()}
       >
         Logout
-      </Link>
+      </div>
+      // <Link
+      //   href="/api/auth/signout"
+      //   className={"border-none "}
+      //   rel="noopener noreferrer"
+      //   // onClick={() => signOut()}
+      // >
+      //   Logout
+      // </Link>
     ),
   },
 ];

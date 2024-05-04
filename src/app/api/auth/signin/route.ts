@@ -44,7 +44,19 @@ export async function POST(req: Request) {
       );
     } else {
       return new Response(
-        JSON.stringify({ data: user ,message: "Logged in!", status: 200 }),
+        JSON.stringify({
+          data: {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            name: user.username,
+            role: user.role,
+            educationalLevel: user.educationalLevel,
+          },
+          message: "Logged in!",
+          status: 200,
+        }),
         {
           headers: { "content-type": "application/json" },
         }

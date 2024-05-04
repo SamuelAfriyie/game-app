@@ -6,21 +6,24 @@ export async function PATCH(
 ) {
   try {
     const body = await _request.json();
+
     const res = await prisma.game.update({
       where: {
         id: params.id,
       },
       data: {
-        Title: body.Name as string,
+        Title: body.Title as string,
         Difficulty: body.Difficulty as string,
         PointAllocated: body.PointAllocated as string,
         RateOfCompletion: body.RateOfCompletion as string,
       },
     });
+
     return new Response(JSON.stringify(res), {
       headers: { "content-type": "application/json" },
     });
   } catch (error) {
+    console.log("Error: ", error);
     return Response.json(error);
   }
 }

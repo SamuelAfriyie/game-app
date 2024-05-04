@@ -19,7 +19,6 @@ export const UseCreateUser = async (user: any) => {
   }
 };
 
-
 export const UseUpdateUser = async (user: any) => {
   try {
     const res = await axios.patch(`/api/user/${user.id}`, user);
@@ -35,7 +34,7 @@ export const UseUpdateUser = async (user: any) => {
   }
 };
 
-export const UseUser= () => {
+export const UseUser = () => {
   const { data, error, isLoading } = useSWR(`/api/user`, fetcher);
 
   try {
@@ -47,6 +46,24 @@ export const UseUser= () => {
 
     return {
       data: data !== undefined ? appendKey(data) : [],
+      isLoading,
+      isError: error,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      isLoading: false,
+      isError: error,
+    };
+  }
+};
+
+export const UseAnyUserById = async (id: string) => {
+  const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher);
+
+  try {
+    return {
+      data: data,
       isLoading,
       isError: error,
     };

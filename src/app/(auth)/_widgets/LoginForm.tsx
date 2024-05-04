@@ -11,7 +11,6 @@ import { signIn } from "next-auth/react";
 
 export const LoginForm = () => {
   const router = useRouter();
-
   const formData = useRef<LoginFormType>({
     email: "",
     password: "",
@@ -51,11 +50,8 @@ export const LoginForm = () => {
       setConfirmLoading(false);
       return;
     } else {
-      try {
-        redirect("/started");
-      } catch (error) {
-        console.log(error);
-      }
+      console.log("redirecting");
+      router.replace("/");
     }
   };
 

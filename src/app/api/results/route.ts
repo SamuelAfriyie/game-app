@@ -86,5 +86,5 @@ export async function PATCH(req: Request) {
       },
     },
   });
-  return APIResponse.success(res);
+  return APIResponse.updated(res);
 }

@@ -10,6 +10,5 @@ export async function GET(
       campaign: true,
     },
   }); 
-  console.log(res[0].campaign)
   return Response.json(res[0].campaign?.games);
 }

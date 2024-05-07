@@ -15,7 +15,7 @@ export const APIResponse = {
     return APIResponse.init({ data, status: 201, message: "Resource created" });
   },
 
-  update(data: any) {
+  updated(data: any) {
     return APIResponse.init({ data, status: 200, message: "Resource updated" });
   },
 

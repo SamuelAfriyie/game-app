@@ -30,7 +30,9 @@ function GameLaunchInner() {
 
   return (
     <>
-      <DynamicModal width={350} level={1} eventId={id} />
+      <Suspense>
+        <DynamicModal width={350} level={1} eventId={id} />
+      </Suspense>
       <div className="h-full w-full overflow-y-hidden">
         <div className={`App ${dragging ? "dragging" : ""} `}>
           {isLoading ? (
@@ -39,6 +41,7 @@ function GameLaunchInner() {
             <DynamicGame
               key={data[0]?.Id}
               setDragging={(which: any) => updateState("dragging", which)}
+              board={data[0]}
             />
           )}
         </div>

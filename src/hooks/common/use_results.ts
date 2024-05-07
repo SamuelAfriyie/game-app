@@ -19,7 +19,7 @@ export const UseEventSubInfo = (eventId: string, userId: string) => {
 export const UseDecrementAttempt = async (eventId: string) => {
   try {
     const res = await axios.patch(`/api/results`, { eventId });
-    if (res.data.status !== 201) {
+    if (res.data.status !== 200) {
       return {
         data: res.data,
         success: false,

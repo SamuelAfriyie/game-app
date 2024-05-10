@@ -26,7 +26,7 @@ export default function ResModal({ eventId, width, level, isOver }: Props) {
     //if true it means we have successfully decremented the attempt
     //so we can proceed to the game
     if (success) {
-      const interval: NodeJS.Timeout = startTimer();
+        startTimer(); 
       setOpen(false);
     }
        console.log("Success", success);

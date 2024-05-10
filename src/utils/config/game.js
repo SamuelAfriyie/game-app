@@ -1,14 +1,8 @@
 // "use client";
-import React, { Component, Fragment } from "react";
-// import dynamic from "next/dynamic";
+import React, { Component, Fragment } from "react"; 
 import GameBoard from "./gameboard";
 import Controls from "./controls";
-import Commands from "./commands";
-import { FilledButton } from "@/components/common/buttons";
-
-// const DynamicGameDashboard = dynamic(() => import("@/utils/config/gameboard"), {
-//   ssr: false,
-// });
+import Commands from "./commands"; 
 
 function replaceAt(string, index, replace) {
   return string.substring(0, index) + replace + string.substring(index + 1);
@@ -245,7 +239,9 @@ class Game extends Component {
     if (stars === 0) {
       clearTimeout(this.timeout);
       setTimeout(() => {
-        window.alert("You win!");
+        // window.alert("You win!");
+        console.log("You win!");
+        this.props.incrementLevel();
       }, this.state.delay);
     }
   };

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { GetEventById } from "@/hooks/common/use_event";
 import Spinner from "@/components/common/spinner";
+import { useGameController } from "@/utils/db/useGameController";
 
 const DynamicModal = dynamic(() => import("@/components/launch/res_modal"), {
   ssr: false,
@@ -15,6 +16,10 @@ const DynamicGame = dynamic(() => import("@/utils/config/game"), {
 function GameLaunchInner() {
   const params = useSearchParams();
   const id = params.get("id") as string;
+
+  const {currentLevel, levelCompletionStatus} = useGameController((state) => state.gameBoard);
+  const incrementLevel = useGameController((state) => state.incrementLevel);
+  
 
   const { data, isLoading, isError } = GetEventById(id);
 
@@ -28,6 +33,10 @@ function GameLaunchInner() {
     setStates({ ...states, [key]: value });
   };
 
+  const handleLevelCompletion = () => {
+    incrementLevel();
+  }
+
   return (
     <>
       <Suspense>
@@ -39,9 +48,10 @@ function GameLaunchInner() {
             <Spinner />
           ) : (
             <DynamicGame
-              key={data[0]?.Id}
+              key={data[currentLevel]?.Id}
               setDragging={(which: any) => updateState("dragging", which)}
-              board={data[0]}
+              board={data[currentLevel]}
+              incrementLevel={handleLevelCompletion}
             />
           )}
         </div>

@@ -43,11 +43,14 @@ export const useTimer = create<TimerState>()(
     startTimer: () => {
       const interval: NodeJS.Timeout = setInterval(() => {
         set((state) => {
-          if (state.timeStore.seconds === 60) {
-            state.timeStore.seconds = 0;
+          if (state.timeStore.seconds === 0) {
+            state.timeStore.seconds = 59;
             state.updateTimer("time", --state.timeStore.time);
           } else {
-            state.updateTimer("seconds", ++state.timeStore.seconds);
+            state.updateTimer("seconds", --state.timeStore.seconds);
+          }
+          if(state.timeStore.time === 0) {
+            clearInterval(interval);
           }
         }); // 1000ms = 1s
       }, 1000);

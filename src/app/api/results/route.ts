@@ -4,7 +4,6 @@ import { APIResponse } from "@/utils/func/api_reponse";
 
 export async function POST(request: Request) {
   const eventResults = await request.json();
-  console.log(eventResults);
   const info = (await getSeverSession("info")) as any;
   const res = await prisma.result.create({
     data: {
@@ -84,6 +83,7 @@ export async function PATCH(req: Request) {
       attemptCount: {
         decrement: 1,
       },
+      decision: "TRY_AGAIN",
     },
   });
   return APIResponse.updated(res);

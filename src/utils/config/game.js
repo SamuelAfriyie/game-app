@@ -239,7 +239,6 @@ class Game extends Component {
     if (stars === 0) {
       clearTimeout(this.timeout);
       setTimeout(() => {
-        // window.alert("You win!");
         console.log("You win!");
         this.props.incrementLevel();
       }, this.state.delay);

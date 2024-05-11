@@ -20,6 +20,7 @@ import { immer } from "zustand/middleware/immer";
 export interface TimerStateInterface {
   time: number;
   seconds: number;
+  isOver: boolean;
 }
 
 type TimerState = {
@@ -32,7 +33,7 @@ type TimerState = {
 
 export const useTimer = create<TimerState>()(
   immer((set, get) => ({
-    timeStore: { time: 0, seconds: 0 },
+    timeStore: { time: 0, seconds: 0, isOver: false },
 
     updateTimer(name: string, value: number) {
       set((state) => {
@@ -49,7 +50,8 @@ export const useTimer = create<TimerState>()(
           } else {
             state.updateTimer("seconds", --state.timeStore.seconds);
           }
-          if(state.timeStore.time === 0) {
+          if (state.timeStore.time === 0 && state.timeStore.seconds === 0) {
+            state.timeStore.isOver = true;
             clearInterval(interval);
           }
         }); // 1000ms = 1s

@@ -1,14 +1,14 @@
 // "use client";
 import { UseCreateResult, UseEventSubInfo } from "@/hooks/common/use_results";
-import { getDay, getMonth, getMonthName } from "@/utils/func/date_extensions";
-import { CSSProperties, use, useState } from "react";
+import { getDay, getMonthName } from "@/utils/func/date_extensions";
+import { CSSProperties, useState } from "react";
 import Spinner from "../common/spinner";
 import { useClientSession } from "@/hooks/custom/use_session";
 import Link from "next/link";
 import { useTimer } from "@/utils/db/useTimer";
 
 interface DecisionProps {
-  decision?: "Start" | "Congrats!" | "Failed" | "Try Again";
+  decision?: "START" | "CONGRAT" | "FAILED" | "TRY_AGAIN";
 }
 
 interface GameEventProps {
@@ -32,8 +32,8 @@ function GameEventHeader({
     const currentDate = new Date();
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
-
-    return sDate <= currentDate && eDate >= currentDate;
+    
+    return (sDate <= currentDate && eDate >= currentDate);
   };
 
   return (
@@ -65,7 +65,7 @@ function GameEventHeader({
 
 interface GameEventInfoProps extends DecisionProps {
   eventId: string;
-  attemptsLeft?: number;
+  attemptsLeft: number;
   levelObtained?: number;
 }
 
@@ -83,6 +83,7 @@ function GameEventInfo({
   decision,
 }: GameEventInfoProps) {
   const checkDecision = (decision: string, eventId: string) => {
+    console.log(decision);
     switch (decision) {
       case "START":
         return (
@@ -93,16 +94,16 @@ function GameEventInfo({
             </Link>
           </>
         );
-      case "CONGRAT":
+      case "CONGRATS":
         return <p className="text-white">Congrats!</p>;
-      case "Failed":
+      case "FAILED":
         return <p className="text-white">Failed</p>;
       case "TRY_AGAIN":
         return (
           <>
             <Link href={`/launch?id=${eventId}`} className="text-white ">
               {" "}
-              Start
+              Try Again
             </Link>
           </>
         );
@@ -121,7 +122,7 @@ function GameEventInfo({
         style={attemptsStyle}
       >
         <p style={{ fontSize: 10 }}>Attempts Left</p>
-        <p className="text-base font-semibold my-1">{attemptsLeft ?? 6}</p>
+        <p className="text-base font-semibold my-1">{attemptsLeft}</p>
       </div>
       <div className="w-0.5 h-8 bg-white" />
       <div className="text-center">
@@ -132,7 +133,7 @@ function GameEventInfo({
       <div className="text-center">
         <p style={{ fontSize: 10 }}>Decision</p>
         <p className="text-base font-semibold my-2">
-          {checkDecision(decision ?? "START", eventId)}
+          {checkDecision((decision === "TRY_AGAIN" && attemptsLeft <= 0 ? "FAILED": !decision ? "START": decision), eventId)}
         </p>
       </div>
     </div>
@@ -142,7 +143,7 @@ function GameEventInfo({
 interface GameProps extends DecisionProps, GameEventProps {
   eventId: string;
   name?: string;
-  attemptsLeft?: number;
+  attemptsLeft: number;
   levelObtained?: number;
   duration: number;
   passScore?: number;
@@ -167,6 +168,7 @@ export function GameEvent({
 
   const handleOpen = async () => {
     updateTimer("time", duration ?? 0);
+    console.log("data", data);
     if (data === undefined || data === null) {
       const { success } = await UseCreateResult({
         eventId: eventId,

@@ -1,40 +1,58 @@
 // "use client";
 import {
-  UseCreateResult,
-  UseDecrementAttempt,
+  UseAddNewAttempt,
+  UseDecrementAttemptCount,
 } from "@/hooks/common/use_results";
+import { useGameController } from "@/utils/db/useGameController";
 import { useTimer } from "@/utils/db/useTimer";
-import { Modal } from "antd";
+import { Modal } from "antd"; 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
+  trigger?: boolean;
   eventId: string;
   content?: React.ReactNode;
   width?: number;
-  level: number;
   title?: string;
   isOver?: boolean;
   handleCancel?: () => void;
 }
 
-export default function ResModal({ eventId, width, level, isOver }: Props) {
+export default function ResModal({ trigger, eventId, width, isOver }: Props) {
+  const router = useRouter();
+  const { currentLevel, levelCompletionStatus, score } = useGameController(
+    (state) => state.gameBoard
+  );
   const startTimer = useTimer((state: any) => state.startTimer);
-  const [open, setOpen] = useState<boolean>(true);
+  const changeGameStatus = useTimer((state: any) => state.updateTimer);
+  const [open, setOpen] = useState<boolean>(trigger ?? true);
 
   const handleProceed = async () => {
-    const { success } = await UseDecrementAttempt(eventId);
+    const { success } = await UseDecrementAttemptCount(eventId);
     //if true it means we have successfully decremented the attempt
     //so we can proceed to the game
     if (success) {
-        startTimer(); 
+      startTimer();
       setOpen(false);
     }
-       console.log("Success", success);
+  };
+
+  const handleFailedClicked = async () => {
+    const res = await UseAddNewAttempt(eventId, "TRY_AGAIN", {
+      level: currentLevel,
+      score: score,
+    });
+    if (res.success) {
+      setOpen(false);
+      router.replace("/");
+    }
+    changeGameStatus("isOver", false);
   };
 
   return (
     <Modal
-      open={open}
+      open={trigger ?? open}
       onCancel={() => setOpen(false)}
       width={width}
       footer={false}
@@ -43,15 +61,24 @@ export default function ResModal({ eventId, width, level, isOver }: Props) {
       maskClosable={false}
     >
       <div className="h-24 w-full mt-4 flex flex-col justify-center items-center">
-        <p className="text-2xl font-semibold">{isOver ?? `LEVEL ${level}`}</p>
+        <p className="text-2xl font-semibold">
+          {!isOver ? `LEVEL ${currentLevel + 1}` : "Game Over"}
+        </p>
         {!isOver ? (
           <p
             className="mt-2 cursor-pointer hover:text-blue-600"
-            onClick={async () => handleProceed()}
+            onClick={async () => await handleProceed()}
           >
             proceed
           </p>
-        ) : null}
+        ) : (
+          <p
+            className="mt-2 cursor-pointer hover:text-blue-600"
+            onClick={async () => await handleFailedClicked()}
+          >
+            Return
+          </p>
+        )}
       </div>
     </Modal>
   );

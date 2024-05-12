@@ -5,7 +5,7 @@ import {
 } from "@/hooks/common/use_results";
 import { useGameController } from "@/utils/db/useGameController";
 import { useTimer } from "@/utils/db/useTimer";
-import { Modal } from "antd"; 
+import { Modal } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,25 +16,30 @@ interface Props {
   width?: number;
   title?: string;
   isOver?: boolean;
+  points: number;
   handleCancel?: () => void;
 }
 
-export default function ResModal({ trigger, eventId, width, isOver }: Props) {
+export default function ResModal({ trigger, eventId, width, isOver, points }: Props) {
   const router = useRouter();
   const { currentLevel, levelCompletionStatus, score } = useGameController(
     (state) => state.gameBoard
   );
+  // const incrementScoreByPoint = useGameController((state) => state.addScore);
   const startTimer = useTimer((state: any) => state.startTimer);
   const changeGameStatus = useTimer((state: any) => state.updateTimer);
   const [open, setOpen] = useState<boolean>(trigger ?? true);
 
   const handleProceed = async () => {
-    const { success } = await UseDecrementAttemptCount(eventId);
-    //if true it means we have successfully decremented the attempt
-    //so we can proceed to the game
-    if (success) {
-      startTimer();
+    if (trigger && !isOver) {
+      // incrementScoreByPoint(points);
       setOpen(false);
+    } else {
+      const { success } = await UseDecrementAttemptCount(eventId);
+      if (success) {
+        startTimer();
+        setOpen(false);
+      }
     }
   };
 

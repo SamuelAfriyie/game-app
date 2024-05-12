@@ -1,19 +1,5 @@
 import { create } from "zustand";
-
-// export const useTimer = create((set, get) => ({
-//   time: 0,
-
-//   updateTimer: (value: number) => set({ time: value }),
-
-//   startTimer: () => {
-//     const interval: NodeJS.Timeout = setInterval(() => {
-//       set((state: any) => ({ time: state.time - 1 }));
-
-//     }, 1000);
-//     const t = get() as any;
-//     return interval;
-//   },
-// }));
+ 
 
 import { immer } from "zustand/middleware/immer";
 

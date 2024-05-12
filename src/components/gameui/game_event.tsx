@@ -83,7 +83,6 @@ function GameEventInfo({
   decision,
 }: GameEventInfoProps) {
   const checkDecision = (decision: string, eventId: string) => {
-    console.log(decision);
     switch (decision) {
       case "START":
         return (
@@ -168,7 +167,6 @@ export function GameEvent({
 
   const handleOpen = async () => {
     updateTimer("time", duration ?? 0);
-    console.log("data", data);
     if (data === undefined || data === null) {
       const { success } = await UseCreateResult({
         eventId: eventId,

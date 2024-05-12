@@ -7,7 +7,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseEvent = () => {
   // const { data, error, isLoading } = useSWRImmutable(`/api/events`, fetcher);
-  const { data, error, isLoading } = useSWR(`/api/events`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/events`, fetcher, {refreshInterval: 2000});
   try {
     const appendKey = (data: any[]) => {
       return data?.map((item: any, index: number) => {

@@ -24,9 +24,7 @@ function GameLaunchInner() {
   const params = useSearchParams();
   const id = params.get("id") as string;
 
-  const {currentLevel} = useGameController(
-    (state) => state.gameBoard
-  );
+  const { currentLevel } = useGameController((state) => state.gameBoard);
   const incrementLevel = useGameController((state) => state.incrementLevel);
   const addScore = useGameController((state) => state.addScore);
   const isOver = useTimer((state) => state.timeStore.isOver);
@@ -45,7 +43,7 @@ function GameLaunchInner() {
 
   const handleLevelCompletion = () => {
     incrementLevel();
-    addScore(data[currentLevel].PointAllocated);
+    addScore(Number(data[currentLevel]?.PointAllocated));
   };
 
   return (
@@ -56,7 +54,6 @@ function GameLaunchInner() {
           eventId={id}
           trigger={currentLevel > 0 || isOver ? true : undefined}
           isOver={isOver}
-          points={data && data[currentLevel]?.PointAllocated}
         />
         <DynamicSuccessModal
           eventId={id}

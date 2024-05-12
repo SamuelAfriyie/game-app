@@ -16,23 +16,21 @@ interface Props {
   width?: number;
   title?: string;
   isOver?: boolean;
-  points: number;
   handleCancel?: () => void;
 }
 
-export default function ResModal({ trigger, eventId, width, isOver, points }: Props) {
+export default function ResModal({ trigger, eventId, width, isOver }: Props) {
   const router = useRouter();
   const { currentLevel, levelCompletionStatus, score } = useGameController(
     (state) => state.gameBoard
   );
-  // const incrementScoreByPoint = useGameController((state) => state.addScore);
+
   const startTimer = useTimer((state: any) => state.startTimer);
   const changeGameStatus = useTimer((state: any) => state.updateTimer);
   const [open, setOpen] = useState<boolean>(trigger ?? true);
 
   const handleProceed = async () => {
     if (trigger && !isOver) {
-      // incrementScoreByPoint(points);
       setOpen(false);
     } else {
       const { success } = await UseDecrementAttemptCount(eventId);
@@ -57,7 +55,7 @@ export default function ResModal({ trigger, eventId, width, isOver, points }: Pr
 
   return (
     <Modal
-      open={trigger ?? open}
+      open={open}
       onCancel={() => setOpen(false)}
       width={width}
       footer={false}

@@ -44,13 +44,11 @@ export const LoginForm = () => {
       redirect: false,
     });
 
-    console.log(res);
     if (res.error) {
       setError(true);
       setConfirmLoading(false);
       return;
     } else {
-      console.log("redirecting");
       router.replace("/");
     }
   };

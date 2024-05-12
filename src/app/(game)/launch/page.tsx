@@ -24,15 +24,14 @@ function GameLaunchInner() {
   const params = useSearchParams();
   const id = params.get("id") as string;
 
-  const { currentLevel, levelCompletionStatus } = useGameController(
+  const {currentLevel} = useGameController(
     (state) => state.gameBoard
   );
   const incrementLevel = useGameController((state) => state.incrementLevel);
   const addScore = useGameController((state) => state.addScore);
-  const gameStatus = useTimer((state) => state.timeStore);
-  const router = useRouter();
+  const isOver = useTimer((state) => state.timeStore.isOver);
 
-  const { data, isLoading, isError } = GetEventById(id);
+  const { data, isLoading } = GetEventById(id);
 
   const [states, setStates] = useState<any>({
     dragging: null,
@@ -55,8 +54,9 @@ function GameLaunchInner() {
         <DynamicModal
           width={350}
           eventId={id}
-          trigger={currentLevel > 0 || gameStatus.isOver ? true : undefined}
-          isOver={gameStatus.isOver}
+          trigger={currentLevel > 0 || isOver ? true : undefined}
+          isOver={isOver}
+          points={data && data[currentLevel]?.PointAllocated}
         />
         <DynamicSuccessModal
           eventId={id}
@@ -86,16 +86,14 @@ export default function GameLaunch() {
   const router = useRouter();
 
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => { 
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
 
-    
-  const handleUnload = (e: Event) => {
-    localStorage.setItem("refreshed", "true");
-  };
+    const handleUnload = (e: Event) => {
+      localStorage.setItem("refreshed", "true");
+    };
 
- 
     window.addEventListener("beforeunload", handleBeforeUnload);
     window.addEventListener("unload", handleUnload);
 
@@ -108,7 +106,7 @@ export default function GameLaunch() {
   useEffect(() => {
     if (localStorage.getItem("refreshed")) {
       localStorage.removeItem("refreshed");
-      router.replace("/started"); 
+      router.replace("/started");
     }
   }, []);
 

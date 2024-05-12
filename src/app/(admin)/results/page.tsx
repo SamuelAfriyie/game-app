@@ -5,21 +5,32 @@ import { ExpandableTable } from "@/components/common/expandable_table";
 import { PageTitle } from "@/components/common/page_title";
 import Spinner from "@/components/common/spinner";
 import { UseGetEventResults } from "@/hooks/common/use_results";
-import gameResultsData, {
-  gameResultsColumns,
-} from "@/utils/data/game_results_data";
+import { gameResultsColumns } from "@/utils/data/game_results_data";
 import { Input } from "antd";
 import Space from "antd/es/space";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const DynamicTable = dynamic(() => import("@/components/common/general_table"));
 
 export default function Result() {
   const [open, setOpen] = useState<boolean>(false);
-  const { data, isLoading, isError } = UseGetEventResults();
+  const { data, isLoading } = UseGetEventResults();
+  const selectedEvent = useRef<any>([]);
 
-  const handleBtnClicked = () => {
+  const handleBtnClicked = (key: number) => {
+    selectedEvent.current = data[key]?.eventResults.map(
+      (event: any, index: number) => {
+        return {
+          key: index,
+          event: event.eventName,
+          attempts: event.attempts,
+          attemptCount: event.attemptCount,
+          level: event.level,
+          score: event.score >= event.passScore ? "Win" : "Loss",
+        };
+      }
+    );
     setOpen(true);
   };
 
@@ -39,7 +50,7 @@ export default function Result() {
               ? "Win"
               : "Loss",
           key: index,
-          action: <IconButton onClick={handleBtnClicked} />,
+          action: <IconButton onClick={() => handleBtnClicked(index)} />,
         };
       }
     );
@@ -51,7 +62,7 @@ export default function Result() {
         open={open}
         setOpen={setOpen}
         width={1000}
-        content={<ExpandableTable />}
+        content={<ExpandableTable data={selectedEvent.current} />}
         title={"View Results"}
         showFooter={false}
       />

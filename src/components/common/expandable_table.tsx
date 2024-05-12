@@ -2,7 +2,14 @@ import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import { Badge, Dropdown, Space, Table } from "antd";
-import campaignData, { campaignColumns, gameResultsCampaignColumns } from "@/utils/data/campaign_data";
+import campaignData, {
+  campaignColumns,
+  gameResultsCampaignColumns,
+} from "@/utils/data/campaign_data";
+import {
+  EventResultsType,
+  gameResultsEventColumns,
+} from "@/utils/data/game_results_data";
 
 interface DataType {
   key: React.Key;
@@ -23,8 +30,12 @@ const items = [
   { key: "2", label: "Action 2" },
 ];
 
-export const ExpandableTable = () => {
-  const expandedRowRender = () => {
+interface Props {
+  data: EventResultsType[];
+}
+
+export const ExpandableTable = ({ data }: Props) => {
+  const expandedRowRender = (record: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
       { title: "Attempt", dataIndex: "attempt", key: "attempt" },
       { title: "Level", dataIndex: "level", key: "level" },
@@ -35,43 +46,27 @@ export const ExpandableTable = () => {
       },
     ];
 
-    const data = [];
-    for (let i = 0; i < 3; ++i) {
-      data.push({
-        key: i.toString(),
+    const data = record.attempts.map((eventResult: any, i: number) => {
+      return {
+        key: i,
         attempt: `${1 + i}`,
-        level: `Level ${1 + i}`,
-        score: "120",
-      });
-    }
+        level: eventResult.level,
+        score: eventResult.score,
+      };
+    });
+
     return (
       <Table columns={columns} dataSource={data} pagination={false} bordered />
     );
   };
 
-  // const columns: TableColumnsType<DataType> = [
-  //   { title: "Campaign", dataIndex: "name", key: "name" },
-  //   { title: "Level", dataIndex: "level", key: "level" },
-  //   { title: "Score", dataIndex: "score", key: "score" },
-  // ];
-
-  // const data: DataType[] = [];
-  // for (let i = 0; i < 3; ++i) {
-  //   data.push({
-  //     key: i.toString(),
-  //     name: `Campaign ${i}`,
-  //     level: `${3 + i}`,
-  //     score: "16",
-  //   });
-  // }
-
   return (
     <>
-      <div style={{ maxHeight: 550, overflow: "auto" }} >
+      <div style={{ maxHeight: 550, overflow: "auto" }}>
         <Table
-          columns={gameResultsCampaignColumns}
+          columns={gameResultsEventColumns}
           expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
-          dataSource={campaignData}
+          dataSource={data}
           size="small"
         />
       </div>

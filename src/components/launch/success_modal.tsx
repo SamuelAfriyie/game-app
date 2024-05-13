@@ -33,7 +33,7 @@ export default function SuccessModal({ eventId, trigger, width }: Props) {
 
   return (
     <Modal
-      open={open}
+      open={trigger ?? open}
       onCancel={() => setOpen(false)}
       width={width}
       footer={false}

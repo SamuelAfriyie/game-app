@@ -15,13 +15,13 @@ interface GameEventProps {
   onClick: () => void;
   startDate: string;
   endDate: string;
-  status?: string;
+  eventName: string;
 }
 
 function GameEventHeader({
   startDate,
   endDate,
-  status,
+  eventName,
   onClick,
 }: GameEventProps) {
   const formatDate = (date: string) => {
@@ -32,34 +32,43 @@ function GameEventHeader({
     const currentDate = new Date();
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
-    
-    return (sDate <= currentDate && eDate >= currentDate);
+
+    return sDate <= currentDate && eDate >= currentDate;
   };
 
   return (
-    <div
-      className={`w-full h-24 ${
+    <section
+      className={`${
         compareEventDate() ? "bg-white" : "bg-gray-400"
-      } shadow-lg p-8 flex space-x-4 items-center justify-between rounded-t-md`}
-      onClick={() => compareEventDate() && onClick()}
+      } shadow-lg rounded-t-md`}
     >
-      <div className="text-center">
-        <p style={{ fontSize: 12 }}>Start Date</p>
-        <p className="text-base font-semibold my-2">{formatDate(startDate)} </p>
+      <div className="pt-2 pl-4 ">
+        <p className="font-semibold text-base">{eventName}</p>
       </div>
-      <div className="w-0.5 h-8 bg-gray-500" />
-      <div className="text-center">
-        <p style={{ fontSize: 12 }}>End Date</p>
-        <p className="text-base font-semibold my-2">{formatDate(endDate)}</p>
+      <div
+        className={`w-full h-24 p-8 flex space-x-4 items-center justify-between `}
+        onClick={() => compareEventDate() && onClick()}
+      >
+        <div className="text-center">
+          <p style={{ fontSize: 12 }}>Start Date</p>
+          <p className="text-base font-semibold my-2">
+            {formatDate(startDate)}{" "}
+          </p>
+        </div>
+        <div className="w-0.5 h-8 bg-gray-500" />
+        <div className="text-center">
+          <p style={{ fontSize: 12 }}>End Date</p>
+          <p className="text-base font-semibold my-2">{formatDate(endDate)}</p>
+        </div>
+        <div className="w-0.5 h-8 bg-gray-500" />
+        <div className="text-center">
+          <p style={{ fontSize: 12 }}>Status</p>
+          <p className="text-base font-semibold my-2">
+            {compareEventDate() ? "Active" : "Closed"}
+          </p>
+        </div>
       </div>
-      <div className="w-0.5 h-8 bg-gray-500" />
-      <div className="text-center">
-        <p style={{ fontSize: 12 }}>Status</p>
-        <p className="text-base font-semibold my-2">
-          {status ?? "Not Started"}
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -132,7 +141,14 @@ function GameEventInfo({
       <div className="text-center">
         <p style={{ fontSize: 10 }}>Decision</p>
         <p className="text-base font-semibold my-2">
-          {checkDecision((decision === "TRY_AGAIN" && attemptsLeft <= 0 ? "FAILED": !decision ? "START": decision), eventId)}
+          {checkDecision(
+            decision === "TRY_AGAIN" && attemptsLeft <= 0
+              ? "FAILED"
+              : !decision
+              ? "START"
+              : decision,
+            eventId
+          )}
         </p>
       </div>
     </div>
@@ -153,7 +169,6 @@ export function GameEvent({
   name,
   startDate,
   endDate,
-  status,
   attemptsLeft,
   levelObtained,
   decision,
@@ -216,7 +231,7 @@ export function GameEvent({
           onClick={async () => handleOpen()}
           startDate={startDate}
           endDate={endDate}
-          status={status}
+          eventName={name as string}
         />
         {open &&
           (!isLoading ? (

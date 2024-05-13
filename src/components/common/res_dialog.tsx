@@ -11,10 +11,11 @@ interface ResDialogProps {
 interface ResDialogProps {
   open: boolean;
   type: "success" | "failure";
+  msg?: string;
   onClose: () => void;
 }
 
-const ResDialog: React.FC<ResDialogProps> = ({ open, type, onClose }) => {
+const ResDialog: React.FC<ResDialogProps> = ({ open, type, msg, onClose }) => {
   const title = type === "success" ? "Success" : "Failure";
   const content =
     type === "success"
@@ -40,7 +41,7 @@ const ResDialog: React.FC<ResDialogProps> = ({ open, type, onClose }) => {
             <CloseCircleOutlined />
           </div>
         )}
-        <p className="font-semibold text-base">{content}</p>
+        <p className="font-semibold text-base">{msg ?? content}</p>
         <div className="res-dialog-actions">
           {type === "success" ? (
             <button className="res-dialog-button" onClick={onClose}>

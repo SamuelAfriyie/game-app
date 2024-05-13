@@ -1,8 +1,6 @@
 import { fetcher } from "@/utils/data/prisma_instance";
-// import { EventResults, result } from "@prisma/client";
 import axios from "axios";
 import useSWR from "swr";
-// import useSWRImmutable from "swr/immutable";
 
 export const UseEventSubInfo = (eventId: string, userId: string) => {
   const { data, error, isLoading } = useSWR(
@@ -47,7 +45,6 @@ export const UseDecrementAttemptCount = async (eventId: string) => {
       success: true,
     };
   } catch (error) {
-    console.log(error);
     return {
       data: error,
       success: false,
@@ -70,59 +67,12 @@ export const UseCreateResult = async (result: any) => {
       success: true,
     };
   } catch (error) {
-    console.log(error);
     return {
       data: error,
       success: false,
     };
   }
 };
-
-// export const UseCreateAttempt = async (result: result) => {
-//   try {
-//     const res = await axios.post(`/api/result/attempt`, result);
-//     if (res.data.status !== 201) {
-//       return {
-//         data: res.data,
-//         success: false,
-//       };
-//     }
-
-//     return {
-//       data: res,
-//       success: true,
-//     };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       data: error,
-//       success: false,
-//     };
-//   }
-// };
-
-// export const UseIncrementLevel = async (eventId: string, gamePoint: number) => {
-//   try {
-//     const res = await axios.patch(`/api/results`, { eventId, gamePoint });
-//     if (res.data.status !== 200) {
-//       return {
-//         data: res.data,
-//         success: false,
-//       };
-//     }
-
-//     return {
-//       data: res,
-//       success: true,
-//     };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       data: error,
-//       success: false,
-//     };
-//   }
-// };
 
 export const UseAddNewAttempt = async (
   eventId: string,
@@ -147,7 +97,6 @@ export const UseAddNewAttempt = async (
       success: true,
     };
   } catch (error) {
-    console.log(error);
     return {
       data: error,
       success: false,

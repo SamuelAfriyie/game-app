@@ -46,6 +46,10 @@ export default function User() {
     setOpen(true);
   };
 
+  const resetForm = () => { 
+    setSelectedUser(init);
+  }
+
   return (
     <>
       <DefaultModal
@@ -56,6 +60,7 @@ export default function User() {
             selectedUser={selectedUser}
             handleCancel={() => setOpen(false)}
             mode={mode.current}
+            resetForm={resetForm}
           />
         }
         title="Create User"

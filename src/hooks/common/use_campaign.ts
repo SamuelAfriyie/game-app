@@ -5,7 +5,7 @@ import axios from "axios";
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseCampaign = () => {
-  const { data, error, isLoading } = useSWR(`/campaign/api`, fetcher);
+  const { data, error, isLoading } = useSWR(`/campaign/api`, fetcher, {refreshInterval: 2000});
   try {
 
     const appendKey = (data: any[]) => {

@@ -10,13 +10,20 @@ interface Props {
   selectedUser: UsersFormType;
   mode: "create" | "update";
   handleCancel: (v: boolean) => void;
+  resetForm: () => void;
 }
 
-export default function UserForm({ selectedUser, mode, handleCancel }: Props) {
+export default function UserForm({
+  selectedUser,
+  mode,
+  handleCancel,
+  resetForm,
+}: Props) {
   const [validationStatus, setValidationStatus] = useState<string>("");
   const [openResDialog, setOpenResDialog] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const resType = useRef<"success" | "failure">("failure");
+  const cusomMsg = useRef<string | undefined>(undefined);
 
   const handleChanges = (name: string, value: string | number) => {
     selectedUser = { ...selectedUser, [name]: value };
@@ -56,10 +63,8 @@ export default function UserForm({ selectedUser, mode, handleCancel }: Props) {
     }
 
     if (mode === "create") {
-      console.log("create");
       await handleCreate();
     } else {
-      console.log("update");
       await handleUpdate();
     }
 
@@ -69,23 +74,24 @@ export default function UserForm({ selectedUser, mode, handleCancel }: Props) {
   };
 
   const handleCreate = async () => {
-    const { data, success } = await UseCreateUser(selectedUser);
-    console.log(success);
+    const { data, success, message } = await UseCreateUser(selectedUser);
     if (success) {
       resType.current = "success";
     } else {
       resType.current = "failure";
+      cusomMsg.current = message;
     }
+    resetForm();
   };
 
   const handleUpdate = async () => {
     const { data, success } = await UseUpdateUser(selectedUser);
-    console.log(success);
     if (success) {
       resType.current = "success";
     } else {
       resType.current = "failure";
     }
+    resetForm();
   };
 
   return (
@@ -93,6 +99,7 @@ export default function UserForm({ selectedUser, mode, handleCancel }: Props) {
       <ResDialog
         open={openResDialog}
         type={resType.current}
+        msg={cusomMsg.current}
         onClose={() => setOpenResDialog(false)}
       />
       <form className="flex flex-col space-y-4 justify-center w-full">

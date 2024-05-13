@@ -22,7 +22,7 @@ export default function SuccessModal({ eventId, trigger, width }: Props) {
 
   const handleCompletedClicked = async () => {
     const res = await UseAddNewAttempt(eventId, "CONGRATS", {
-      level: currentLevel+1,
+      level: currentLevel + 1,
       score: score,
     });
     if (res.success) {

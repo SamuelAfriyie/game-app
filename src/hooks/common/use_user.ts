@@ -1,4 +1,5 @@
 "use client";
+import { message } from "antd";
 import axios from "axios";
 import useSWR from "swr";
 
@@ -7,6 +8,14 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 export const UseCreateUser = async (user: any) => {
   try {
     const res = await axios.post(`/api/user`, user);
+    if (res.data.status !== 201) {
+      return {
+        data: res.data,
+        success: false,
+        message: res.data?.errors,
+      };
+    }
+
     return {
       data: res.data,
       success: true,
@@ -35,7 +44,9 @@ export const UseUpdateUser = async (user: any) => {
 };
 
 export const UseUser = () => {
-  const { data, error, isLoading } = useSWR(`/api/user`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/user`, fetcher, {
+    refreshInterval: 2000,
+  });
 
   try {
     const appendKey = (data: any[]) => {

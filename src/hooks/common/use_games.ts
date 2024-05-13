@@ -5,7 +5,7 @@ import axios from "axios";
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseGames = () => {
-  const { data, error, isLoading } = useSWR(`/api/games`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/games`, fetcher, {refreshInterval: 2000});
 
   try {
     const appendKey = (data: any[]) => {

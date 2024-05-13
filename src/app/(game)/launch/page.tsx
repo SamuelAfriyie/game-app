@@ -49,7 +49,6 @@ function GameLaunchInner() {
   const checkIfOver = () => {
     return currentLevel === data.length ? data.length - 1 : currentLevel;
   };
-  
 
   return (
     <>

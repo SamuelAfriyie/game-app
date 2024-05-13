@@ -1,19 +1,33 @@
 import prisma from "@/app/db";
+import bcrypt from "bcryptjs";
 import { generateUsername } from "@/utils/func/date_extensions";
+import { APIResponse } from "@/utils/func/api_reponse";
 
 export async function POST(request: Request) {
   const body = await request.json();
+  const hashedPassword = await bcrypt.hash(body.password, 12);
+
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      email: body.email,
+    },
+  });
+
+  if (existingUser) {
+    return APIResponse.validationError("Email already exists");
+  }
+
   const res = await prisma.user.create({
     data: {
       ...body,
+      password: hashedPassword,
       role: "ADMIN",
       username: generateUsername(body.firstName),
       educationalLevel: "None",
     },
   });
-  return new Response(JSON.stringify(res), {
-    headers: { "content-type": "application/json" },
-  });
+
+  return APIResponse.created(res);
 }
 
 export async function GET() {

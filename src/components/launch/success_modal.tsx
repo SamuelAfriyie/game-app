@@ -51,7 +51,7 @@ export default function SuccessModal({ eventId, trigger, width }: Props) {
         />
         <p className="text-2xl font-semibold">Congratulations!</p>
         <FilledButton
-          onClick={async () => await handleCompletedClicked}
+          onClick={async () => await handleCompletedClicked()}
           text="Continue"
           className="w-full"
         />

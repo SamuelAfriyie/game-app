@@ -43,8 +43,13 @@ function GameLaunchInner() {
 
   const handleLevelCompletion = () => {
     incrementLevel();
-    addScore(Number(data[currentLevel]?.PointAllocated));
+    addScore(Number(data[checkIfOver()]?.PointAllocated));
   };
+
+  const checkIfOver = () => {
+    return currentLevel === data.length ? data.length - 1 : currentLevel;
+  };
+  
 
   return (
     <>
@@ -67,9 +72,9 @@ function GameLaunchInner() {
             <Spinner />
           ) : (
             <DynamicGame
-              key={data[currentLevel]?.Id}
+              key={data[checkIfOver()]?.Id}
               setDragging={(which: any) => updateState("dragging", which)}
-              board={data[currentLevel]}
+              board={data[checkIfOver()]}
               incrementLevel={handleLevelCompletion}
             />
           )}

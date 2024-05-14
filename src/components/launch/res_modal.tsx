@@ -55,7 +55,7 @@ export default function ResModal({ trigger, eventId, width, isOver }: Props) {
 
   return (
     <Modal
-      open={open}
+      open={isOver === true ? isOver : open}
       onCancel={() => setOpen(false)}
       width={width}
       footer={false}

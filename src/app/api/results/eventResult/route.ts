@@ -21,7 +21,7 @@ export async function PATCH(req: Request) {
     },
     data: {
       level: body.attempt.level,
-      score: body.attempt.gamePoint,
+      score: body.attempt.score,
       decision: body.decision,
       attempts: {
         push: body.attempt,

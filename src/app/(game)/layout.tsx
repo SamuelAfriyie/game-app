@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { Layout, theme } from "antd";
-import MyHeader from "@/components/common/header";
-import Menus from "@/components/common/menu";
 import { Footer } from "antd/es/layout/layout";
 import LaunchHeader from "@/components/launch/header";
+import { Mulish } from "next/font/google";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 const { Content } = Layout;
 
@@ -23,18 +24,18 @@ export default function GameLayout({
     with: "100%",
     minHeight: 280,
     height: "100%",
-    background: colorBgContainer, 
+    background: colorBgContainer,
     borderRadius: borderRadiusLG,
-  }; 
+  };
   return (
-    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden" > 
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden">
       <LaunchHeader />
-      <Layout className="w-full h-full"> 
-        <Content style={style} className="flex-1">
+      <Layout className="w-full h-full">
+        <Content style={style} className={`${mulish.className} flex-1`}>
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>
-        Seedzzle ©{new Date().getFullYear()} Seedstars Academy
+          Seedzzle ©{new Date().getFullYear()} Seedstars Academy
         </Footer>
       </Layout>
     </Layout>

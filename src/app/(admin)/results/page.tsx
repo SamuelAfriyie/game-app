@@ -31,7 +31,8 @@ export default function Result() {
           attemptCount: event.attemptCount,
           level: event.level,
           date: event.date.split("T")[0],
-          score: event.score >= event.passScore ? "Win" : "Loss",
+          score: event.score,
+          status: event.score >= event.passScore ? "Win" : "Loss", 
         };
       }
     );

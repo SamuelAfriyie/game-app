@@ -3,12 +3,16 @@ import ListTile from "@/components/common/list_tile";
 import { PageTitle } from "@/components/common/page_title";
 import StatisticsCard from "@/components/common/sattistics_card";
 import { Card } from "antd";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { FaUserCheck } from "react-icons/fa6";
 import { SiCampaignmonitor } from "react-icons/si";
 import { GiSandsOfTime } from "react-icons/gi";
 import BarChart from "../../../components/common/chart";
+import { DropDownX } from "@/components/common/input";
+import { UseGetEventWithNamesOnly } from "@/hooks/common/use_event";
+import { UseRanking } from "@/hooks/common/use_statistics";
+import { sortRankingByScore } from "@/utils/func/sorting";
 
 const statsData = [
   {
@@ -66,6 +70,9 @@ const statsData = [
 ];
 
 export default function Overview() {
+  const { eventNames } = UseGetEventWithNamesOnly();
+  const [eventID, setEventID] = useState<string>("");
+  const { data, isLoading } = UseRanking(eventID);
   const arr = statsData.map((d, i) => {
     return (
       <StatisticsCard
@@ -78,15 +85,30 @@ export default function Overview() {
     );
   });
 
-  const arrCards = Array<ReactNode>(6).fill(
-    <ListTile
-      avatar={"/static/photos/user.webp"}
-      // avatar={"https://themusclemedics.com/wp-content/uploads/2018/04/Circle-Profile-PNG.png"}
-      username={"John Doe"}
-      email={"john@gmail.com"}
-      score={120}
-    />
-  );
+  const handleRanking = (value: string) => {
+    setEventID(value);
+  };
+
+  const getRanking = () => {
+    const sortedData = sortRankingByScore(data);
+
+    return sortedData.map((r: any, i: number) => {
+      return (
+        <ListTile
+          key={i}
+          avatar={"/static/photos/user.webp"}
+          username={r.username}
+          email={r.email}
+          score={
+            r.eventResults?.length > 0
+              ? r.eventResults[r.eventResults?.length - 1]?.score
+              : 0
+          }
+        />
+      );
+    });
+  };
+
   return (
     <>
       <div className="h-full w-full">
@@ -108,9 +130,26 @@ export default function Overview() {
                 <div className="p-2 m-3 bg-gray-500"></div>
               </div>
             </Card>
-            <Card className="flex-1 shadow-md overflow-y-auto">
-              <PageTitle title={"User Ranking"} />
-              <div className="flex flex-col">{arrCards.map((e, i) => <span key={i}>{e}</span>)}</div>
+            <Card className="flex-1 shadow-md overflow-hidden h-full">
+              <div className="w-full flex justify-between mb-2">
+                <PageTitle title={"User Ranking"} />
+                <div>
+                  <DropDownX
+                    options={eventNames ?? []}
+                    style={{ width: 140, height: 30 }}
+                    placeholder="Filter By Event"
+                    handleChange={handleRanking}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col overflow-y-auto h-96 w-full">
+                {
+                  getRanking()
+                  /* {arrCards.map((e, i) => (
+                  <span key={i}>{e}</span>
+                ))} */
+                }
+              </div>
             </Card>
           </div>
         </main>

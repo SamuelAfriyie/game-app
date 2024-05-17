@@ -70,11 +70,11 @@ export default function EventCard({
     const end = new Date(endDate);
 
     if (today > end) {
-      return "#59B0F2"; // past event
+      return "#686868"; // past event
     } else if (today >= start && today <= end) {
-      return "#FF7433"; // current event
+      return "#0865AC"; // current event
     } else {
-      return "#0865AC"; // future event
+      return "#59B0F2"; // future event
     }
   };
 

@@ -7,7 +7,9 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseEvent = () => {
   // const { data, error, isLoading } = useSWRImmutable(`/api/events`, fetcher);
-  const { data, error, isLoading } = useSWR(`/api/events`, fetcher, {refreshInterval: 2000});
+  const { data, error, isLoading } = useSWR(`/api/events`, fetcher, {
+    refreshInterval: 2000,
+  });
   try {
     const appendKey = (data: any[]) => {
       return data?.map((item: any, index: number) => {
@@ -76,6 +78,31 @@ export const UseUpdateEvent = async (event: any) => {
     return {
       error: error,
       success: false,
+    };
+  }
+};
+
+export const UseGetEventWithNamesOnly = () => {
+  const { data, error, isLoading } = useSWRImmutable(
+    `/api/events/eventWithNameOnly`,
+    fetcher
+  );
+
+  try {
+    const events = data.map((event: any) => {
+      return { value: event.id, label: event.name };
+    });
+
+    return {
+      eventNames: events !== undefined ? events : [],
+      isLoading,
+      isError: error,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      isLoading: false,
+      isError: error,
     };
   }
 };

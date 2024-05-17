@@ -1,8 +1,7 @@
 import prisma from "@/app/db";
 
 export async function GET(req: Request) {
-  const param = new URL(req.url).searchParams;
-  console.log("param", param);
+  const param = new URL(req.url).searchParams; 
   const res = await prisma.result.findMany({
     include: {
       eventResults: {

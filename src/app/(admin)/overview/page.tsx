@@ -13,6 +13,7 @@ import { DropDownX } from "@/components/common/input";
 import { UseGetEventWithNamesOnly } from "@/hooks/common/use_event";
 import { UseRanking } from "@/hooks/common/use_statistics";
 import { sortRankingByScore } from "@/utils/func/sorting";
+import Spinner from "@/components/common/spinner";
 
 const statsData = [
   {
@@ -132,7 +133,7 @@ export default function Overview() {
             </Card>
             <Card className="flex-1 shadow-md overflow-hidden h-full">
               <div className="w-full flex justify-between mb-2">
-                <PageTitle title={"User Ranking"} />
+                <PageTitle title={"Applicant Ranking"} />
                 <div>
                   <DropDownX
                     options={eventNames ?? []}
@@ -143,12 +144,7 @@ export default function Overview() {
                 </div>
               </div>
               <div className="flex flex-col overflow-y-auto h-96 w-full">
-                {
-                  getRanking()
-                  /* {arrCards.map((e, i) => (
-                  <span key={i}>{e}</span>
-                ))} */
-                }
+                {isLoading ? <Spinner /> : getRanking()}
               </div>
             </Card>
           </div>

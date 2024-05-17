@@ -5,6 +5,7 @@ import { FilledButton } from "../common/buttons";
 import { useRouter } from "next/navigation";
 import { useGameController } from "@/utils/db/useGameController";
 import { UseAddNewAttempt } from "@/hooks/common/use_results";
+import { useTimer } from "@/utils/db/useTimer";
 
 interface Props {
   eventId: string;
@@ -19,13 +20,16 @@ export default function SuccessModal({ eventId, trigger, width }: Props) {
   const { currentLevel, levelCompletionStatus, score } = useGameController(
     (state) => state.gameBoard
   );
+  const getInterval = useTimer((state) => state.getInterval);
 
   const handleCompletedClicked = async () => {
     const res = await UseAddNewAttempt(eventId, "CONGRATS", {
-      level: currentLevel + 1,
+      // level: currentLevel + 1,
+      level: currentLevel,
       score: score,
     });
     if (res.success) {
+      clearInterval(getInterval()!);
       setOpen(false);
       router.replace("/");
     }

@@ -42,3 +42,18 @@ export const UseCreateCampaign = async (campaign: any) => {
     };
   }
 };
+
+export const UseUpdateCampaign = async (campaign: any) => {
+  try {
+    const res = await axios.put(`/campaign/api`, campaign);
+    return {
+      data: res.data,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      error,
+      success: false,
+    };
+  }
+};

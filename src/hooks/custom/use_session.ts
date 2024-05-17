@@ -8,6 +8,8 @@ export const useClientSession = (type?: string) => {
       return session?.data?.user;
     case "id":
       return session?.data?.user.id;
+    case "email":
+      return session?.data?.user.email;
   }
 };
 

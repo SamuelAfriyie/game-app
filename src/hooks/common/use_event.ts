@@ -64,3 +64,18 @@ export const UseCreateEvent = async (event: any) => {
     };
   }
 };
+
+export const UseUpdateEvent = async (event: any) => {
+  try {
+    const res = await axios.put(`/api/events`, event);
+    return {
+      data: res.data,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      error: error,
+      success: false,
+    };
+  }
+};

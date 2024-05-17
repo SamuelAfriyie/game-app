@@ -86,3 +86,21 @@ export const UseAnyUserById = async (id: string) => {
     };
   }
 };
+export const UseCheckExistUserById = async (id: string) => {
+  // const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher);
+  const res = await axios.get(`/api/user/${id}`);
+
+  try {
+    return {
+      data: res?.data,
+      isLoading: false,
+      isError: false,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      isLoading: false,
+      isError: error,
+    };
+  }
+};

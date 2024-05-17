@@ -5,8 +5,17 @@ import { APIResponse } from "@/utils/func/api_reponse";
 export async function POST(request: Request) {
   const eventResults = await request.json();
   const info = (await getSeverSession("info")) as any;
-  const res = await prisma.result.create({
-    data: {
+  const res = await prisma.result.upsert({
+    where: {
+      email: info.email,
+      username: info.username,
+    },
+    update: {
+      eventResults: {
+        create: [eventResults],
+      },
+    },
+    create: {
       username: info.username,
       email: info.email,
       eventResults: {

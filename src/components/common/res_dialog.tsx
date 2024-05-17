@@ -2,11 +2,11 @@ import React from "react";
 import { Modal } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
-interface ResDialogProps {
-  open: boolean;
-  type: "success" | "failure";
-  onClose: () => void;
-}
+// interface ResDialogProps {
+//   open: boolean;
+//   type: "success" | "failure";
+//   onClose: () => void;
+// }
 
 interface ResDialogProps {
   open: boolean;

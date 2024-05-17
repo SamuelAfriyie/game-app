@@ -4,8 +4,10 @@ import axios from "axios";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-export const UseGames = () => {
-  const { data, error, isLoading } = useSWR(`/api/games`, fetcher, {refreshInterval: 2000});
+export const UseGames = ({ autoRefresh = true }: { autoRefresh?: boolean }) => {
+  const { data, error, isLoading } = useSWR(`/api/games`, fetcher, {
+    refreshInterval: autoRefresh ? 2000 : 0,
+  });
 
   try {
     const appendKey = (data: any[]) => {

@@ -1,61 +1,80 @@
 "use client";
 
 import { OutlinedButton, SaveButton } from "@/components/common/buttons";
-
 import { DatePickerX, DropDownX, InputX } from "@/components/common/input";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EventsFormType } from "@/lib/zod/formvalidations";
 import { UseCampaign } from "@/hooks/common/use_campaign";
-import { UseCreateEvent } from "@/hooks/common/use_event";
+import { UseCreateEvent, UseUpdateEvent } from "@/hooks/common/use_event";
 import ResDialog from "@/components/common/res_dialog";
 
 interface Props {
+  selectedEvent: any;
   handleCancel: (v: boolean) => void;
 }
 
-export const EventForm = ({ handleCancel }: Props) => {
+export const EventForm = ({ selectedEvent, handleCancel }: Props) => {
   const { data, isLoading, isError } = UseCampaign();
 
-  const formData = useRef<EventsFormType>({
+  const init = {
     name: "",
-    campaign: {},
+    campaign: "",
     startDate: "",
     endDate: "",
-  });
+  };
 
+  const [formData, setFormData] = useState<EventsFormType>(init);
   const [validationStatus, setValidationStatus] = useState<string>("");
   const [openResDialog, setOpenResDialog] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const resType = useRef<"success" | "failure">("failure");
 
   const handleChanges = (name: string, value: string | number) => {
-    formData.current = { ...formData.current, [name]: value };
+    setFormData({ ...formData, [name]: value });
     if (validationStatus === name) setValidationStatus("");
   };
 
   const handleValidation = async () => {
-    if (formData.current.name === "") {
+    setConfirmLoading(true);
+    if (formData.name === "") {
       setValidationStatus("name");
+      setConfirmLoading(false);
       return;
     }
-    if (formData.current.campaign === undefined) {
+    if (formData.campaign === undefined) {
       setValidationStatus("campaign");
+      setConfirmLoading(false);
       return;
     }
-    if (formData.current.startDate === "") {
+    if (formData.startDate === "") {
       setValidationStatus("startDate");
+      setConfirmLoading(false);
       return;
     }
-    if (formData.current.endDate === "") {
+    if (formData.endDate === "") {
       setValidationStatus("endDate");
+      setConfirmLoading(false);
       return;
     }
-    formData.current.campaign = findCampaign(formData.current.campaign);
-    const {data, success} = await UseCreateEvent(formData.current);
-    if (success) {
-      resType.current = "success";
+
+    formData.campaign = findCampaign(formData.campaign); //fetching the campaign object usgin the selected campaigns ID
+    if (!selectedEvent) {
+      const { data, success } = await UseCreateEvent(formData);
+      if (success) {
+        resType.current = "success";
+      } else {
+        resType.current = "failure";
+      }
     } else {
-      resType.current = "failure";
+      const { data, success } = await UseUpdateEvent({
+        ...formData,
+        id: selectedEvent.id,
+      });
+      if (success) {
+        resType.current = "success";
+      } else {
+        resType.current = "failure";
+      }
     }
     setConfirmLoading(false);
     handleCancel(true);
@@ -72,12 +91,36 @@ export const EventForm = ({ handleCancel }: Props) => {
     return data?.find((e) => e.id === id);
   };
 
+  const generateResMessage = () => {
+    if (resType.current === "success") {
+      return selectedEvent
+        ? "Event updated successfully"
+        : "Event created successfully";
+    } else {
+      return selectedEvent ? "Event update failed" : "Event creation failed";
+    }
+  };
+
+  useEffect(() => {
+    if (selectedEvent) {
+      setFormData({
+        name: selectedEvent.name,
+        campaign: selectedEvent.campaign.id,
+        startDate: selectedEvent.startDate,
+        endDate: selectedEvent.endDate,
+      });
+    } else {
+      setFormData({ ...init });
+    }
+  }, [selectedEvent]);
+
   return (
     <>
       <ResDialog
         open={openResDialog}
         type={resType.current}
         onClose={() => setOpenResDialog(false)}
+        msg={generateResMessage()}
       />
       <form className="flex flex-col space-y-4 justify-center w-full">
         <InputX
@@ -85,6 +128,7 @@ export const EventForm = ({ handleCancel }: Props) => {
           placeholder="Enter name"
           status={`${validationStatus === "name" ? "error" : ""}`}
           onChange={(v) => handleChanges("name", v)}
+          initialValue={formData?.name}
         />
 
         <DropDownX
@@ -94,25 +138,36 @@ export const EventForm = ({ handleCancel }: Props) => {
           allowClear={true}
           status={`${validationStatus === "campaign" ? "error" : ""}`}
           handleChange={(v: any) => handleChanges("campaign", v)}
+          defaultValue={formData?.campaign}
         />
         <DatePickerX
           label="Start Date"
           status={`${validationStatus === "startDate" ? "error" : ""}`}
           handleChange={(v: any) => handleChanges("startDate", v)}
+          defaultValue={formData?.startDate}
         />
 
         <DatePickerX
           label="End Date"
           status={`${validationStatus === "endDate" ? "error" : ""}`}
           handleChange={(v: any) => handleChanges("endDate", v)}
+          defaultValue={formData?.endDate}
         />
 
         <footer className="flex justify-end">
           <OutlinedButton className="mr-3" onClick={handleCancel} />
-          <SaveButton
-            onClick={handleValidation}
-            confirmLoading={confirmLoading}
-          />
+          {selectedEvent ? (
+            <SaveButton
+              text="Update"
+              confirmLoading={confirmLoading}
+              onClick={handleValidation}
+            />
+          ) : (
+            <SaveButton
+              onClick={handleValidation}
+              confirmLoading={confirmLoading}
+            />
+          )}
         </footer>
       </form>
     </>

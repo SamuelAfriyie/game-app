@@ -31,12 +31,12 @@ export async function GET(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  const users = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: params.id,
     },
   });
-  return new Response(JSON.stringify(users), {
+  return new Response(JSON.stringify(user), {
     headers: { "content-type": "application/json" },
   });
 }

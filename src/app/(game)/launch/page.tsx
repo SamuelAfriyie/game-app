@@ -1,11 +1,14 @@
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { GetEventById } from "@/hooks/common/use_event";
 import Spinner from "@/components/common/spinner";
 import { useGameController } from "@/utils/db/useGameController";
 import { useTimer } from "@/utils/db/useTimer";
+import { decryptQueryParam } from "@/utils/func/encrypt";
+import { useEncrypt } from "@/utils/db/useEncrypt";
+import { UseAnyUserById, UseCheckExistUserById } from "@/hooks/common/use_user";
 
 const DynamicModal = dynamic(() => import("@/components/launch/res_modal"), {
   ssr: false,
@@ -21,8 +24,22 @@ const DynamicGame = dynamic(() => import("@/utils/config/game"), {
 });
 
 function GameLaunchInner() {
+  const router = useRouter();
   const params = useSearchParams();
-  const id = params.get("id") as string;
+  const key = useEncrypt((state) => state.keyStore.key);
+  const id = decryptQueryParam(params.get("id") as string, key);
+  const userId = decryptQueryParam(params.get("user") as string, key);
+
+  useEffect(() => {
+    async function checkIfUserExist() {
+      const { data } = await UseCheckExistUserById(userId);
+      console.log(data);
+      if (!data) {
+        router.replace("/started");
+      }
+    }
+    checkIfUserExist();
+  }, [router, userId]);
 
   const { currentLevel } = useGameController((state) => state.gameBoard);
   const incrementLevel = useGameController((state) => state.incrementLevel);

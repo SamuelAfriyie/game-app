@@ -1,44 +1,36 @@
+"use client";
 import { Layout, Avatar, Input, MenuProps, Dropdown, Image } from "antd";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
+import { useClientSession } from "@/hooks/custom/use_session";
 const { Header } = Layout;
 
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: (
-      <>
-        <p className="text-base font-semibold">johndoe@gmail.com</p>
-      </>
-    ),
-  },
-  {
-    key: "2",
-    label: <p>Notification</p>,
-  },
-  {
-    key: "3",
-    label: (
-      <div
-        className={"border-none "}
-        rel="noopener noreferrer"
-        onClick={async () => await signOut()}
-      >
-        Logout
-      </div>
-      // <Link
-      //   href="/api/auth/signout"
-      //   className={"border-none "}
-      //   rel="noopener noreferrer"
-      //   // onClick={() => signOut()}
-      // >
-      //   Logout
-      // </Link>
-    ),
-  },
-];
-
 export default function MyHeader() {
+  const email = useClientSession("email")?.toString() || "";
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <>
+          <p className="text-base font-semibold">{email}</p>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <div
+          className={"border-none "}
+          rel="noopener noreferrer"
+          onClick={async () => await signOut()}
+        >
+          Logout
+        </div>
+      ),
+    },
+  ];
+  
   return (
     <Header
       style={{

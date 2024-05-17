@@ -20,7 +20,7 @@ export const authRoutes = [
 
 export const protectedRoutes = {
   started: "/started",
-  launch: "/launch",
+  // launch: "/launch",
   overview: "/overview",
   applicants: "/applicants",
   campaign: "/campaign",

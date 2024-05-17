@@ -25,6 +25,7 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
   };
 
   const handleValidation = async (game: GameFormType) => {
+    setConfirmLoading(true);
     if (game.Title === "") {
       setValidationStatus("Title");
       return;
@@ -58,6 +59,7 @@ export default function GameForm({ selectedRecord, handleCancel }: Props) {
       <ResDialog
         open={openResDialog}
         type={resType.current}
+        msg="Game updated successfully."
         onClose={() => setOpenResDialog(false)}
       />
       <form className="flex flex-col space-y-4 justify-center w-full">

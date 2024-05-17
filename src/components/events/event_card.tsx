@@ -2,39 +2,14 @@ import { getDay, getMonth, getMonthName } from "@/utils/func/date_extensions";
 import { MoreOutlined, FormOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps, Popover } from "antd";
 
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: (
-      <>
-        <div className="flex" style={{ color: "#013D84" }}>
-          <FormOutlined />
-          <p className="ml-2">edit</p>
-        </div>
-      </>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <>
-        <div className="flex" style={{ color: "red" }}>
-          <DeleteOutlined />
-          <p className="ml-2">delete</p>
-        </div>
-      </>
-    ),
-  },
-];
-
 interface EventCardProps {
   id: string;
   campaign: any;
   name: string;
   startDate: string;
   endDate: string;
+  handleUpdate: (id: string) => void;
 }
-
 
 export default function EventCard({
   id,
@@ -42,8 +17,8 @@ export default function EventCard({
   name,
   startDate,
   endDate,
+  handleUpdate,
 }: EventCardProps) {
-  
   const getCustomDate = (date: string) => {
     return `${getDay(date)}-${getMonth(date)} ${getMonthName(date).slice(
       0,
@@ -60,13 +35,60 @@ export default function EventCard({
     </div>
   );
 
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <>
+          <div
+            className="flex"
+            style={{ color: "#013D84" }}
+            onClick={() => handleUpdate(id)}
+          >
+            <FormOutlined />
+            <p className="ml-2">edit</p>
+          </div>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <>
+          <div className="flex" style={{ color: "red" }}>
+            <DeleteOutlined />
+            <p className="ml-2">delete</p>
+          </div>
+        </>
+      ),
+    },
+  ];
+
+  const colorEventByDate = () => {
+    const today = new Date();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (today > end) {
+      return "#59B0F2"; // past event
+    } else if (today >= start && today <= end) {
+      return "#FF7433"; // current event
+    } else {
+      return "#0865AC"; // future event
+    }
+  };
+
   return (
     <>
-    
-    <Popover placement="rightBottom" title={"Games"} content={content} trigger="click">
+      {/* <Popover
+        placement="rightBottom"
+        title={"Games"}
+        content={content}
+        trigger="click"
+      > */}
       <div
-        className="h-64 w-full rounded-lg shadow-md p-4"
-        style={{ backgroundColor: "#F3F3F3" }}
+        className="h-64 w-full rounded-lg shadow-md p-4 text-white"
+        style={{ backgroundColor: colorEventByDate() }}
       >
         <header>
           <p className="font-lg font-semibold text-4xl">
@@ -93,7 +115,7 @@ export default function EventCard({
           </Dropdown>
         </footer>
       </div>
-    </Popover>
+      {/* </Popover> */}
     </>
   );
 }

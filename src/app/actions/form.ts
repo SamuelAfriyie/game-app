@@ -9,7 +9,7 @@ import {
   SigninSchema,
   UsersFormType,
 } from "@/lib/zod/formvalidations";
-import { delayBy } from "@/utils/func/delay";
+import { delayBy } from "@/utils/func/encrypt";
 import { z } from "zod";
 
 export const SignInAction = async (data: z.infer<typeof SigninSchema>) => {

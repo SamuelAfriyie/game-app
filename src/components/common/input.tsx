@@ -1,9 +1,9 @@
 "use client";
 import { DatePicker, Input, Select } from "antd";
 import TypedInputNumber from "antd/es/input-number";
-import { CSSProperties, useState } from "react"; 
+import { CSSProperties, useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-
+import dayjs from "dayjs";
 interface Props {
   label?: string;
   placeholder?: string;
@@ -59,7 +59,7 @@ export function InputX({
           status={status}
           style={style}
           onChange={(e) => onChange && onChange(e.target?.value)}
-          defaultValue={initialValue}
+          value={initialValue}
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>
@@ -85,7 +85,7 @@ export function InputNumberX({
           placeholder={placeholder}
           status={status}
           style={{ width: "100%", paddingBlock: 5, ...style }}
-          defaultValue={initialValue}
+          value={initialValue}
           onChange={(v: any) => onChange && onChange(v)}
         />
         {status && (
@@ -112,7 +112,7 @@ export function DropDownX({
       <div className="flex flex-col w-full space-y-2">
         <label>{label}</label>
         <Select
-          defaultValue={defaultValue}
+          value={defaultValue}
           style={{ width: "100%", height: 42, ...style }}
           onChange={handleChange}
           allowClear={allowClear}
@@ -146,7 +146,7 @@ export function DatePickerX({
             handleChange && handleChange(date?.toISOString().split("T")[0])
           }
           allowClear={allowClear}
-          defaultValue={defaultValue}
+          value={defaultValue ? dayjs(defaultValue) : dayjs()}
           className="w-full"
           style={{ height: 42, ...style }}
           status={status}
@@ -167,7 +167,7 @@ export function InputPasswordX({
   style,
   disabled,
   onChange,
-}: InputProps) { 
+}: InputProps) {
   return (
     <>
       <div className="flex flex-col w-full space-y-2">
@@ -211,7 +211,7 @@ export function EmailX({
           style={style}
           type="email"
           onChange={(e) => onChange && onChange(e.target?.value)}
-          defaultValue={initialValue}
+          value={initialValue}
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>

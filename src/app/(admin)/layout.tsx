@@ -3,7 +3,7 @@ import React from "react";
 import { Layout, theme } from "antd";
 import MyHeader from "@/components/common/header";
 import Menus from "@/components/common/menu";
-import { Footer } from "antd/es/layout/layout";
+import { Footer } from "antd/es/layout/layout"; 
 
 const { Content } = Layout;
 

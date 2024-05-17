@@ -10,6 +10,8 @@ import DefaultModal from "@/components/common/default_modal";
 import UserForm from "./_form/user_form";
 import { UseUser } from "@/hooks/common/use_user";
 import { UsersFormType } from "@/lib/zod/formvalidations";
+import { ExportConfig } from "@/utils/data/file_export_config";
+import { BiSolidFileExport } from "react-icons/bi";
 
 export default function User() {
   const { data, isLoading, isError } = UseUser();
@@ -25,14 +27,13 @@ export default function User() {
     password: "",
   };
 
-  //const selectedUser = useRef<UsersFormType>(init);
   const [selectedUser, setSelectedUser] = useState<UsersFormType>(init);
+  const [filteredData, setFilteredData] = useState<any>(undefined);
 
   const onRow = (record: UsersFormType) => {
     return {
       onDoubleClick: () => {
-       //selectedUser.current = record;
-       setSelectedUser(record);
+        setSelectedUser(record);
         mode.current = "update";
         setOpen(true);
       },
@@ -40,15 +41,26 @@ export default function User() {
   };
 
   const handleOpen = () => {
-    //selectedUser.current = init;
     setSelectedUser(init);
     mode.current = "create";
     setOpen(true);
   };
 
-  const resetForm = () => { 
+  const resetForm = () => {
     setSelectedUser(init);
-  }
+  };
+
+  const handleFilter = (e: any) => {
+    const value = e.target.value.toLowerCase();
+    const filteredData = data.filter((item: any) => {
+      return (
+        item.firstName.toLowerCase().includes(value) ||
+        item.lastName.toLowerCase().includes(value) ||
+        item.email.toLowerCase().includes(value)
+      );
+    });
+    setFilteredData(filteredData);
+  };
 
   return (
     <>
@@ -69,7 +81,11 @@ export default function User() {
         <header className="flex justify-between mb-3">
           <PageTitle title={"Users"} />
           <div className="flex space-x-2 items-center">
-            <Input placeholder="Filter" style={{ width: 300 }} />
+            <Input
+              placeholder="Filter"
+              style={{ width: 300 }}
+              onChange={handleFilter}
+            />
             <div>
               <FilledButton
                 text={"Create User"}
@@ -77,13 +93,31 @@ export default function User() {
                 onClick={() => handleOpen()}
               />
             </div>
+            <FilledButton
+              icon={<BiSolidFileExport size={13} />}
+              text="Export CSV"
+              onClick={() => {
+                if (data.length > 0) {
+                  ExportConfig.init = data.map((item: any) => {
+                    return {
+                      firstName: item.firstName,
+                      lastName: item.lastName,
+                      email: item.email,
+                      phoneNumber: item.phoneNumber,
+                      location: item.location,
+                    };
+                  });
+                  ExportConfig.exportToCSV();
+                }
+              }}
+            />
           </div>
         </header>
         <GTable
           columns={usersColumns?.filter(
             (col) => col.key !== "educationalLevel"
           )}
-          dataSource={data}
+          dataSource={filteredData ?? data}
           loading={isLoading}
           bordered
           onRow={onRow}

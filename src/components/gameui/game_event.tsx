@@ -6,6 +6,9 @@ import Spinner from "../common/spinner";
 import { useClientSession } from "@/hooks/custom/use_session";
 import Link from "next/link";
 import { useTimer } from "@/utils/db/useTimer";
+import { encryptData } from "@/utils/func/encrypt";
+import { useRouter } from "next/navigation";
+import { useEncrypt } from "@/utils/db/useEncrypt";
 
 interface DecisionProps {
   decision?: "START" | "CONGRAT" | "FAILED" | "TRY_AGAIN";
@@ -76,6 +79,7 @@ interface GameEventInfoProps extends DecisionProps {
   eventId: string;
   attemptsLeft: number;
   levelObtained?: number;
+  userId: string;
 }
 
 const attemptsStyle: CSSProperties = {
@@ -90,16 +94,35 @@ function GameEventInfo({
   attemptsLeft,
   levelObtained,
   decision,
+  userId,
 }: GameEventInfoProps) {
+  const router = useRouter();
+
+  const getKeyFunc = useEncrypt((state) => state.getKey);
+
+  const encryptedUrlParam = () => {
+    const key = getKeyFunc().key;
+    const id = encryptData(eventId, key); 
+    const user = encryptData(userId, key);
+
+    return `/launch?id=${id}&user=${user}`;
+  };
+
   const checkDecision = (decision: string, eventId: string) => {
     switch (decision) {
       case "START":
         return (
           <>
-            <Link href={`/launch?id=${eventId}`} className="text-white ">
+            {/* <Link href={`/launch?id=${encrptParam()}`} className="text-white ">
               {" "}
               Start
-            </Link>
+            </Link> */}
+            <p
+              className="text-white"
+              onClick={async () => router.push(encryptedUrlParam())}
+            >
+              Start
+            </p>
           </>
         );
       case "CONGRATS":
@@ -109,10 +132,17 @@ function GameEventInfo({
       case "TRY_AGAIN":
         return (
           <>
-            <Link href={`/launch?id=${eventId}`} className="text-white ">
+            {/* <Link href={`/launch?id=${encrptParam()}`} className="text-white ">
               {" "}
               Try Again
-            </Link>
+            </Link> */}
+
+            <p
+              className="text-white"
+              onClick={async () => router.push(encryptedUrlParam())}
+            >
+              Try Again
+            </p>
           </>
         );
       default:
@@ -210,6 +240,7 @@ export function GameEvent({
           levelObtained={levelObtained}
           decision={decision}
           eventId={eventId}
+          userId={uId}
         />
       );
     } else {
@@ -219,6 +250,7 @@ export function GameEvent({
           levelObtained={data?.level}
           decision={data?.decision}
           eventId={eventId}
+          userId={uId}
         />
       );
     }

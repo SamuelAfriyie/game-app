@@ -3,8 +3,10 @@ import React from "react";
 import { Layout, theme } from "antd";
 import MyHeader from "@/components/common/header";
 import Menus from "@/components/common/menu";
-import { Footer } from "antd/es/layout/layout"; 
+import { Footer } from "antd/es/layout/layout";
+import { Mulish } from "next/font/google";
 
+const inter = Mulish({ subsets: ["latin"] });
 const { Content } = Layout;
 
 export default function AdminLayout({
@@ -22,22 +24,23 @@ export default function AdminLayout({
     with: "100%",
     minHeight: 280,
     height: "100%",
-    background: colorBgContainer, 
+    background: colorBgContainer,
     borderRadius: borderRadiusLG,
-  }; 
+  };
   return (
-    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden" >
-    {/* <Layout > */}
+    <Layout className="flex flex-col h-full w-full bg-white overflow-hidden">
+      {/* <Layout > */}
       <MyHeader />
       <Layout className="w-full h-full">
         <nav>
           <Menus />
         </nav>
-        <Content style={style} className="flex-1">
+        {/* <Content style={style} className="flex-1"> */}
+        <Content style={style} className={`${inter.className} flex-1`}>
           {children}
         </Content>
         <Footer style={{ textAlign: "center" }}>
-        Seedzzle ©{new Date().getFullYear()} Seedstars Academy
+          Seedzzle ©{new Date().getFullYear()} Seedstars Academy
         </Footer>
       </Layout>
     </Layout>

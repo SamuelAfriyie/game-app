@@ -4,7 +4,6 @@ import useSWRImmutable from "swr/immutable";
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const UseRanking = (eventId: string) => {
-  console.log("eventId ranking", eventId);
   const { data, error, isLoading } = useSWRImmutable(
     `/api/statistics/ranking?eventId=${eventId}`,
     fetcher

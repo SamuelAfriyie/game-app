@@ -73,7 +73,7 @@ export default function Events() {
           ) : isError ? (
             <div>Error...</div>
           ) : (
-            <div className="grid grid-cols-5 gap-4 w-full px-2 pb-32">
+            <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4 w-full px-2 pb-32">
               {filteredEvents.length > 0
                 ? filteredEvents.map((e) => (
                     <EventCard key={e.id} {...e} handleUpdate={handleUpdate} />

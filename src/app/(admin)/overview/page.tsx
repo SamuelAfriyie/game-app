@@ -112,15 +112,15 @@ export default function Overview() {
 
   return (
     <>
-      <div className="h-full w-full">
+      <div className="h-full w-full overflow-x-auto xll:overflow-hidden">
         <PageTitle title={"Overview"} />
         <main className="flex flex-col h-full w-full space-y-3 ">
-          <section className="grid grid-cols-4 gap-4  w-full ">
+          <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-4  w-full ">
             {arr.map((e, i) => (
               <span key={i}>{e}</span>
             ))}
           </section>
-          <div className="flex space-x-5 w-full h-[70%]">
+          {/* <div className="flex space-x-5 w-full h-[70%] bg-red-500">
             <Card className="flex-auto shadow-md w-1/3 items-center">
               <PageTitle title={"Summary"} />
               <BarChart />
@@ -132,6 +132,34 @@ export default function Overview() {
               </div>
             </Card>
             <Card className="flex-1 shadow-md overflow-hidden h-full">
+              <div className="w-full flex justify-between mb-2">
+                <PageTitle title={"Applicant Ranking"} />
+                <div>
+                  <DropDownX
+                    options={eventNames ?? []}
+                    style={{ width: 140, height: 30 }}
+                    placeholder="Filter By Event"
+                    handleChange={handleRanking}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col overflow-y-auto h-96 w-full">
+                {isLoading ? <Spinner /> : getRanking()}
+              </div>
+            </Card>
+          </div> */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 space-y-2 lg:space-y-0 lg:space-x-3 w-full h-auto">
+            <Card className="lg:col-span-2 shadow-md w-full items-center">
+              <PageTitle title={"Summary"} />
+              <BarChart />
+              <div className="flex justify-center items-center">
+                <p>Win</p>
+                <div className="p-2 m-3 bg-blue-800"></div>
+                <p>Loss</p>
+                <div className="p-2 m-3 bg-gray-500"></div>
+              </div>
+            </Card>
+            <Card className="shadow-md overflow-hidden h-full ">
               <div className="w-full flex justify-between mb-2">
                 <PageTitle title={"Applicant Ranking"} />
                 <div>

@@ -87,15 +87,15 @@ export default function Games() {
         }
         title="Update Game"
       />
-      <Space direction="vertical" size="small" style={{ display: "flex" }}>
+      <div className="flex flex-col h-full w-full">
         <PageTitle title="Games" />
-        <div className="w-[70%]">
+        <div className=" h-full lg:w-[70%] overflow-y-auto">
           <Card
             title={setTitle(filteredList)}
             type="inner"
             size="small"
             loading={false}
-            style={{ minHeight: 650 }}
+            // style={{ minHeight: 650 }}
           >
             <Suspense>
               <DynamicTable
@@ -109,7 +109,7 @@ export default function Games() {
             </Suspense>
           </Card>
         </div>
-      </Space>
+      </div>
     </>
   );
 }

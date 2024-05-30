@@ -94,7 +94,7 @@ export default function Campaign() {
   }, []);
 
   return (
-    <>
+    <main className="h-full w-full overflow-auto  xl:overflow-y-auto">
       <DefaultModal
         open={open}
         setOpen={setOpen}
@@ -109,50 +109,59 @@ export default function Campaign() {
       />
       <PageTitle title="Campaign" />
 
-      <Space direction="horizontal" size="small" style={{ width: "100%" }}>
+      <Space
+        direction="horizontal"
+        size="small"
+        className="h-full w-full" 
+      >
         {/* Left Side */}
-        <Card
-          title={"Games"}
-          type="inner"
-          size="small"
-          loading={false}
-          style={{ minHeight: 650 }}
-        >
-          <GTable
-            key={leftGridKey.current}
-            columns={campaignGamesColumns}
-            dataSource={data}
-            rowSelection={handleRowSelection}
-            bordered
-            pagination={false}
+        <div className="h-full w-full">
+          <Card
+            title={"Games"}
+            type="inner"
             size="small"
-            loading={isLoading}
-            scroll={{ x: 0, y: 500 }}
-          />
-        </Card>
+            loading={false}
+            style={{ minHeight: 650 }}
+          >
+            <GTable
+              key={leftGridKey.current}
+              columns={campaignGamesColumns}
+              dataSource={data}
+              rowSelection={handleRowSelection}
+              bordered
+              pagination={false}
+              size="small"
+              loading={isLoading}
+              scroll={{ x: 0, y: 500 }}
+            />
+          </Card>
+        </div>
         <MoveButton onClick={handleMoveRecords} />
         {/* Right side */}
-        <Card
-          title={setTitle()}
-          type="inner"
-          size="small"
-          loading={false}
-          style={{ minHeight: 650 }}
-        >
-          <GTable
-            key={rightGridKey.current}
-            columns={campaignGamesColumns}
-            dataSource={selectedGames}
-            // rowSelection={{}}
-            rowSelection={handleRightRowSelection}
-            bordered
+
+        <div className="h-full w-full">
+          <Card
+            title={setTitle()}
+            type="inner"
             size="small"
-            pagination={false}
-            scroll={{ x: 0, y: 500 }}
-            loading={isLoading}
-          />
-        </Card>
+            loading={false}
+            style={{ minHeight: 650 }}
+          >
+            <GTable
+              key={rightGridKey.current}
+              columns={campaignGamesColumns}
+              dataSource={selectedGames}
+              // rowSelection={{}}
+              rowSelection={handleRightRowSelection}
+              bordered
+              size="small"
+              pagination={false}
+              scroll={{ x: 0, y: 500 }}
+              loading={isLoading}
+            />
+          </Card>
+        </div>
       </Space>
-    </>
+    </main>
   );
 }

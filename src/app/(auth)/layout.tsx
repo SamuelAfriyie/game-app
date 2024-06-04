@@ -10,10 +10,10 @@ interface LayoutProps {
 const AuthLayout = ({ children }: LayoutProps) => {
     return (
 
-        <main className="w-screen h-screen flex flex-row">
-            <section className="w-1/2 bg-white">{children}</section>
+        <main className="w-screen h-screen flex flex-row overflow-hidden">
+            <section className="w-full xl:w-1/2 bg-white">{children}</section>
             
-            <section className="w-1/2 h-full bg-auth opacity-70">
+            <section className="w-0 h-0 xl:w-1/2 xl:h-full flex-1 bg-auth opacity-70">
 
                 <div className="flex flex-col h-full justify-end items-start space-y-12 pl-10 pb-24 ">
                     <header className="flex flex-col space-y-3">

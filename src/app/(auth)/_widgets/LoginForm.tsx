@@ -54,7 +54,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <section className="flex flex-col space-y-4 justify-center w-1/2">
+    <section className="flex flex-col space-y-4 justify-center w-full md:w-1/2 px-5 xl:p-0">
       {error && (
         <div className="w-full flex justify-center">
           <p className="text-red-500 text-sm">{`Username or password incorrect`}</p>

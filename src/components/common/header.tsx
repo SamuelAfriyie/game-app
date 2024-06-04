@@ -57,10 +57,10 @@ export default function MyHeader() {
       />
 
       {/* Icons options */}
-      <section className="flex items-center w-[20%]">
+      <section className="flex items-center md:w-[20%] w-[50%]">
         <Input
           placeholder="Search"
-          className="w-96"
+          className="w-96 invisible xl:visible"
           style={{ marginRight: 10 }}
         />
         <BellOutlined

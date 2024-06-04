@@ -88,7 +88,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <section className="flex flex-col space-y-4 justify-center w-1/2">
+    <section className="flex flex-col space-y-4 justify-center w-full md:w-1/2 px-5 xl:p-0">
       <Form className="space-y-3 w-full">
         <section className="flex flex-row space-x-5 w-full">
           <InputX

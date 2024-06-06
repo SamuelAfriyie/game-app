@@ -7,11 +7,9 @@ import { AES, enc } from "crypto-js";
 export function decryptQueryParam(encryptedParam: string, key: string): string {
   try { 
     const bytes = AES.decrypt(encryptedParam.replaceAll(" ", "+", ), key);
-    const decryptedParam = bytes.toString(enc.Utf8);
-    console.log("DecryptedParms :", decryptedParam);
+    const decryptedParam = bytes.toString(enc.Utf8); 
     return decryptedParam;
-  } catch (error) {
-    console.log("Error :", error);
+  } catch (error) { 
     throw new Error("Failed to decrypt query parameter");
   }
 }

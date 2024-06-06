@@ -1,6 +1,7 @@
 import { getDay, getMonth, getMonthName } from "@/utils/func/date_extensions";
 import { MoreOutlined, FormOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps, Popover } from "antd";
+import { MdOutlineArrowDownward, MdOutlineArrowUpward } from "react-icons/md";
 
 interface EventCardProps {
   id: string;
@@ -8,6 +9,8 @@ interface EventCardProps {
   name: string;
   startDate: string;
   endDate: string;
+  totPassed: number;
+  totFailed: number;
   handleUpdate: (id: string) => void;
 }
 
@@ -16,6 +19,8 @@ export default function EventCard({
   campaign: { name: title, games },
   name,
   startDate,
+  totPassed,
+  totFailed,
   endDate,
   handleUpdate,
 }: EventCardProps) {
@@ -90,11 +95,21 @@ export default function EventCard({
         className="h-64 w-full rounded-lg shadow-md p-4 text-white"
         style={{ backgroundColor: colorEventByDate() }}
       >
-        <header>
+        {/* <header>
           <p className="font-lg font-semibold text-4xl">
             {getMonth(startDate)}
           </p>
           <p className="font-medium ">{getMonthName(startDate)}</p>
+        </header> */}
+        <header>
+          <div className="flex items-center text-blue-200">
+            <MdOutlineArrowUpward size={24} />
+            <p className="font-lg font-semibold text-4xl">{totPassed}</p>
+          </div>
+          <div className="flex items-center space-x-3 pl-1.5">
+            <MdOutlineArrowDownward size={14} />
+            <p className="font-medium ">{totFailed}</p>
+          </div>
         </header>
         <main className="mt-20">
           <p className="font-medium text-lg">{name}</p>

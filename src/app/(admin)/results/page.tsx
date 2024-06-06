@@ -14,7 +14,6 @@ import { useRef, useState } from "react";
 import { BiSolidFileExport } from "react-icons/bi";
 
 const DynamicTable = dynamic(() => import("@/components/common/general_table"));
-
 export default function Result() {
   const [open, setOpen] = useState<boolean>(false);
   const [filteredResults, setFilteredResults] = useState<any>(undefined);
@@ -23,37 +22,39 @@ export default function Result() {
 
   const handleBtnClicked = (key: number) => {
     selectedEvent.current = data[key]?.eventResults.map(
-      (event: any, index: number) => {
+      (event: any, index: number) => { 
         return {
           key: index,
           event: event.eventName,
           attempts: event.attempts,
           attemptCount: event.attemptCount,
           level: event.level,
-          date: event.date.split("T")[0],
+          // date: event.date.split("T")[0],
+          date: event.attempts[event.attempts.length -1]?.date?.split("T")[0],
           score: event.score,
-          status: event.score >= event.passScore ? "Win" : "Loss", 
+          status: event.score >= event.passScore ? "Won" : "Loss",
         };
       }
     );
     setOpen(true);
   };
 
-  const appendKeyAndBtn = (data: any) => {
+  const appendKeyAndBtn = (data: any) => { 
     return data?.map(
       ({ username, email, eventResults }: any, index: number) => {
+        const attempts = eventResults[eventResults.length - 1]?.attempts;
         return {
           username: username,
           email: email,
           event: eventResults[eventResults.length - 1].eventName,
           attempts: eventResults[eventResults.length - 1].attemptCount,
           level: eventResults[eventResults.length - 1].level,
-          score: eventResults[eventResults.length - 1].score,
-          date: eventResults[eventResults.length - 1].date.split("T")[0],
+          score: eventResults[eventResults.length - 1].score, 
+          date: attempts[attempts?.length -1]?.date?.split("T")[0],
           status:
             eventResults[eventResults.length - 1].score >=
             eventResults[eventResults.length - 1].passScore
-              ? "Win"
+              ? "Won"
               : "Loss",
           key: index,
           action: <IconButton onClick={() => handleBtnClicked(index)} />,
@@ -63,7 +64,6 @@ export default function Result() {
   };
 
   const handleFilter = (e: any) => {
-    console.log(data);
     const value = e.target.value;
     const filteredList = data.filter((item: any) => {
       return (
@@ -120,6 +120,7 @@ export default function Result() {
                 if (data.length > 0) {
                   console.log(data, "data");
                   ExportConfig.init = data.map((item: any) => {
+                    const attempts = item.eventResults[item.eventResults.length - 1]?.attempts;
                     return {
                       Username: item.username,
                       Email: item.email,
@@ -133,14 +134,12 @@ export default function Result() {
                         item.eventResults[item.eventResults.length - 1].level,
                       Score:
                         item.eventResults[item.eventResults.length - 1].score,
-                      Date: item.eventResults[
-                        item.eventResults.length - 1
-                      ].date.split("T")[0],
+                      Date: attempts[attempts?.length -1]?.date?.split("T")[0],
                       Status:
                         item.eventResults[item.eventResults.length - 1].score >=
                         item.eventResults[item.eventResults.length - 1]
                           .passScore
-                          ? "Win"
+                          ? "Won"
                           : "Loss",
                     };
                   });

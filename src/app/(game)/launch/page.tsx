@@ -33,7 +33,6 @@ function GameLaunchInner() {
   useEffect(() => {
     async function checkIfUserExist() {
       const { data } = await UseCheckExistUserById(userId);
-      console.log(data);
       if (!data) {
         router.replace("/started");
       }

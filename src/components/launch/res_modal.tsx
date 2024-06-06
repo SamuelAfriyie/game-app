@@ -2,6 +2,7 @@
 import {
   UseAddNewAttempt,
   UseDecrementAttemptCount,
+  UseIncrementTotEventFailed,
 } from "@/hooks/common/use_results";
 import { useGameController } from "@/utils/db/useGameController";
 import { useTimer } from "@/utils/db/useTimer";
@@ -45,7 +46,9 @@ export default function ResModal({ trigger, eventId, width, isOver }: Props) {
     const res = await UseAddNewAttempt(eventId, "TRY_AGAIN", {
       level: currentLevel,
       score: score,
+      date: new Date().toISOString(),
     });
+    await UseIncrementTotEventFailed(eventId); //updating the total failed count
     if (res.success) {
       setOpen(false);
       router.replace("/");

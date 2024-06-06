@@ -4,7 +4,6 @@ export async function PATCH(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log(params.id);
   try {
     const body = await _request.json();
     const res = await prisma.user.update({

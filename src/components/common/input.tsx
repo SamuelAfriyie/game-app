@@ -17,6 +17,7 @@ type InputProps = {
   label: string;
   placeholder?: string;
   initialValue?: string;
+  defaultValue?: string;
   status?: "error" | "";
   style?: React.CSSProperties;
   disabled?: boolean;
@@ -46,6 +47,7 @@ export function InputX({
   placeholder,
   status,
   initialValue,
+  defaultValue,
   style,
   onChange,
 }: InputProps) {
@@ -60,6 +62,7 @@ export function InputX({
           style={style}
           onChange={(e) => onChange && onChange(e.target?.value)}
           value={initialValue}
+          defaultValue={defaultValue}
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>
@@ -74,6 +77,7 @@ export function InputNumberX({
   placeholder,
   status,
   initialValue,
+  defaultValue,
   style,
   onChange,
 }: InputProps) {
@@ -86,6 +90,7 @@ export function InputNumberX({
           status={status}
           style={{ width: "100%", paddingBlock: 5, ...style }}
           value={initialValue}
+          defaultValue={defaultValue}
           onChange={(v: any) => onChange && onChange(v)}
         />
         {status && (
@@ -197,6 +202,7 @@ export function EmailX({
   placeholder,
   status,
   initialValue,
+  defaultValue,
   style,
   onChange,
 }: InputProps) {
@@ -212,6 +218,7 @@ export function EmailX({
           type="email"
           onChange={(e) => onChange && onChange(e.target?.value)}
           value={initialValue}
+          defaultValue={defaultValue}
         />
         {status && (
           <p className="text-red-600 font-medium">Field is required</p>

@@ -103,3 +103,47 @@ export const UseAddNewAttempt = async (
     };
   }
 };
+
+export const UseIncrementTotEventPassed = async (eventId: string) => {
+  try {
+    const res = await axios.patch(`/api/events/incrementPassed?eventId=${eventId}`);
+    if (res.data.status !== 200) {
+      return {
+        data: res.data,
+        success: false,
+      };
+    }
+
+    return {
+      data: res,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      data: error,
+      success: false,
+    };
+  }
+}
+
+export const UseIncrementTotEventFailed = async (eventId: String) => {
+  try {
+    const res = await axios.put(`/api/events/incrementFailed?eventId=${eventId}`);
+    if (res.data.status !== 200) {
+      return {
+        data: res.data,
+        success: false,
+      };
+    }
+
+    return {
+      data: res,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      data: error,
+      success: false,
+    };
+  }
+}

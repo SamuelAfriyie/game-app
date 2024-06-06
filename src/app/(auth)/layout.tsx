@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import Head from 'next/head';
 
 interface LayoutProps {
     children: ReactNode;

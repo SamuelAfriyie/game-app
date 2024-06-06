@@ -28,14 +28,16 @@ export const ExpandableTable = ({ data }: Props) => {
         dataIndex: "score",
         key: "score",
       },
+      {title: "Date", dataIndex: "date", key: "date"}
     ];
 
-    const data = record.attempts.map((eventResult: any, i: number) => {
+    const data = record.attempts.map((eventResult: any, i: number) => { 
       return {
         key: i,
         attempt: `${1 + i}`,
         level: eventResult.level,
         score: eventResult.score,
+        date: eventResult?.date?.split("T")[0],
       };
     });
 

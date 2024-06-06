@@ -22,7 +22,7 @@ export interface EventResultsType {
   level: number;
   score: number;
   date: string;
-  status: "Win" | "Loss" | "Not Started";
+  status: "Won" | "Loss" | "Not Started";
 }
 
 export const gameResultsColumns: TableProps<GameResult>["columns"] = [
@@ -129,8 +129,8 @@ export const gameResultsEventColumns: TableProps<EventResultsType>["columns"] =
       width: 90,
       render: (_, { status }) => (
         <>
-          {status === "Win" ? (
-            <Tag color="green">Win</Tag>
+          {status === "Won" ? (
+            <Tag color="green">Won</Tag>
           ) : (
             <Tag color="red">Loss</Tag>
           )}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FilledButton } from "../common/buttons";
 import { useRouter } from "next/navigation";
 import { useGameController } from "@/utils/db/useGameController";
-import { UseAddNewAttempt } from "@/hooks/common/use_results";
+import { UseAddNewAttempt, UseIncrementTotEventFailed, UseIncrementTotEventPassed } from "@/hooks/common/use_results";
 import { useTimer } from "@/utils/db/useTimer";
 
 interface Props {
@@ -24,10 +24,11 @@ export default function SuccessModal({ eventId, trigger, width }: Props) {
 
   const handleCompletedClicked = async () => {
     const res = await UseAddNewAttempt(eventId, "CONGRATS", {
-      // level: currentLevel + 1,
       level: currentLevel,
       score: score,
+      date: new Date().toISOString(),
     });
+    await UseIncrementTotEventPassed(eventId); //updating the total passed count
     if (res.success) {
       clearInterval(getInterval()!);
       setOpen(false);

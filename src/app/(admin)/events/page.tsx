@@ -46,7 +46,7 @@ export default function Events() {
       />
       <main className="h-full w-full pb-16">
         <header className="flex justify-between mb-3">
-          <PageTitle title={"Events"} />
+          <PageTitle title="Events" />
           <div className="flex space-x-2 items-center">
             <Input
               placeholder="Filter"

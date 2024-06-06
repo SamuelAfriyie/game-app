@@ -37,12 +37,14 @@ export default function CampaignFormV3({
   const [validationStatus, setValidationStatus] = useState<string>("");
   const [openResDialog, setOpenResDialog] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [refreshForm, setRefreshForm] = useState<boolean>(false);
   const router = useRouter();
 
   const resType = useRef<"success" | "failure">("failure");
 
   const handleChanges = (name: string, value: string | number) => {
     formData.current = { ...formData.current, [name]: value };
+    setRefreshForm(!refreshForm);
     if (validationStatus === name) setValidationStatus("");
   };
 
@@ -53,17 +55,17 @@ export default function CampaignFormV3({
       setConfirmLoading(false);
       return;
     }
-    if (campaign.passScore === 0) {
+    if (campaign.passScore === 0 || campaign.passScore === undefined) {
       setValidationStatus("passScore");
       setConfirmLoading(false);
       return;
     }
-    if (campaign.duration === 0) {
+    if (campaign.duration === 0 || campaign.passScore === undefined) {
       setValidationStatus("duration");
       setConfirmLoading(false);
       return;
     }
-    if (campaign.numOfAttempts === 0) {
+    if (campaign.numOfAttempts === 0 || campaign.passScore === undefined) {
       setValidationStatus("numOfAttempts");
       setConfirmLoading(false);
       return;
@@ -119,19 +121,19 @@ export default function CampaignFormV3({
           label="Pass Score"
           status={`${validationStatus === "passScore" ? "error" : ""}`}
           onChange={(value: any) => handleChanges("passScore", value)}
-          initialValue={formData.current.passScore.toString()}
+          initialValue={formData.current.passScore?.toString()}
         />
         <InputNumberX
           label="Duration"
           status={`${validationStatus === "duration" ? "error" : ""}`}
           onChange={(value: any) => handleChanges("duration", value)}
-          initialValue={formData.current.duration.toString()}
+          initialValue={formData.current.duration?.toString()}
         />
         <InputNumberX
           label="Number Of Attempts"
           status={`${validationStatus === "numOfAttempts" ? "error" : ""}`}
           onChange={(value: any) => handleChanges("numOfAttempts", value)}
-          initialValue={formData.current.numOfAttempts.toString()}
+          initialValue={formData.current.numOfAttempts?.toString()}
         />
         <footer className="flex justify-end">
           <OutlinedButton className="mr-3" onClick={handleCancel} />

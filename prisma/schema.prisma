@@ -45,6 +45,8 @@ model event {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   campaign  Json
+  totPassed Int?
+  totFailed Int?
   startDate String
   endDate   String
 }

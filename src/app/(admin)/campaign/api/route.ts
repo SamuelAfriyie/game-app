@@ -22,8 +22,7 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  const body = await request.json();
-  console.log("Body: ", body);
+  const body = await request.json(); 
   try {
     const res = await prisma.campaign.update({
       where: { id: body.id },
@@ -40,6 +39,6 @@ export async function PUT(request: Request) {
       headers: { "content-type": "application/json" },
     });
   } catch (error) {
-    console.log("Error: ", error);
+    console.debug("Error: ", error);
   }
 }

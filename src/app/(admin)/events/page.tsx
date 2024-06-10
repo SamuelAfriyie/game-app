@@ -75,10 +75,10 @@ export default function Events() {
           ) : (
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4 w-full px-2 pb-32">
               {filteredEvents.length > 0
-                ? filteredEvents.map((e) => (
+                ? filteredEvents.reverse().map((e) => (
                     <EventCard key={e.id} {...e} handleUpdate={handleUpdate} />
                   ))
-                : data?.map((e) => (
+                : data.reverse()?.map((e) => (
                     <EventCard key={e.id} {...e} handleUpdate={handleUpdate} />
                   ))}
             </div>

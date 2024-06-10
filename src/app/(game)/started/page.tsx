@@ -23,7 +23,7 @@ export default function Started() {
             ) : isError ? (
               <div>Error...</div>
             ) : data.length > 0 ? (
-              data.map((event: any) => (
+              data.reverse().map((event: any) => (
                 <GameEvent
                   {...event}
                   eventId={event.id}
